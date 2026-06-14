@@ -1,0 +1,60 @@
+---
+title: "ECE: empleo trimestral con diseño muestral"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{ECE: empleo trimestral con diseño muestral}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(collapse = TRUE, comment = "#>", eval = FALSE)
+```
+
+La **Encuesta Continua de Empleo (ECE)** del INE es trimestral y mide el mercado
+laboral. `encuestasbo` cubre del 4T-2015 al 3T-2025 (con huecos en 2020–2021 por
+la pandemia). Cada trimestre es un archivo a nivel persona.
+
+```{r}
+library(encuestasbo)
+library(srvyr)
+library(dplyr)
+
+catalogo_ece()                       # trimestres disponibles
+catalogo_ece(anio = 2023)
+```
+
+## Diseño muestral
+
+La ECE tiene factores **trimestral** (`fact_trim_act`) y **mensual**
+(`fact_mes_act`). `diseno_ece()` usa el trimestral por defecto; no los mezcles.
+
+```{r}
+# Tasa de desempleo abierto del 4T-2023 con intervalo de confianza
+diseno_ece(2023, trimestre = 4) |>
+  summarise(td = survey_ratio(pead, pea, na.rm = TRUE, vartype = "ci"))
+
+# Estimación con factor mensual
+diseno_ece(2023, trimestre = 4, factor = "mensual") |>
+  summarise(td = survey_ratio(pead, pea, na.rm = TRUE))
+```
+
+Variables de empleo clave (nombres nativos del INE): `pet` (población en edad de
+trabajar), `pea` (activos), `peao` (ocupados), `pead` (desocupados).
+
+## Serie trimestral
+
+```{r}
+periodos <- catalogo_ece()[, c("anio", "trimestre")]
+serie <- lapply(seq_len(nrow(periodos)), function(i) {
+  p <- periodos[i, ]
+  est <- diseno_ece(p$anio, p$trimestre, verbose = FALSE) |>
+    summarise(td = survey_ratio(pead, pea, na.rm = TRUE))
+  data.frame(anio = p$anio, trimestre = p$trimestre, td = est$td)
+})
+do.call(rbind, serie)
+```
+
+> Las variables del cuestionario de la ECE cambian entre años; el diseño
+> muestral (`upm`/`estrato`/factores) sí es estable. Consulta el diccionario de
+> cada periodo con `codebook(encuesta = "ece", anio = ..., trimestre = ...)`.

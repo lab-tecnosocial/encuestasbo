@@ -1,0 +1,14 @@
+^.*\.Rproj$
+^\.Rproj\.user$
+^data-raw$
+^original-data$
+^README\.Rmd$
+^_pkgdown\.yml$
+^\.github$
+^NEWS\.md$
+^\.gitignore$
+^LICENSE\.md$
+^docs$
+^pkgdown$
+^dev-docs$
+^\.claude$

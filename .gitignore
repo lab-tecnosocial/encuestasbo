@@ -1,0 +1,15 @@
+.Rproj.user
+.Rhistory
+.RData
+.Ruserdata
+
+original-data
+data-raw/parquet
+*.Rcheck/
+encuestasbo_*.tar.gz
+/doc/
+/Meta/
+docs
+inst/doc
+
+dev-docs/

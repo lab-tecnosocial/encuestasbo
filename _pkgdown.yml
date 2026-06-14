@@ -1,0 +1,142 @@
+url: https://lab-tecnosocial.github.io/encuestasbo/
+
+repo:
+  url:
+    home: https://github.com/lab-tecnosocial/encuestasbo
+    source: https://github.com/lab-tecnosocial/encuestasbo/blob/main/
+    issue: https://github.com/lab-tecnosocial/encuestasbo/issues/
+    user: https://github.com/alex-roc
+
+template:
+  bootstrap: 5
+  lang: es
+  bslib:
+    primary: "#003087"
+    link-color: "#003087"
+    heading-font: "Source Sans Pro"
+
+home:
+  title: "encuestasbo: Encuestas del INE de Bolivia"
+  description: >
+    Acceso, armonización y análisis con diseño muestral de las encuestas del
+    INE de Bolivia: Encuesta de Hogares (2012–2024) y Encuesta Continua de
+    Empleo (4T2015–3T2025). Descarga bajo demanda, caché local, compatible con
+    dplyr, Arrow y DuckDB, e integración con survey/srvyr para estimaciones
+    estadísticamente correctas.
+  sidebar:
+    structure: [links, license, citation, authors, dev]
+  links:
+  - text: "Fuente de datos: INE Bolivia (ANDA)"
+    href: https://anda.ine.gob.bo
+  - text: "Reportar un problema"
+    href: https://github.com/lab-tecnosocial/encuestasbo/issues
+
+navbar:
+  structure:
+    left:  [intro, reference, articles, news]
+    right: [search, github]
+  components:
+    intro:
+      text: Empezar
+      href: articles/introduccion.html
+    reference:
+      text: Referencia
+      href: reference/index.html
+    news:
+      text: Noticias
+      href: news/index.html
+    articles:
+      text: Artículos
+      menu:
+      - text: "Primeros pasos"
+        href: articles/introduccion.html
+      - text: "Catálogo, diccionario y ficha técnica (interactivo)"
+        href: articles/catalogo-diccionario.html
+      - text: "---"
+      - text: "Encuesta de Hogares"
+      - text: "La Encuesta de Hogares: pobreza, ingresos y empleo"
+        href: articles/encuesta-hogares.html
+      - text: "Diseño muestral (estimaciones correctas)"
+        href: articles/diseno-muestral.html
+      - text: "Armonización entre años"
+        href: articles/armonizacion.html
+      - text: "---"
+      - text: "Encuesta Continua de Empleo"
+      - text: "Empleo trimestral con la ECE"
+        href: articles/ece-empleo.html
+
+footer:
+  left: "Desarrollado por [Alex Ojeda Copa](https://github.com/alex-roc)."
+  right: "Sitio construido con [pkgdown](https://pkgdown.r-lib.org/)."
+
+reference:
+  - title: "Acceso a microdatos"
+    desc: >
+      Descarga y consulta de los microdatos. Todas devuelven un Arrow Dataset
+      (lazy), un tibble, o una conexión DuckDB.
+    contents:
+      - get_eh
+      - get_ece
+      - get_personas_eh
+      - get_viviendas_eh
+      - get_personas_ece
+      - get_viviendas_ece
+
+  - title: "Catálogo y ficha técnica"
+    desc: >
+      Inventario de encuestas disponibles y metadata oficial del INE
+      (diseño muestral, cobertura, factor de expansión).
+    contents:
+      - catalogo_eh
+      - catalogo_ece
+      - ficha_tecnica
+
+  - title: "Diccionario de variables y etiquetas"
+    desc: >
+      Explora variables y etiquetas por encuesta y periodo, y convierte códigos
+      numéricos a texto legible.
+    contents:
+      - codebook
+      - codebook_valores
+      - etiquetar_valores
+      - etiquetar_variables
+
+  - title: "Armonización entre años (Encuesta de Hogares)"
+    desc: >
+      Renombrado a un esquema canónico estable y series largas comparables
+      entre años, apoyadas en las variables derivadas del INE.
+    contents:
+      - armonizar_eh
+      - get_eh_armonizada
+      - variables_armonizadas
+      - grupos_variables
+      - armonizar_ece
+
+  - title: "Diseño muestral (survey / srvyr)"
+    desc: >
+      Declaran el diseño estratificado bietápico con factores de expansión para
+      estimaciones e intervalos de confianza correctos.
+    contents:
+      - diseno_eh
+      - diseno_ece
+
+  - title: "Geografía"
+    contents:
+      - departamentos
+
+  - title: "Gestión del caché"
+    desc: "Ubicación, inspección y limpieza de los datos descargados."
+    contents:
+      - encuestasbo_cache_dir
+      - encuestasbo_cache_info
+      - encuestasbo_cache_clear
+      - update_encuestasbo
+
+  - title: "Datos del paquete"
+    desc: "Tablas de metadatos incluidas."
+    contents:
+      - catalogo_encuestas
+      - codebook_eh_meta
+      - codebook_ece_meta
+      - variable_canonica_map
+      - metadata_encuestas
