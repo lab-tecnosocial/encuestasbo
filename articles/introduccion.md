@@ -1,0 +1,83 @@
+# Primeros pasos con encuestasbo
+
+`encuestasbo` da acceso a los microdatos de la **Encuesta de Hogares
+(EH, 2012-2024)** del INE de Bolivia, con armonización entre años y
+análisis con diseño muestral.
+
+## Inventario
+
+``` r
+
+library(encuestasbo)
+catalogo_eh()                 # años y tablas de la EH disponibles
+catalogo_eh(anio = 2023)
+```
+
+## Ficha técnica (diseño muestral oficial del INE)
+
+``` r
+
+# Universo, cobertura, marco y diseño muestral, factor de expansión, etc.
+ficha_tecnica("eh", 2023)
+ficha_tecnica("ece", 2023, trimestre = 4)
+```
+
+## Acceso a microdatos
+
+``` r
+
+library(dplyr)
+
+# Personas de la EH 2023 (Arrow lazy)
+get_eh(2023, "persona")
+
+# Filtrar por departamento y área, sin traer todo a RAM
+get_eh(2023, "persona", departamento = "Santa Cruz", area = "Urbana") |>
+  count(depto) |>
+  collect()
+
+# Atajos por nivel
+get_personas_eh(2023)
+get_viviendas_eh(2023)
+```
+
+## Diccionario y etiquetas
+
+``` r
+
+codebook(buscar = "ingreso", anio = 2023)
+codebook_valores("s01a_02", anio = 2023)   # sexo
+
+get_eh(2023, "persona", as = "tibble") |>
+  etiquetar_valores(anio = 2023)
+```
+
+## Armonización entre años
+
+``` r
+
+# Nombres canónicos estables entre años
+get_eh(2023, "persona", as = "tibble") |>
+  armonizar_eh(2023) |>
+  count(sexo)
+
+# Serie larga de pobreza, todos los años
+get_eh_armonizada(grupo = "pobreza")
+```
+
+## Análisis con diseño muestral
+
+Ver la viñeta *“Diseño muestral”* para estimaciones con errores estándar
+correctos usando
+[`diseno_eh()`](https://lab-tecnosocial.github.io/encuestasbo/reference/diseno_eh.md) +
+`srvyr`.
+
+## Caché local
+
+Los microdatos se descargan una vez y se guardan en caché:
+
+``` r
+
+encuestasbo_cache_dir()
+encuestasbo_cache_info()
+```

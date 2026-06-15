@@ -1,0 +1,90 @@
+# Armonización de la Encuesta de Hogares entre años
+
+Los nombres de las variables de la EH **cambian entre años** (p. ej. el
+sexo es `s1_03` en 2012, `s2a_02` en 2013–2015, `s02a_02` en 2016–2019 y
+`s01a_02` en 2021+). `encuestasbo` ofrece una capa de **nombres
+canónicos** estables.
+
+## El mapa canónico
+
+``` r
+
+library(encuestasbo)
+variables_armonizadas()      # variables comparables entre años y su mapeo
+grupos_variables()           # grupos temáticos
+```
+
+La armonización se apoya en dos hechos:
+
+1.  Las **variables de diseño y geografía** (`folio`, `depto`, `area`,
+    `upm`, `estrato`, `factor`) son consistentes todos los años (salvo
+    el factor en 2012–2014, que se resuelve automáticamente).
+2.  El INE publica **variables derivadas** con nombres estables:
+    ingresos (`yhog`, `yper`), pobreza (`p0`, `pext0`, `z`, `zext`),
+    educación (`niv_ed_g`, `aestudio`) y empleo (`pea`, `ocupado`,
+    `condact`). El paquete las expone con nombres canónicos
+    (`ingreso_hogar`, `pobre`, `nivel_edu`, …).
+
+Solo `sexo`, `edad` y `parentesco` se mapean por su etiqueta.
+
+## Armonizar un año
+
+``` r
+
+library(dplyr)
+get_eh(2023, "persona", as = "tibble") |>
+  armonizar_eh(2023) |>
+  count(sexo)
+```
+
+## Serie larga entre años
+
+[`get_eh_armonizada()`](https://lab-tecnosocial.github.io/encuestasbo/reference/get_eh_armonizada.md)
+apila varios años en formato largo con una columna `anio`:
+
+``` r
+
+library(srvyr)
+
+# Pobreza ponderada por año (combinando armonización + diseño)
+anios <- 2018:2023
+serie <- lapply(anios, function(y) {
+  est <- diseno_eh(y, verbose = FALSE) |>
+    summarise(pobreza = survey_mean(pobre, na.rm = TRUE))
+  data.frame(anio = y, pobreza = est$pobreza)
+})
+do.call(rbind, serie)
+
+# O bien traer los microdatos armonizados de varios años de una vez
+get_eh_armonizada(grupo = "pobreza", anios = 2018:2023)
+```
+
+[`get_eh_armonizada()`](https://lab-tecnosocial.github.io/encuestasbo/reference/get_eh_armonizada.md)
+se respalda en un único Parquet precalculado (~5 MB con los 13 años,
+esquema consistente), por lo que es rápido y se puede consultar de forma
+perezosa con Arrow o **DuckDB**:
+
+``` r
+
+# Modo DuckDB: consulta SQL sobre todos los años sin cargar todo a RAM
+con <- get_eh_armonizada(as = "duckdb")
+DBI::dbGetQuery(con,
+  "SELECT anio, AVG(ingreso_hogar) AS ing FROM eh_armonizada GROUP BY anio ORDER BY anio")
+DBI::dbDisconnect(con, shutdown = TRUE)
+
+# Modo Arrow (lazy) + dplyr
+get_eh_armonizada(as = "arrow") |>
+  filter(anio >= 2020) |>
+  count(anio) |>
+  collect()
+```
+
+## Limitaciones de comparabilidad
+
+- Cambios de cuestionario y de clasificadores ocupacionales (COB) y de
+  actividad (CAEB) entre años: `grupo_ocupacion` se entrega con códigos
+  crudos (`armonizada = FALSE`).
+- El marco muestral cambió con el Censo 2012 → 2024, lo que afecta la
+  comparabilidad fina de los años más recientes.
+- La medición del empleo y los agregados de ingreso tuvieron ajustes
+  metodológicos a lo largo de la serie.
