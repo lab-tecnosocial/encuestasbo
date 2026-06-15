@@ -11,7 +11,7 @@
 .ARMONIZADA_EH <- list(
   filename    = "eh_armonizada.parquet",
   subdir      = "eh",
-  release_tag = "data-eh-armonizada-v1"
+  release_tag = "data-eh-v1"
 )
 
 # Departamentos de Bolivia. En las encuestas del INE el código de departamento

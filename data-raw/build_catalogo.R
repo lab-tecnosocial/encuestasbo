@@ -32,7 +32,7 @@ eh <- expand.grid(
   tabla     = eh_tablas,
   stringsAsFactors = FALSE
 )
-eh$release_tag     <- sprintf("data-eh-%d-v1", eh$anio)
+eh$release_tag     <- "data-eh-v1"   # un Release con todos los Parquet de la EH
 eh$archivo_parquet <- sprintf("eh_%d_%s.parquet", eh$anio, eh$tabla)
 eh$factor_var      <- "factor"
 eh$factor_var_alt  <- NA_character_
@@ -55,7 +55,7 @@ ece <- ece_periodos
 if (nrow(ece) > 0) {
   ece$encuesta        <- "ece"
   ece$tabla           <- "persona"
-  ece$release_tag     <- sprintf("data-ece-%dt%d-v1", ece$anio, ece$trimestre)
+  ece$release_tag     <- "data-ece-v1"   # un Release con todos los Parquet de la ECE
   ece$archivo_parquet <- sprintf("ece_%dt%d_persona.parquet", ece$anio, ece$trimestre)
   ece$factor_var      <- "fact_trim_act"   # factor trimestral (real en los .sav)
   ece$factor_var_alt  <- "fact_mes_act"    # factor mensual

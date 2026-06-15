@@ -52,9 +52,13 @@ punta a punta.
   técnica (interactivo con DT)**; la Encuesta de Hogares (pobreza, ingresos,
   empleo); diseño muestral; armonización entre años; y empleo trimestral (ECE).
 
+## Distribución
+
+* Microdatos publicados en GitHub Releases: `data-eh-v1` (EH + armonizada) y
+  `data-ece-v1` (ECE). Las funciones `get_*` descargan y cachean automáticamente.
+
 ## Pendiente
 
-* Publicar los microdatos en GitHub Releases (por ahora caché local).
 * Armonización canónica de la ECE entre trimestres (hoy se accede con sus
   nombres nativos; el diseño muestral ya funciona).
 * Armonización de clasificadores ocupacionales/actividad (COB/CAEB) entre versiones.

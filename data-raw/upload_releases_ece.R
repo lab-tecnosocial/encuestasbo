@@ -1,24 +1,18 @@
 # upload_releases_ece.R
 # -----------------------------------------------------------------------------
-# Sube los Parquet de la ECE (data-raw/parquet/ece/) a GitHub Releases, un tag
-# por trimestre (data-ece-<año>t<trim>-v1), para que get_ece() los descargue.
-#
-# REQUISITOS: repo lab-tecnosocial/encuestasbo, paquete `piggyback`, token con
-# permiso de escritura. (El repo aún no se ha creado: ver upload_releases_eh.R.)
+# Sube todos los Parquet de la ECE (data-raw/parquet/ece/) a un único GitHub
+# Release `data-ece-v1`, de donde get_ece() descarga. Usa la CLI `gh`.
 #
 # Uso:  Rscript data-raw/upload_releases_ece.R
 # -----------------------------------------------------------------------------
-stopifnot(requireNamespace("piggyback", quietly = TRUE))
 repo   <- "lab-tecnosocial/encuestasbo"
+tag    <- "data-ece-v1"
 pq_dir <- "data-raw/parquet/ece"
-load("data/catalogo_encuestas.rda")
+paths  <- list.files(pq_dir, pattern = "[.]parquet$", full.names = TRUE)
+stopifnot(length(paths) > 0)
 
-ece <- catalogo_encuestas[catalogo_encuestas$encuesta == "ece", ]
-for (i in seq_len(nrow(ece))) {
-  tag  <- ece$release_tag[i]
-  path <- file.path(pq_dir, ece$archivo_parquet[i])
-  if (!file.exists(path)) next
-  try(piggyback::pb_release_create(repo = repo, tag = tag), silent = TRUE)
-  piggyback::pb_upload(path, repo = repo, tag = tag, overwrite = TRUE)
-  message(sprintf("Subido %s", tag))
-}
+system2("gh", c("release", "create", tag, "--repo", repo,
+                "--title", shQuote("Datos ECE (Parquet)"),
+                "--notes", shQuote("Microdatos de la Encuesta Continua de Empleo 4T2015-3T2025 (nivel persona), en Parquet. Fuente: INE Bolivia.")))
+system2("gh", c("release", "upload", tag, shQuote(paths), "--repo", repo, "--clobber"))
+message(sprintf("Subido %s: %d archivo(s)", tag, length(paths)))

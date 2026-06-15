@@ -1,45 +1,47 @@
+---
+output: github_document
+---
 
 <!-- README.md se genera desde README.Rmd. Edita README.Rmd y corre devtools::build_readme(). -->
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(collapse = TRUE, comment = "#>", eval = FALSE)
+```
 
 # encuestasbo
 
 <!-- badges: start -->
-
 [![R-CMD-check](https://github.com/lab-tecnosocial/encuestasbo/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/lab-tecnosocial/encuestasbo/actions/workflows/R-CMD-check.yaml)
-[![Lifecycle:
-experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
+[![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
 <!-- badges: end -->
 
-Paquete de R para el acceso, armonización y análisis **estadísticamente
-riguroso** de las encuestas del Instituto Nacional de Estadística (INE)
-de Bolivia:
+Paquete de R para el acceso, armonización y análisis **estadísticamente riguroso**
+de las encuestas del Instituto Nacional de Estadística (INE) de Bolivia:
 
 - **Encuesta de Hogares (EH)** — anual, **2012–2024** (13 años).
-- **Encuesta Continua de Empleo (ECE)** — trimestral, **4T-2015 a
-  3T-2025** (33 trimestres; con huecos en 2020–2021 por la pandemia).
+- **Encuesta Continua de Empleo (ECE)** — trimestral, **4T-2015 a 3T-2025**
+  (33 trimestres; con huecos en 2020–2021 por la pandemia).
 
-Es el paquete hermano de
-[`censosbo`](https://github.com/lab-tecnosocial/censosbo) y comparte su
-arquitectura: Parquet + Apache Arrow (lazy), caché local y flujos estilo
-`dplyr` / SQL vía DuckDB. La diferencia esencial: las encuestas son
-**muestras con diseño complejo** (estratificado, bietápico, con factores
-de expansión), por lo que el paquete integra `survey`/`srvyr` para
-producir estimaciones e intervalos de confianza correctos.
+Es el paquete hermano de [`censosbo`](https://github.com/lab-tecnosocial/censosbo)
+y comparte su arquitectura: Parquet + Apache Arrow (lazy), caché local y flujos
+estilo `dplyr` / SQL vía DuckDB. La diferencia esencial: las encuestas son
+**muestras con diseño complejo** (estratificado, bietápico, con factores de
+expansión), por lo que el paquete integra `survey`/`srvyr` para producir
+estimaciones e intervalos de confianza correctos.
 
-Los microdatos están **procesados y publicados**: las funciones
-descargan los Parquet desde GitHub Releases y los guardan en caché local
-automáticamente.
+Los microdatos están **procesados y publicados**: las funciones descargan los
+Parquet desde GitHub Releases y los guardan en caché local automáticamente.
 
 ## Instalación
 
-``` r
+```{r}
 # install.packages("remotes")
 remotes::install_github("lab-tecnosocial/encuestasbo")
 ```
 
 ## Uso
 
-``` r
+```{r}
 library(encuestasbo)
 library(dplyr)
 
@@ -64,7 +66,7 @@ get_eh_armonizada(as = "duckdb")   # consulta SQL cross-año sobre "eh_armonizad
 
 ## Análisis con diseño muestral
 
-``` r
+```{r}
 library(srvyr)
 
 # Tasa de pobreza nacional 2023 con IC (≈ cifra oficial del INE)
@@ -82,33 +84,31 @@ diseno_ece(2023, trimestre = 4) |>
 ```
 
 `diseno_eh()` declara el diseño (`ids = upm`, `strata = estrato`,
-`weights = factor`, `nest = TRUE`) sobre datos armonizados y devuelve un
-objeto `srvyr`. Ver `vignette("diseno-muestral")`.
+`weights = factor`, `nest = TRUE`) sobre datos armonizados y devuelve un objeto
+`srvyr`. Ver `vignette("diseno-muestral")`.
 
 ## Variables armonizadas
 
-Nombres canónicos estables entre años, apoyados en las variables
-derivadas del propio INE: ingresos (`ingreso_hogar`,
-`ingreso_personal`), pobreza (`pobre`, `pobre_extremo`,
-`linea_pobreza`), educación (`nivel_edu`, `anios_estudio`), empleo
-(`condicion_actividad`, `pea`, `ocupado`), demografía (`sexo`, `edad`).
+Nombres canónicos estables entre años, apoyados en las variables derivadas del
+propio INE: ingresos (`ingreso_hogar`, `ingreso_personal`), pobreza (`pobre`,
+`pobre_extremo`, `linea_pobreza`), educación (`nivel_edu`, `anios_estudio`),
+empleo (`condicion_actividad`, `pea`, `ocupado`), demografía (`sexo`, `edad`).
 
-``` r
+```{r}
 variables_armonizadas()
 grupos_variables()
 ```
 
 ## Gestión del caché
 
-``` r
+```{r}
 encuestasbo_cache_dir(); encuestasbo_cache_info(); encuestasbo_cache_clear()
 ```
 
 ## Fuente de datos
 
-INE Bolivia, portal ANDA:
-<https://anda.ine.gob.bo/index.php/catalog/ENCUESTAS>. Los microdatos
-son de uso público; cita la fuente según las condiciones del INE.
+INE Bolivia, portal ANDA: <https://anda.ine.gob.bo/index.php/catalog/ENCUESTAS>.
+Los microdatos son de uso público; cita la fuente según las condiciones del INE.
 
 ## Licencia
 
