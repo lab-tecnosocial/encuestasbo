@@ -50,19 +50,19 @@ navbar:
       menu:
       - text: "Primeros pasos"
         href: articles/introduccion.html
+      - text: "---"
+      - text: "Metodología y referencia"
+      - text: "Diseño muestral (EH y ECE)"
+        href: articles/diseno-muestral.html
       - text: "Catálogo, diccionario y ficha técnica (interactivo)"
         href: articles/catalogo-diccionario.html
       - text: "---"
-      - text: "Encuesta de Hogares"
-      - text: "La Encuesta de Hogares: pobreza, ingresos y empleo"
+      - text: "Por encuesta"
+      - text: "Encuesta de Hogares: pobreza, ingresos y empleo"
         href: articles/encuesta-hogares.html
-      - text: "Diseño muestral (estimaciones correctas)"
-        href: articles/diseno-muestral.html
-      - text: "Armonización entre años"
+      - text: "Armonización de la EH entre años"
         href: articles/armonizacion.html
-      - text: "---"
-      - text: "Encuesta Continua de Empleo"
-      - text: "Empleo trimestral con la ECE"
+      - text: "Encuesta Continua de Empleo: empleo trimestral"
         href: articles/ece-empleo.html
 
 footer:

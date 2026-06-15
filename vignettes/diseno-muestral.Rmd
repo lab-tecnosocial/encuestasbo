@@ -1,8 +1,8 @@
 ---
-title: "Diseño muestral: estimaciones correctas con la EH"
+title: "Diseño muestral: estimaciones correctas (EH y ECE)"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Diseño muestral: estimaciones correctas con la EH}
+  %\VignetteIndexEntry{Diseño muestral: estimaciones correctas (EH y ECE)}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -11,21 +11,27 @@ vignette: >
 knitr::opts_chunk$set(collapse = TRUE, comment = "#>", eval = FALSE)
 ```
 
-La Encuesta de Hogares (EH) del INE es una **muestra con diseño complejo**:
-estratificada y bietápica (UPM dentro de estrato), con factores de expansión.
-Calcular medias o proporciones ignorando el diseño produce **errores estándar
-incorrectos** y, sin ponderar, también estimaciones puntuales sesgadas.
+Tanto la **Encuesta de Hogares (EH)** como la **Encuesta Continua de Empleo
+(ECE)** son **muestras con diseño complejo**: estratificadas y bietápicas (UPM
+dentro de estrato), con factores de expansión. Calcular medias o proporciones
+ignorando el diseño produce **errores estándar incorrectos** y, sin ponderar,
+también estimaciones puntuales sesgadas.
 
-`encuestasbo` integra `srvyr`/`survey` para hacerlo bien.
-
-## Datos crudos vs diseño declarado
+`encuestasbo` integra `srvyr`/`survey`. `diseno_eh()` y `diseno_ece()` devuelven
+un objeto de diseño listo (`ids = upm`, `strata = estrato`, pesos = factor de
+expansión, `nest = TRUE`), sobre el que se usa `survey_mean()`, `survey_total()`,
+`survey_prop()` o `survey_ratio()`.
 
 ```{r}
 library(encuestasbo)
 library(srvyr)
 library(dplyr)
+```
 
-# Diseño muestral de la EH 2023 (ids = upm, strata = estrato, weights = factor)
+## Encuesta de Hogares
+
+```{r}
+# Diseño de la EH 2023 (pesos = factor de expansión anual)
 des <- diseno_eh(2023)
 
 # Tasa de pobreza nacional con intervalo de confianza
@@ -37,38 +43,76 @@ des |>
 #> 1   0.365       0.351       0.379
 ```
 
-La estimación ponderada (~36.5 %) coincide con la cifra oficial del INE. La
-media **sin** ponderar difiere y, sobre todo, no permite calcular el intervalo
-de confianza correctamente.
-
-## Desagregaciones
+La estimación ponderada (~36.5 %) coincide con la cifra oficial del INE; la media
+**sin** ponderar difiere y no permite un intervalo de confianza válido.
 
 ```{r}
-# Ingreso medio del hogar por área
+# Desagregaciones: ingreso del hogar por área; pobreza por departamento
 diseno_eh(2023) |>
   group_by(area) |>
   summarise(ingreso = survey_mean(ingreso_hogar, na.rm = TRUE, vartype = "ci"))
 
-# Pobreza por departamento
 diseno_eh(2023) |>
   group_by(depto) |>
-  summarise(pobreza = survey_mean(pobre, na.rm = TRUE))
+  summarise(pobreza = survey_mean(pobre, na.rm = TRUE, vartype = "cv"))
 ```
 
-> Cuidado con las desagregaciones: el INE recomienda evaluar el coeficiente de
-> variación. Estimaciones para subgrupos pequeños pueden no ser significativas.
+## Encuesta Continua de Empleo
 
-## La ECE y sus factores
-
-La Encuesta Continua de Empleo tiene factores **trimestral** y **mensual**
-distintos. `diseno_ece()` usa el trimestral por defecto:
+La ECE es trimestral y tiene **dos factores de expansión distintos**: trimestral
+y mensual. `diseno_ece()` usa el **trimestral** por defecto (el adecuado para
+estimaciones del trimestre); **no deben mezclarse**.
 
 ```{r}
-diseno_ece(2022, trimestre = 3, factor = "trimestral")
+# Diseño de la ECE 4T-2023 (factor trimestral)
+dece <- diseno_ece(2023, trimestre = 4)
+
+# Tasa de desempleo abierto (desocupados / activos) con IC
+dece |>
+  summarise(td = survey_ratio(pead, pea, na.rm = TRUE, vartype = "ci"))
+
+# Población ocupada estimada (total) por área
+dece |>
+  group_by(area) |>
+  summarise(ocupados = survey_total(peao, na.rm = TRUE))
+
+# Para estimaciones de un mes concreto, usar el factor mensual
+diseno_ece(2023, trimestre = 4, factor = "mensual") |>
+  summarise(td = survey_ratio(pead, pea, na.rm = TRUE))
 ```
 
-## Por qué `nest = TRUE` y `lonely.psu`
+Variables de empleo (nombres nativos de la ECE): `pet` (población en edad de
+trabajar), `pea` (activos), `peao` (ocupados), `pead` (desocupados).
 
-`diseno_eh()` declara `nest = TRUE` (las UPM están anidadas dentro de estratos) y
-fija `options(survey.lonely.psu = "adjust")` para manejar estratos con una sola
-UPM sin romper la estimación de varianza. Lo restaura al terminar.
+## Series con diseño
+
+Para tendencias, combina varios periodos manteniendo el diseño en cada uno:
+
+```{r}
+# Pobreza ponderada de la EH por año
+anios <- c(2019, 2021, 2022, 2023, 2024)
+do.call(rbind, lapply(anios, function(y) {
+  e <- diseno_eh(y, verbose = FALSE) |> summarise(p = survey_mean(pobre, na.rm = TRUE))
+  data.frame(anio = y, pobreza = e$p)
+}))
+
+# Desempleo ponderado de la ECE por trimestre
+per <- catalogo_ece(anio = 2023)[, c("anio", "trimestre")]
+do.call(rbind, lapply(seq_len(nrow(per)), function(i) {
+  e <- diseno_ece(per$anio[i], per$trimestre[i], verbose = FALSE) |>
+    summarise(td = survey_ratio(pead, pea, na.rm = TRUE))
+  data.frame(per[i, ], td = e$td)
+}))
+```
+
+## Notas metodológicas
+
+- **`nest = TRUE`**: las UPM están anidadas dentro de estratos.
+- **`survey.lonely.psu = "adjust"`**: `diseno_*()` lo fija temporalmente (y lo
+  restaura al salir) para manejar estratos con una sola UPM sin romper la
+  estimación de varianza.
+- **Desagregaciones**: el INE recomienda evaluar el coeficiente de variación
+  (`vartype = "cv"`); estimaciones de subgrupos pequeños pueden no ser
+  significativas.
+- En la EH, `diseno_eh()` trabaja sobre datos **armonizados** por defecto, así la
+  sintaxis es estable entre años aunque el nombre del factor cambie en el origen.

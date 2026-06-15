@@ -18,12 +18,12 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
+        # Un job por SO en R release. (Paquete no-CRAN: omitimos R-devel/oldrel
+        # de la plantilla estándar, que prueban versiones de R, no SO.)
         config:
           - {os: macos-latest,   r: 'release'}
           - {os: windows-latest, r: 'release'}
-          - {os: ubuntu-latest,   r: 'devel', http-user-agent: 'release'}
-          - {os: ubuntu-latest,   r: 'release'}
-          - {os: ubuntu-latest,   r: 'oldrel-1'}
+          - {os: ubuntu-latest,  r: 'release'}
 
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
