@@ -35,15 +35,15 @@
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-art-culos" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Artículos</button>
   <ul class="dropdown-menu" aria-labelledby="dropdown-art-culos">
 <li><a class="dropdown-item" href="../articles/introduccion.html">Primeros pasos</a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><h6 class="dropdown-header" data-toc-skip>Metodología y referencia</h6></li>
+    <li><a class="dropdown-item" href="../articles/diseno-muestral.html">Diseño muestral (EH y ECE)</a></li>
     <li><a class="dropdown-item" href="../articles/catalogo-diccionario.html">Catálogo, diccionario y ficha técnica (interactivo)</a></li>
     <li><hr class="dropdown-divider"></li>
-    <li><h6 class="dropdown-header" data-toc-skip>Encuesta de Hogares</h6></li>
-    <li><a class="dropdown-item" href="../articles/encuesta-hogares.html">La Encuesta de Hogares: pobreza, ingresos y empleo</a></li>
-    <li><a class="dropdown-item" href="../articles/diseno-muestral.html">Diseño muestral (estimaciones correctas)</a></li>
-    <li><a class="dropdown-item" href="../articles/armonizacion.html">Armonización entre años</a></li>
-    <li><hr class="dropdown-divider"></li>
-    <li><h6 class="dropdown-header" data-toc-skip>Encuesta Continua de Empleo</h6></li>
-    <li><a class="dropdown-item" href="../articles/ece-empleo.html">Empleo trimestral con la ECE</a></li>
+    <li><h6 class="dropdown-header" data-toc-skip>Por encuesta</h6></li>
+    <li><a class="dropdown-item" href="../articles/encuesta-hogares.html">Encuesta de Hogares: pobreza, ingresos y empleo</a></li>
+    <li><a class="dropdown-item" href="../articles/armonizacion.html">Armonización de la EH entre años</a></li>
+    <li><a class="dropdown-item" href="../articles/ece-empleo.html">Encuesta Continua de Empleo: empleo trimestral</a></li>
   </ul>
 </li>
 <li class="nav-item"><a class="nav-link" href="../news/index.html">Noticias</a></li>
@@ -75,77 +75,114 @@
 
     
     
-<p><code>encuestasbo</code> da acceso a los microdatos de la
-<strong>Encuesta de Hogares (EH, 2012-2024)</strong> del INE de Bolivia,
-con armonización entre años y análisis con diseño muestral.</p>
+<p><code>encuestasbo</code> da acceso a los microdatos de <strong>dos
+encuestas</strong> del INE de Bolivia, con diccionarios, ficha técnica
+oficial y análisis con diseño muestral:</p>
+<ul>
+<li>
+<strong>Encuesta de Hogares (EH)</strong> — anual,
+<strong>2012–2024</strong>. Niveles <code>persona</code> y
+<code>vivienda</code>. Es la principal fuente de pobreza, ingresos,
+educación y empleo.</li>
+<li>
+<strong>Encuesta Continua de Empleo (ECE)</strong> — trimestral,
+<strong>4T-2015 a 3T-2025</strong> (con huecos en 2020–2021). Nivel
+persona; mercado laboral urbano y nacional.</li>
+</ul>
+<p>La diferencia esencial con un censo: son <strong>muestras con diseño
+complejo</strong> (estratificado, bietápico, con factores de expansión).
+Por eso, para estimaciones correctas se usa <code><a href="../reference/diseno_eh.html">diseno_eh()</a></code> /
+<code><a href="../reference/diseno_ece.html">diseno_ece()</a></code> + <code>srvyr</code> (ver la viñeta
+<em>“Diseño muestral”</em>).</p>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://lab-tecnosocial.github.io/encuestasbo/">encuestasbo</a></span><span class="op">)</span></span></code></pre></div>
 <div class="section level2">
 <h2 id="inventario">Inventario<a class="anchor" aria-label="anchor" href="#inventario"></a>
 </h2>
-<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://lab-tecnosocial.github.io/encuestasbo/">encuestasbo</a></span><span class="op">)</span></span>
-<span><span class="fu"><a href="../reference/catalogo_eh.html">catalogo_eh</a></span><span class="op">(</span><span class="op">)</span>                 <span class="co"># años y tablas de la EH disponibles</span></span>
-<span><span class="fu"><a href="../reference/catalogo_eh.html">catalogo_eh</a></span><span class="op">(</span>anio <span class="op">=</span> <span class="fl">2023</span><span class="op">)</span></span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/catalogo_eh.html">catalogo_eh</a></span><span class="op">(</span><span class="op">)</span>                       <span class="co"># años y tablas de la EH</span></span>
+<span><span class="fu"><a href="../reference/catalogo_ece.html">catalogo_ece</a></span><span class="op">(</span><span class="op">)</span>                      <span class="co"># años y trimestres de la ECE</span></span>
+<span><span class="fu"><a href="../reference/catalogo_ece.html">catalogo_ece</a></span><span class="op">(</span>anio <span class="op">=</span> <span class="fl">2023</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level2">
-<h2 id="ficha-técnica-diseño-muestral-oficial-del-ine">Ficha técnica (diseño muestral oficial del INE)<a class="anchor" aria-label="anchor" href="#ficha-t%C3%A9cnica-dise%C3%B1o-muestral-oficial-del-ine"></a>
+<h2 id="ficha-técnica-metadata-oficial-del-ine">Ficha técnica (metadata oficial del INE)<a class="anchor" aria-label="anchor" href="#ficha-t%C3%A9cnica-metadata-oficial-del-ine"></a>
 </h2>
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># Universo, cobertura, marco y diseño muestral, factor de expansión, etc.</span></span>
-<span><span class="fu"><a href="../reference/ficha_tecnica.html">ficha_tecnica</a></span><span class="op">(</span><span class="st">"eh"</span>, <span class="fl">2023</span><span class="op">)</span></span>
+<p>Universo, cobertura, marco y diseño muestral, factor de expansión,
+tasa de respuesta. Disponible para ambas encuestas:</p>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/ficha_tecnica.html">ficha_tecnica</a></span><span class="op">(</span><span class="st">"eh"</span>, <span class="fl">2023</span><span class="op">)</span></span>
 <span><span class="fu"><a href="../reference/ficha_tecnica.html">ficha_tecnica</a></span><span class="op">(</span><span class="st">"ece"</span>, <span class="fl">2023</span>, trimestre <span class="op">=</span> <span class="fl">4</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="acceso-a-microdatos">Acceso a microdatos<a class="anchor" aria-label="anchor" href="#acceso-a-microdatos"></a>
 </h2>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<p>Mismas funciones para cada encuesta; devuelven Arrow (lazy), tibble o
+DuckDB.</p>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span><span class="op">)</span></span>
 <span></span>
-<span><span class="co"># Personas de la EH 2023 (Arrow lazy)</span></span>
-<span><span class="fu"><a href="../reference/get_eh.html">get_eh</a></span><span class="op">(</span><span class="fl">2023</span>, <span class="st">"persona"</span><span class="op">)</span></span>
-<span></span>
-<span><span class="co"># Filtrar por departamento y área, sin traer todo a RAM</span></span>
+<span><span class="co"># Encuesta de Hogares</span></span>
 <span><span class="fu"><a href="../reference/get_eh.html">get_eh</a></span><span class="op">(</span><span class="fl">2023</span>, <span class="st">"persona"</span>, departamento <span class="op">=</span> <span class="st">"Santa Cruz"</span>, area <span class="op">=</span> <span class="st">"Urbana"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html" class="external-link">count</a></span><span class="op">(</span><span class="va">depto</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/compute.html" class="external-link">collect</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../reference/atajos_eh.html">get_personas_eh</a></span><span class="op">(</span><span class="fl">2023</span><span class="op">)</span>; <span class="fu"><a href="../reference/atajos_eh.html">get_viviendas_eh</a></span><span class="op">(</span><span class="fl">2023</span><span class="op">)</span>        <span class="co"># atajos</span></span>
 <span></span>
-<span><span class="co"># Atajos por nivel</span></span>
-<span><span class="fu"><a href="../reference/atajos_eh.html">get_personas_eh</a></span><span class="op">(</span><span class="fl">2023</span><span class="op">)</span></span>
-<span><span class="fu"><a href="../reference/atajos_eh.html">get_viviendas_eh</a></span><span class="op">(</span><span class="fl">2023</span><span class="op">)</span></span></code></pre></div>
+<span><span class="co"># Encuesta Continua de Empleo (trimestral)</span></span>
+<span><span class="fu"><a href="../reference/get_ece.html">get_ece</a></span><span class="op">(</span><span class="fl">2023</span>, trimestre <span class="op">=</span> <span class="fl">4</span>, departamento <span class="op">=</span> <span class="st">"La Paz"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html" class="external-link">count</a></span><span class="op">(</span><span class="va">area</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/compute.html" class="external-link">collect</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../reference/atajos_ece.html">get_personas_ece</a></span><span class="op">(</span><span class="fl">2023</span>, trimestre <span class="op">=</span> <span class="fl">4</span><span class="op">)</span>                <span class="co"># atajo</span></span></code></pre></div>
+<p><code>departamento</code>: 1–9 o nombre (“La Paz”, “Santa Cruz”, …).
+<code>area</code>: 1/“Urbana” o 2/“Rural”.</p>
 </div>
 <div class="section level2">
 <h2 id="diccionario-y-etiquetas">Diccionario y etiquetas<a class="anchor" aria-label="anchor" href="#diccionario-y-etiquetas"></a>
 </h2>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/codebook.html">codebook</a></span><span class="op">(</span>buscar <span class="op">=</span> <span class="st">"ingreso"</span>, anio <span class="op">=</span> <span class="fl">2023</span><span class="op">)</span></span>
-<span><span class="fu"><a href="../reference/codebook_valores.html">codebook_valores</a></span><span class="op">(</span><span class="st">"s01a_02"</span>, anio <span class="op">=</span> <span class="fl">2023</span><span class="op">)</span>   <span class="co"># sexo</span></span>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># EH (por año) y ECE (por año + trimestre)</span></span>
+<span><span class="fu"><a href="../reference/codebook.html">codebook</a></span><span class="op">(</span>buscar <span class="op">=</span> <span class="st">"ingreso"</span>, anio <span class="op">=</span> <span class="fl">2023</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../reference/codebook.html">codebook</a></span><span class="op">(</span>buscar <span class="op">=</span> <span class="st">"desocupad"</span>, encuesta <span class="op">=</span> <span class="st">"ece"</span>, anio <span class="op">=</span> <span class="fl">2023</span>, trimestre <span class="op">=</span> <span class="fl">4</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="../reference/get_eh.html">get_eh</a></span><span class="op">(</span><span class="fl">2023</span>, <span class="st">"persona"</span>, as <span class="op">=</span> <span class="st">"tibble"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/etiquetar_valores.html">etiquetar_valores</a></span><span class="op">(</span>anio <span class="op">=</span> <span class="fl">2023</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level2">
-<h2 id="armonización-entre-años">Armonización entre años<a class="anchor" aria-label="anchor" href="#armonizaci%C3%B3n-entre-a%C3%B1os"></a>
-</h2>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># Nombres canónicos estables entre años</span></span>
-<span><span class="fu"><a href="../reference/get_eh.html">get_eh</a></span><span class="op">(</span><span class="fl">2023</span>, <span class="st">"persona"</span>, as <span class="op">=</span> <span class="st">"tibble"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="../reference/armonizar_eh.html">armonizar_eh</a></span><span class="op">(</span><span class="fl">2023</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html" class="external-link">count</a></span><span class="op">(</span><span class="va">sexo</span><span class="op">)</span></span>
-<span></span>
-<span><span class="co"># Serie larga de pobreza, todos los años</span></span>
-<span><span class="fu"><a href="../reference/get_eh_armonizada.html">get_eh_armonizada</a></span><span class="op">(</span>grupo <span class="op">=</span> <span class="st">"pobreza"</span><span class="op">)</span></span></code></pre></div>
-</div>
-<div class="section level2">
 <h2 id="análisis-con-diseño-muestral">Análisis con diseño muestral<a class="anchor" aria-label="anchor" href="#an%C3%A1lisis-con-dise%C3%B1o-muestral"></a>
 </h2>
-<p>Ver la viñeta <em>“Diseño muestral”</em> para estimaciones con
-errores estándar correctos usando <code><a href="../reference/diseno_eh.html">diseno_eh()</a></code> +
-<code>srvyr</code>.</p>
+<p>Cada encuesta tiene su declarador de diseño. Ver la viñeta
+<em>“Diseño muestral”</em>.</p>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="http://gdfe.co/srvyr/" class="external-link">srvyr</a></span><span class="op">)</span></span>
+<span><span class="fu"><a href="../reference/diseno_eh.html">diseno_eh</a></span><span class="op">(</span><span class="fl">2023</span><span class="op">)</span>  <span class="op">|&gt;</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html" class="external-link">summarise</a></span><span class="op">(</span>pobreza <span class="op">=</span> <span class="fu"><a href="http://gdfe.co/srvyr/reference/survey_mean.html" class="external-link">survey_mean</a></span><span class="op">(</span><span class="va">pobre</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../reference/diseno_ece.html">diseno_ece</a></span><span class="op">(</span><span class="fl">2023</span>, trimestre <span class="op">=</span> <span class="fl">4</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html" class="external-link">summarise</a></span><span class="op">(</span>td <span class="op">=</span> <span class="fu"><a href="http://gdfe.co/srvyr/reference/survey_ratio.html" class="external-link">survey_ratio</a></span><span class="op">(</span><span class="va">pead</span>, <span class="va">pea</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level2">
-<h2 id="caché-local">Caché local<a class="anchor" aria-label="anchor" href="#cach%C3%A9-local"></a>
+<h2 id="por-dónde-seguir">¿Por dónde seguir?<a class="anchor" aria-label="anchor" href="#por-d%C3%B3nde-seguir"></a>
+</h2>
+<ul>
+<li>
+<strong><code><a href="../articles/encuesta-hogares.html">vignette("encuesta-hogares")</a></code></strong> —
+análisis temáticos de la EH (pobreza, ingresos, educación, empleo) y
+evolución entre años.</li>
+<li>
+<strong><code><a href="../articles/ece-empleo.html">vignette("ece-empleo")</a></code></strong> — empleo
+trimestral con la ECE.</li>
+<li>
+<strong><code><a href="../articles/diseno-muestral.html">vignette("diseno-muestral")</a></code></strong> —
+estimaciones con errores estándar correctos (EH y ECE).</li>
+<li>
+<strong><code><a href="../articles/armonizacion.html">vignette("armonizacion")</a></code></strong> — nombres
+canónicos y series largas de la EH.</li>
+<li>
+<strong><code><a href="../articles/catalogo-diccionario.html">vignette("catalogo-diccionario")</a></code></strong> —
+catálogo, diccionario y ficha técnica interactivos.</li>
+</ul>
+</div>
+<div class="section level2">
+<h2 id="caché">Caché<a class="anchor" aria-label="anchor" href="#cach%C3%A9"></a>
 </h2>
 <p>Los microdatos se descargan una vez y se guardan en caché:</p>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/encuestasbo_cache_dir.html">encuestasbo_cache_dir</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="fu"><a href="../reference/encuestasbo_cache_info.html">encuestasbo_cache_info</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 </div>

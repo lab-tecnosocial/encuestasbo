@@ -1,78 +1,113 @@
 # Primeros pasos con encuestasbo
 
-`encuestasbo` da acceso a los microdatos de la **Encuesta de Hogares
-(EH, 2012-2024)** del INE de Bolivia, con armonización entre años y
-análisis con diseño muestral.
+`encuestasbo` da acceso a los microdatos de **dos encuestas** del INE de
+Bolivia, con diccionarios, ficha técnica oficial y análisis con diseño
+muestral:
+
+- **Encuesta de Hogares (EH)** — anual, **2012–2024**. Niveles `persona`
+  y `vivienda`. Es la principal fuente de pobreza, ingresos, educación y
+  empleo.
+- **Encuesta Continua de Empleo (ECE)** — trimestral, **4T-2015 a
+  3T-2025** (con huecos en 2020–2021). Nivel persona; mercado laboral
+  urbano y nacional.
+
+La diferencia esencial con un censo: son **muestras con diseño
+complejo** (estratificado, bietápico, con factores de expansión). Por
+eso, para estimaciones correctas se usa
+[`diseno_eh()`](https://lab-tecnosocial.github.io/encuestasbo/reference/diseno_eh.md)
+/
+[`diseno_ece()`](https://lab-tecnosocial.github.io/encuestasbo/reference/diseno_ece.md) +
+`srvyr` (ver la viñeta *“Diseño muestral”*).
+
+``` r
+
+library(encuestasbo)
+```
 
 ## Inventario
 
 ``` r
 
-library(encuestasbo)
-catalogo_eh()                 # años y tablas de la EH disponibles
-catalogo_eh(anio = 2023)
+catalogo_eh()                       # años y tablas de la EH
+catalogo_ece()                      # años y trimestres de la ECE
+catalogo_ece(anio = 2023)
 ```
 
-## Ficha técnica (diseño muestral oficial del INE)
+## Ficha técnica (metadata oficial del INE)
+
+Universo, cobertura, marco y diseño muestral, factor de expansión, tasa
+de respuesta. Disponible para ambas encuestas:
 
 ``` r
 
-# Universo, cobertura, marco y diseño muestral, factor de expansión, etc.
 ficha_tecnica("eh", 2023)
 ficha_tecnica("ece", 2023, trimestre = 4)
 ```
 
 ## Acceso a microdatos
 
+Mismas funciones para cada encuesta; devuelven Arrow (lazy), tibble o
+DuckDB.
+
 ``` r
 
 library(dplyr)
 
-# Personas de la EH 2023 (Arrow lazy)
-get_eh(2023, "persona")
-
-# Filtrar por departamento y área, sin traer todo a RAM
+# Encuesta de Hogares
 get_eh(2023, "persona", departamento = "Santa Cruz", area = "Urbana") |>
   count(depto) |>
   collect()
+get_personas_eh(2023); get_viviendas_eh(2023)        # atajos
 
-# Atajos por nivel
-get_personas_eh(2023)
-get_viviendas_eh(2023)
+# Encuesta Continua de Empleo (trimestral)
+get_ece(2023, trimestre = 4, departamento = "La Paz") |>
+  count(area) |>
+  collect()
+get_personas_ece(2023, trimestre = 4)                # atajo
 ```
+
+`departamento`: 1–9 o nombre (“La Paz”, “Santa Cruz”, …). `area`:
+1/“Urbana” o 2/“Rural”.
 
 ## Diccionario y etiquetas
 
 ``` r
 
+# EH (por año) y ECE (por año + trimestre)
 codebook(buscar = "ingreso", anio = 2023)
-codebook_valores("s01a_02", anio = 2023)   # sexo
+codebook(buscar = "desocupad", encuesta = "ece", anio = 2023, trimestre = 4)
 
 get_eh(2023, "persona", as = "tibble") |>
   etiquetar_valores(anio = 2023)
 ```
 
-## Armonización entre años
+## Análisis con diseño muestral
+
+Cada encuesta tiene su declarador de diseño. Ver la viñeta *“Diseño
+muestral”*.
 
 ``` r
 
-# Nombres canónicos estables entre años
-get_eh(2023, "persona", as = "tibble") |>
-  armonizar_eh(2023) |>
-  count(sexo)
-
-# Serie larga de pobreza, todos los años
-get_eh_armonizada(grupo = "pobreza")
+library(srvyr)
+diseno_eh(2023)  |> summarise(pobreza = survey_mean(pobre, na.rm = TRUE))
+diseno_ece(2023, trimestre = 4) |> summarise(td = survey_ratio(pead, pea, na.rm = TRUE))
 ```
 
-## Análisis con diseño muestral
+## ¿Por dónde seguir?
 
-Ver la viñeta *“Diseño muestral”* para estimaciones con errores estándar
-correctos usando
-[`diseno_eh()`](https://lab-tecnosocial.github.io/encuestasbo/reference/diseno_eh.md) +
-`srvyr`.
+- **[`vignette("encuesta-hogares")`](https://lab-tecnosocial.github.io/encuestasbo/articles/encuesta-hogares.md)**
+  — análisis temáticos de la EH (pobreza, ingresos, educación, empleo) y
+  evolución entre años.
+- **[`vignette("ece-empleo")`](https://lab-tecnosocial.github.io/encuestasbo/articles/ece-empleo.md)**
+  — empleo trimestral con la ECE.
+- **[`vignette("diseno-muestral")`](https://lab-tecnosocial.github.io/encuestasbo/articles/diseno-muestral.md)**
+  — estimaciones con errores estándar correctos (EH y ECE).
+- **[`vignette("armonizacion")`](https://lab-tecnosocial.github.io/encuestasbo/articles/armonizacion.md)**
+  — nombres canónicos y series largas de la EH.
+- **[`vignette("catalogo-diccionario")`](https://lab-tecnosocial.github.io/encuestasbo/articles/catalogo-diccionario.md)**
+  — catálogo, diccionario y ficha técnica interactivos.
 
-## Caché local
+## Caché
 
 Los microdatos se descargan una vez y se guardan en caché:
 
