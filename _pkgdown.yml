@@ -120,6 +120,17 @@ reference:
       - diseno_eh
       - diseno_ece
 
+  - title: "Indicadores con diseño muestral"
+    desc: >
+      Atajos para los indicadores más comunes (pobreza, desempleo, subocupación,
+      empleo vulnerable) con desagregación opcional e intervalos de confianza.
+    contents:
+      - tasa_pobreza
+      - tasa_desempleo
+      - tasa_subocupacion
+      - empleo_vulnerable
+      - grupo_edad
+
   - title: "Geografía"
     contents:
       - departamentos

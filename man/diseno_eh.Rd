@@ -38,10 +38,10 @@ bietápico de la EH ya declarado (`ids = upm`, `strata = estrato`,
 `weights = factor`, `nest = TRUE`).
 }
 \details{
-Se fija temporalmente `options(survey.lonely.psu = "adjust")` durante la
-construcción para manejar estratos con una sola UPM, y se restaura al salir.
-Las encuestas se cargan en memoria (`as = "tibble"`) porque `survey`/`srvyr`
-lo requieren; el tamaño de la EH (~12k viviendas) lo hace viable.
+El paquete fija `options(survey.lonely.psu = "adjust")` al cargarse (si no lo
+fijaste tú), para manejar estratos con una sola UPM en la estimación de
+varianza. Las encuestas se cargan en memoria (`as = "tibble"`) porque
+`survey`/`srvyr` lo requieren; el tamaño de la EH (~12k viviendas) lo hace viable.
 }
 \examples{
 \dontrun{

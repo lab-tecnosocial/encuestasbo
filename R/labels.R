@@ -16,22 +16,45 @@
 #'   columnas no encontradas o no categóricas se devuelven sin cambios.
 #'
 #' @details
-#' Las etiquetas corresponden a los nombres de variable **crudos** de cada año
-#' (e.g., `s01a_02`). Si trabajas con datos armonizados de [armonizar_eh()] o
-#' [get_eh_armonizada()] (nombres canónicos), las etiquetas de valor no aplican
-#' directamente; etiqueta antes de armonizar o usa las propias categorías.
+#' Detecta automáticamente el tipo de datos:
+#'
+#' - **Datos crudos** (nombres por año, e.g. `s01a_02`): usa el diccionario del
+#'   INE para `encuesta`/`anio` (y `trimestre` en la ECE).
+#' - **Datos armonizados** de [armonizar_eh()] / [get_eh_armonizada()] (nombres
+#'   canónicos como `sexo`, `nivel_edu`, `pobre`): usa las etiquetas del esquema
+#'   armonizado, **estables entre años**. Se detecta por la presencia de columnas
+#'   canónicas, sin necesidad de indicar `anio`.
 #'
 #' @seealso [etiquetar_variables()], [codebook_valores()].
 #' @export
 #' @examples
 #' \dontrun{
+#' # Datos crudos
 #' get_eh(2023, "persona", as = "tibble") |>
 #'   etiquetar_valores(anio = 2023) |>
 #'   dplyr::count(s01a_02)
+#'
+#' # Datos armonizados (etiquetas canónicas estables entre años)
+#' get_eh_armonizada(grupo = "pobreza") |>
+#'   etiquetar_valores() |>
+#'   dplyr::count(anio, pobre)
 #' }
 etiquetar_valores <- function(df, columnas = NULL, encuesta = "eh", anio = 2024, trimestre = NULL) {
-  meta <- .get_codebook(encuesta, anio, trimestre)
   cols <- if (is.null(columnas)) names(df) else columnas
+
+  # Datos armonizados (armonizar_eh / get_eh_armonizada): los códigos canónicos
+  # tienen sus propias etiquetas, estables entre años, no las de un año concreto.
+  if (any(.HARMONIZED_MARKERS %in% names(df))) {
+    for (col in intersect(cols, names(df))) {
+      labs <- .HARMONIZED_VALUE_LABELS[[col]]
+      if (is.null(labs)) next
+      df[[col]] <- factor(as.character(df[[col]]),
+                          levels = names(labs), labels = unname(labs))
+    }
+    return(df)
+  }
+
+  meta <- .get_codebook(encuesta, anio, trimestre)
   for (col in intersect(cols, names(df))) {
     idx <- which(meta$variable == col & meta$tipo == "categorica")
     if (length(idx) == 0) next

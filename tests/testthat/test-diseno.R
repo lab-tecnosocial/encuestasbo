@@ -25,11 +25,18 @@ test_that("survey_mean() produce una estimación con error estándar", {
   expect_gt(res$p_se, 0)
 })
 
-test_that(".declarar_diseno() restaura survey.lonely.psu", {
+test_that(".declarar_diseno() fuerza 'adjust' si la opción causaría error", {
   skip_if_not_installed("srvyr")
   withr::local_options(list(survey.lonely.psu = "fail"))
   invisible(.declarar_diseno(make_df()))
-  expect_equal(getOption("survey.lonely.psu"), "fail")
+  expect_equal(getOption("survey.lonely.psu"), "adjust")
+})
+
+test_that(".declarar_diseno() respeta una opción válida del usuario", {
+  skip_if_not_installed("srvyr")
+  withr::local_options(list(survey.lonely.psu = "remove"))
+  invisible(.declarar_diseno(make_df()))
+  expect_equal(getOption("survey.lonely.psu"), "remove")
 })
 
 test_that(".declarar_diseno() aborta si faltan variables de diseño", {

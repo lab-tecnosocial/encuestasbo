@@ -35,16 +35,26 @@ las etiquetas en español del diccionario del INE, para la encuesta y año
 indicados.
 }
 \details{
-Las etiquetas corresponden a los nombres de variable **crudos** de cada año
-(e.g., `s01a_02`). Si trabajas con datos armonizados de [armonizar_eh()] o
-[get_eh_armonizada()] (nombres canónicos), las etiquetas de valor no aplican
-directamente; etiqueta antes de armonizar o usa las propias categorías.
+Detecta automáticamente el tipo de datos:
+
+- **Datos crudos** (nombres por año, e.g. `s01a_02`): usa el diccionario del
+  INE para `encuesta`/`anio` (y `trimestre` en la ECE).
+- **Datos armonizados** de [armonizar_eh()] / [get_eh_armonizada()] (nombres
+  canónicos como `sexo`, `nivel_edu`, `pobre`): usa las etiquetas del esquema
+  armonizado, **estables entre años**. Se detecta por la presencia de columnas
+  canónicas, sin necesidad de indicar `anio`.
 }
 \examples{
 \dontrun{
+# Datos crudos
 get_eh(2023, "persona", as = "tibble") |>
   etiquetar_valores(anio = 2023) |>
   dplyr::count(s01a_02)
+
+# Datos armonizados (etiquetas canónicas estables entre años)
+get_eh_armonizada(grupo = "pobreza") |>
+  etiquetar_valores() |>
+  dplyr::count(anio, pobre)
 }
 }
 \seealso{

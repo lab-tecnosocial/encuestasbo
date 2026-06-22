@@ -33,7 +33,9 @@ grupos_variables <- function() {
     educacion   = c("nivel_edu", "anios_estudio"),
     empleo      = c("condicion_actividad", "pea", "pet", "ocupado", "grupo_ocupacion"),
     ingresos    = c("ingreso_laboral", "ingreso_personal", "ingreso_hogar", "ingreso_no_laboral"),
-    pobreza     = c("pobre", "pobre_extremo", "linea_pobreza", "linea_pobreza_extrema")
+    pobreza     = c("pobre", "pobre_extremo", "linea_pobreza", "linea_pobreza_extrema"),
+    vivienda    = c("tipo_vivienda", "tenencia_vivienda"),
+    salud       = c("tiene_seguro_salud")
   )
 }
 
@@ -54,12 +56,90 @@ variables_armonizadas <- function(solo_armonizadas = TRUE) {
 # Columnas siempre presentes tras armonizar (identificación + diseño + geo)
 .CANON_SIEMPRE <- c("folio", "nro_persona", "depto", "area", "upm", "estrato", "factor")
 
+# Etiquetas de valor del esquema armonizado (códigos -> texto), consistentes
+# entre años. Las usa etiquetar_valores() sobre datos armonizados.
+.HARMONIZED_VALUE_LABELS <- list(
+  sexo                = c("1" = "Hombre", "2" = "Mujer"),
+  area                = c("1" = "Urbana", "2" = "Rural"),
+  nivel_edu           = c("0" = "Ninguno", "1" = "Primaria", "2" = "Secundaria",
+                          "3" = "Superior", "4" = "Otros"),
+  condicion_actividad = c("0" = "Menor de 10 años", "1" = "Ocupado", "2" = "Cesante",
+                          "3" = "Aspirante", "4" = "Inactivo temporal",
+                          "5" = "Inactivo permanente"),
+  pobre               = c("0" = "No pobre", "1" = "Pobre"),
+  pobre_extremo       = c("0" = "No", "1" = "Sí"),
+  pea                 = c("0" = "No", "1" = "Sí"),
+  pet                 = c("0" = "No", "1" = "Sí"),
+  ocupado             = c("0" = "No", "1" = "Sí"),
+  desocupado          = c("0" = "No", "1" = "Sí"),
+  tipo_vivienda       = c("1" = "Casa", "2" = "Choza/Pahuichi", "3" = "Departamento",
+                          "4" = "Cuarto(s) suelto(s)", "5" = "Vivienda improvisada",
+                          "6" = "Local no destinado a habitación"),
+  tenencia_vivienda   = c("1" = "Propia y pagada", "2" = "Propia y pagándose",
+                          "3" = "Alquilada", "4" = "Anticrético/contrato mixto",
+                          "5" = "Cedida por servicios", "6" = "Prestada por parientes/amigos",
+                          "7" = "Otra"),
+  tiene_seguro_salud  = c("0" = "Sin seguro", "1" = "Con seguro")
+)
+
+# Recodificación de la tenencia de la vivienda a un esquema canónico estable.
+# El INE usó dos órdenes de códigos: 2012-2015 (régimen A) y 2016-2024 (régimen B).
+# Canónico: 1 Propia pagada, 2 Propia pagándose, 3 Alquilada, 4 Anticrético/Mixto,
+# 5 Cedida por servicios, 6 Prestada por parientes/amigos, 7 Otra.
+.TENENCIA_RECODE_A <- c("1" = 3, "2" = 1, "3" = 2, "4" = 5, "5" = 6, "6" = 4, "7" = 7)
+.TENENCIA_RECODE_B <- c("1" = 1, "2" = 2, "3" = 3, "4" = 4, "5" = 4, "6" = 5, "7" = 6, "8" = 7)
+
+# Código de "Ninguno" (sin seguro) de la variable de seguro de salud, por año
+# (cambia: 7 en 2012-2013, 6 en 2015-2023, 5 en 2024). Se obtiene del codebook.
+.ninguno_seguro_code <- function(anio) {
+  cb <- codebook_eh_meta[[as.character(anio)]]
+  if (is.null(cb)) return(NA_integer_)
+  i <- which(grepl("afiliad.* a alguno de los siguientes seguros de salud",
+                   cb$etiqueta, ignore.case = TRUE, perl = TRUE) & cb$tabla == "persona")
+  if (length(i) == 0) return(NA_integer_)
+  vc <- cb$valores_codigos[[i[1]]]
+  if (!is.data.frame(vc)) return(NA_integer_)
+  code <- vc$codigo[grepl("ninguno", vc$etiqueta, ignore.case = TRUE)]
+  if (length(code) == 0) NA_integer_ else as.integer(code[1])
+}
+
+# Marcadores: nombres canónicos que NO existen como variable cruda del INE; su
+# presencia indica que el data frame ya está armonizado.
+.HARMONIZED_MARKERS <- c("sexo", "edad", "nivel_edu", "condicion_actividad",
+                         "ingreso_hogar", "pobre",
+                         "tipo_vivienda", "tenencia_vivienda", "tiene_seguro_salud")
+
+# Armoniza VALORES que cambian de código entre años a un esquema canónico.
+#  - nivel_edu: "Otros" es 4/5/9 según el año -> se colapsa a 4. Códigos 0-3 estables.
+#  - tenencia_vivienda: dos regímenes de códigos (2012-2015 vs 2016+) -> canónico.
+#  - tiene_seguro_salud: código de seguro -> binario (0 = ninguno, 1 = afiliado).
+.armonizar_valores <- function(df, anio = NULL) {
+  if ("nivel_edu" %in% names(df)) {
+    v <- suppressWarnings(as.integer(as.character(df[["nivel_edu"]])))
+    v[v %in% c(5L, 9L)] <- 4L
+    df[["nivel_edu"]] <- v
+  }
+  if ("tenencia_vivienda" %in% names(df) && !is.null(anio)) {
+    mapa <- if (as.integer(anio) <= 2015) .TENENCIA_RECODE_A else .TENENCIA_RECODE_B
+    v <- as.character(df[["tenencia_vivienda"]])
+    out <- unname(mapa[v]); out[is.na(match(v, names(mapa)))] <- NA_real_
+    df[["tenencia_vivienda"]] <- out
+  }
+  if ("tiene_seguro_salud" %in% names(df) && !is.null(anio)) {
+    ning <- .ninguno_seguro_code(anio)
+    v <- suppressWarnings(as.integer(as.character(df[["tiene_seguro_salud"]])))
+    df[["tiene_seguro_salud"]] <- if (is.na(ning)) NA_integer_ else as.integer(v != ning)
+  }
+  df
+}
+
 # Columnas numéricas (continuas o indicadores 0/1, usadas en medias/proporciones).
 # El resto de columnas canónicas son códigos/identificadores -> texto.
 .CANON_NUMERICAS <- c(
   "factor", "edad", "anios_estudio", "ingreso_laboral", "ingreso_no_laboral",
   "ingreso_personal", "ingreso_hogar", "linea_pobreza", "linea_pobreza_extrema",
-  "pobre", "pobre_extremo", "pea", "pet", "ocupado", "desocupado"
+  "pobre", "pobre_extremo", "pea", "pet", "ocupado", "desocupado",
+  "tiene_seguro_salud"
 )
 
 # Homogeneiza tipos de las columnas canónicas para apilar años con bind_rows.
@@ -113,6 +193,7 @@ armonizar_eh <- function(df, anio, solo_canonicas = FALSE) {
   # con otro origen, se prioriza el mapeo)
   ren <- stats::setNames(origen[ok], canon[ok])
   df <- dplyr::rename(df, !!!ren)
+  df <- .armonizar_valores(df, anio)
 
   if (solo_canonicas) {
     presentes <- intersect(canon, names(df))

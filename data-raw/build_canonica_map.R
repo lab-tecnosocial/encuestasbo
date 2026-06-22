@@ -27,6 +27,32 @@ detect_by_label <- function(y, pat) {
   cb$variable[i][1]
 }
 
+# Detecta una variable por patrón en sus ETIQUETAS DE VALOR (no en la etiqueta de
+# la variable). Útil cuando varias variables comparten etiqueta (p. ej. tipo y
+# tenencia de la vivienda ambas dicen "La vivienda que ocupa este hogar es").
+detect_by_value <- function(y, pat, tabla = "vivienda") {
+  cb <- codebook_eh_meta[[as.character(y)]]
+  cb <- cb[cb$tabla == tabla, ]
+  for (i in seq_len(nrow(cb))) {
+    vc <- cb$valores_codigos[[i]]
+    if (is.data.frame(vc) && any(grepl(pat, vc$etiqueta, ignore.case = TRUE, perl = TRUE))) {
+      return(cb$variable[i])
+    }
+  }
+  NA_character_
+}
+
+# Detecta el nombre de la variable de seguro de salud (persona). Su nombre cambia
+# mucho entre años (s3_24a, s4d_21a, s4a_4a, s04a_04a, s02a_01a) pero su etiqueta
+# es estable. (2014 no trae esta pregunta -> NA.)
+detect_seguro <- function(y) {
+  cb <- codebook_eh_meta[[as.character(y)]]
+  i <- which(grepl("afiliad.* a alguno de los siguientes seguros de salud",
+                   cb$etiqueta, ignore.case = TRUE, perl = TRUE) & cb$tabla == "persona")
+  if (length(i) == 0) return(NA_character_)
+  cb$variable[i][1]
+}
+
 # Devuelve el nombre de origen si está presente ese año (en persona o vivienda), si no NA
 present <- function(y, name, tabla = "persona") {
   pool <- if (tabla == "vivienda") vars_vivienda else vars_persona
@@ -88,6 +114,12 @@ R <- add(R, "linea_pobreza",         "Línea de pobreza (Bs/persona/mes)",      
 R <- add(R, "linea_pobreza_extrema", "Línea de pobreza extrema (Bs/persona/mes)","persona", TRUE, function(y) present(y,"zext"))
 R <- add(R, "pobre",                 "Pobre por ingreso (0/1)",                  "persona", TRUE, function(y) present(y,"p0"))
 R <- add(R, "pobre_extremo",         "Pobre extremo por ingreso (0/1)",          "persona", TRUE, function(y) present(y,"pext0"))
+# --- Vivienda (nivel vivienda; se une a persona por folio en build_armonizada) ---
+# tipo y tenencia comparten etiqueta de variable -> se detectan por etiqueta de valor.
+R <- add(R, "tipo_vivienda",     "Tipo de vivienda (1=Casa..6=Local)",   "vivienda", TRUE, function(y) detect_by_value(y, "choza|pahuichi", "vivienda"))
+R <- add(R, "tenencia_vivienda", "Tenencia de la vivienda (recodificada)","vivienda", TRUE, function(y) detect_by_value(y, "alquilada", "vivienda"))
+# --- Salud (persona) ---
+R <- add(R, "tiene_seguro_salud","Afiliado a algún seguro de salud (0/1)","persona", TRUE, detect_seguro)
 
 variable_canonica_map <- do.call(rbind, lapply(R, function(r) as.data.frame(r, stringsAsFactors = FALSE)))
 rownames(variable_canonica_map) <- NULL

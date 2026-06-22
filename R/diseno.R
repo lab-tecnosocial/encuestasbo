@@ -10,8 +10,13 @@
       "i" = "Usa datos armonizados (armonizar_eh()) que garantizan upm/estrato/factor."
     ))
   }
-  old <- options(survey.lonely.psu = "adjust")
-  on.exit(options(old), add = TRUE)
+  # Manejo de "lonely PSU" (estratos con una sola UPM). La estimación de varianza
+  # lee survey.lonely.psu al CALCULAR (no al construir), así que se fija a nivel de
+  # sesión, de forma persistente. Solo se fuerza "adjust" cuando la opción actual
+  # provocaría un error (NULL o "fail"); se respeta cualquier otra elección válida
+  # del usuario ("remove", "average", "certainty").
+  cur <- getOption("survey.lonely.psu")
+  if (is.null(cur) || identical(cur, "fail")) options(survey.lonely.psu = "adjust")
   srvyr::as_survey_design(
     df,
     ids     = "upm",
@@ -41,10 +46,10 @@
 #'   `srvyr::summarise()` + `survey_mean()`, `survey_total()`, `survey_prop()`.
 #'
 #' @details
-#' Se fija temporalmente `options(survey.lonely.psu = "adjust")` durante la
-#' construcción para manejar estratos con una sola UPM, y se restaura al salir.
-#' Las encuestas se cargan en memoria (`as = "tibble"`) porque `survey`/`srvyr`
-#' lo requieren; el tamaño de la EH (~12k viviendas) lo hace viable.
+#' El paquete fija `options(survey.lonely.psu = "adjust")` al cargarse (si no lo
+#' fijaste tú), para manejar estratos con una sola UPM en la estimación de
+#' varianza. Las encuestas se cargan en memoria (`as = "tibble"`) porque
+#' `survey`/`srvyr` lo requieren; el tamaño de la EH (~12k viviendas) lo hace viable.
 #'
 #' @seealso [get_eh()], [armonizar_eh()], [diseno_ece()].
 #' @export
@@ -105,18 +110,4 @@ diseno_ece <- function(anio, trimestre, tabla = "persona",
   .declarar_diseno(df, weights_var = weights_var)
 }
 
-#' Armoniza un data frame de la ECE a nombres canónicos
-#'
-#' Placeholder de armonización para la ECE (pendiente de datos; ver README).
-#' Por ahora garantiza las columnas de diseño si ya existen.
-#'
-#' @param df Un data.frame de [get_ece()].
-#' @param anio,trimestre Periodo de origen.
-#' @return El data.frame (sin cambios si no hay mapa de ECE).
-#' @export
-armonizar_ece <- function(df, anio, trimestre) {
-  # La armonización detallada de la ECE se añadirá cuando se incorporen sus
-  # microdatos (alojados en el repositorio externo del INE). Por ahora se
-  # devuelven los datos tal cual; las variables de diseño ya suelen ser canónicas.
-  df
-}
+# armonizar_ece() vive en R/armonizar_ece.R

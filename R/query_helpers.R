@@ -41,7 +41,10 @@
     },
     "duckdb" = {
       con <- DBI::dbConnect(duckdb::duckdb(), dbdir = ":memory:")
-      duckdb::duckdb_register_arrow(con, table_name, ds)
+      # Materializamos a una tabla DuckDB nativa (las encuestas son pequeñas).
+      # Registrar el Dataset Arrow como view lazy provoca errores de
+      # "dynamic filter pushdown not supported" con ORDER BY/LIMIT.
+      DBI::dbWriteTable(con, table_name, dplyr::collect(ds))
       con
     }
   )

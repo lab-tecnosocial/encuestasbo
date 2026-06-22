@@ -52,6 +52,20 @@ test_that(".coerce_canonicas homogeniza tipos para apilar años", {
   expect_silent(dplyr::bind_rows(ra, rb))
 })
 
+test_that(".armonizar_valores() colapsa los códigos de 'Otros' de nivel_edu", {
+  df <- data.frame(nivel_edu = c(0L, 1L, 2L, 3L, 4L, 5L, 9L, NA))
+  r <- .armonizar_valores(df)
+  expect_equal(r$nivel_edu, c(0L, 1L, 2L, 3L, 4L, 4L, 4L, NA))  # 5 y 9 -> 4
+})
+
+test_that("armonizar_eh recodifica nivel_edu a un esquema estable", {
+  # niv_ed_g 2014 usa 5 para 'Otros'
+  df <- data.frame(folio = "F1", nro = 1L, depto = 1L, area = 1L, upm = 1L,
+                   estrato = 1L, factor_2014 = 1, niv_ed_g = 5L)
+  res <- armonizar_eh(df, 2014)
+  expect_equal(res$nivel_edu, 4L)
+})
+
 test_that("grupos_variables() devuelve grupos temáticos válidos", {
   g <- grupos_variables()
   expect_true(all(c("demografico", "empleo", "pobreza", "ingresos") %in% names(g)))
