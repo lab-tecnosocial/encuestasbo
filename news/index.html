@@ -83,6 +83,18 @@
 <code><a href="../reference/armonizar_eh.html">armonizar_eh()</a></code>, <code><a href="../reference/get_eh_armonizada.html">get_eh_armonizada()</a></code>, <code><a href="../reference/variables_armonizadas.html">variables_armonizadas()</a></code>, <code><a href="../reference/grupos_variables.html">grupos_variables()</a></code>. Apoyada en variables derivadas del INE (ingresos, pobreza, educación, empleo) con nombres estables entre años.</li>
 <li>
 <code><a href="../reference/get_eh_armonizada.html">get_eh_armonizada()</a></code> se respalda en un único Parquet armonizado precalculado (~5 MB, 13 años, esquema consistente) y admite <code>as = "tibble"/"arrow"/"duckdb"</code> para consultas cross-año perezosas (DuckDB por debajo). Corrige además el apilado de años con tipos mixtos (p. ej. <code>estrato</code> texto/numérico).</li>
+<li>Las variables categóricas armonizadas tienen <strong>etiquetas estables entre años</strong>; <code><a href="../reference/etiquetar_valores.html">etiquetar_valores()</a></code> las detecta automáticamente en datos armonizados (sin indicar año). Además se unifican valores que cambiaban de código entre años (<code>nivel_edu</code>: “Otros” era 4/5/9 según el año → ahora siempre 4).</li>
+<li>Nuevas variables armonizadas de <strong>vivienda</strong> y <strong>salud</strong>: <code>tipo_vivienda</code>, <code>tenencia_vivienda</code> (recodificada a un esquema canónico; el INE usó dos órdenes de códigos, 2012-2015 vs 2016+) y <code>tiene_seguro_salud</code> (afiliación a algún seguro, 0/1). Las de vivienda se unen a la capa persona por <code>folio</code>. Nuevos grupos <code>"vivienda"</code> y <code>"salud"</code> en <code><a href="../reference/grupos_variables.html">grupos_variables()</a></code>. Validadas contra ARU (tenencia propia ~62 %, casa ~75 %, sin seguro 2023 = 14,3 %).</li>
+</ul></div>
+<div class="section level3">
+<h3 id="indicadores-con-diseño-muestral-0-1-0">Indicadores con diseño muestral<a class="anchor" aria-label="anchor" href="#indicadores-con-dise%C3%B1o-muestral-0-1-0"></a></h3>
+<ul><li>Nuevos atajos que envuelven el diseño + <code>srvyr</code> y devuelven la estimación con intervalo de confianza, con desagregación opcional vía <code>por =</code>: <code><a href="../reference/tasa_pobreza.html">tasa_pobreza()</a></code> (EH), <code><a href="../reference/tasa_desempleo.html">tasa_desempleo()</a></code>, <code><a href="../reference/tasa_subocupacion.html">tasa_subocupacion()</a></code> y <code><a href="../reference/empleo_vulnerable.html">empleo_vulnerable()</a></code> (ECE). Utilidad <code><a href="../reference/grupo_edad.html">grupo_edad()</a></code> para cohortes etarias.</li>
+<li>Validados contra estudios de terceros (Fundación ARU) que usan los mismos microdatos del INE: pobreza por área, subocupación por sexo/departamento y empleo vulnerable coinciden con las cifras publicadas.</li>
+</ul></div>
+<div class="section level3">
+<h3 id="armonización-de-la-ece-0-1-0">Armonización de la ECE<a class="anchor" aria-label="anchor" href="#armonizaci%C3%B3n-de-la-ece-0-1-0"></a></h3>
+<ul><li>
+<code><a href="../reference/armonizar_ece.html">armonizar_ece()</a></code> ahora añade variables canónicas estables entre versiones del cuestionario (cambió en 2019): <code>sexo</code>, <code>categoria_ocupacional</code> (mapeada desde <code>s2_20</code> hasta 2018 y <code>s2_18</code> desde 2019, con codificaciones distintas), <code>ocupado</code>, <code>desocupado</code> y <code>subocupado</code>. Esto hace comparables indicadores como el empleo vulnerable a lo largo de toda la serie.</li>
 </ul></div>
 <div class="section level3">
 <h3 id="diseño-muestral-0-1-0">Diseño muestral<a class="anchor" aria-label="anchor" href="#dise%C3%B1o-muestral-0-1-0"></a></h3>

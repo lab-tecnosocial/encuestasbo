@@ -108,10 +108,10 @@ sintaxis del diseño sea estable entre años).</p></dd>
     </div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
-    <p>Se fija temporalmente `options(survey.lonely.psu = "adjust")` durante la
-construcción para manejar estratos con una sola UPM, y se restaura al salir.
-Las encuestas se cargan en memoria (`as = "tibble"`) porque `survey`/`srvyr`
-lo requieren; el tamaño de la EH (~12k viviendas) lo hace viable.</p>
+    <p>El paquete fija `options(survey.lonely.psu = "adjust")` al cargarse (si no lo
+fijaste tú), para manejar estratos con una sola UPM en la estimación de
+varianza. Las encuestas se cargan en memoria (`as = "tibble"`) porque
+`survey`/`srvyr` lo requieren; el tamaño de la EH (~12k viviendas) lo hace viable.</p>
     </div>
     <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>

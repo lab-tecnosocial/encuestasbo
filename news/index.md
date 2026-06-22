@@ -63,6 +63,50 @@ funcional de punta a punta.
   años, esquema consistente) y admite `as = "tibble"/"arrow"/"duckdb"`
   para consultas cross-año perezosas (DuckDB por debajo). Corrige además
   el apilado de años con tipos mixtos (p. ej. `estrato` texto/numérico).
+- Las variables categóricas armonizadas tienen **etiquetas estables
+  entre años**;
+  [`etiquetar_valores()`](https://lab-tecnosocial.github.io/encuestasbo/reference/etiquetar_valores.md)
+  las detecta automáticamente en datos armonizados (sin indicar año).
+  Además se unifican valores que cambiaban de código entre años
+  (`nivel_edu`: “Otros” era 4/5/9 según el año → ahora siempre 4).
+- Nuevas variables armonizadas de **vivienda** y **salud**:
+  `tipo_vivienda`, `tenencia_vivienda` (recodificada a un esquema
+  canónico; el INE usó dos órdenes de códigos, 2012-2015 vs 2016+) y
+  `tiene_seguro_salud` (afiliación a algún seguro, 0/1). Las de vivienda
+  se unen a la capa persona por `folio`. Nuevos grupos `"vivienda"` y
+  `"salud"` en
+  [`grupos_variables()`](https://lab-tecnosocial.github.io/encuestasbo/reference/grupos_variables.md).
+  Validadas contra ARU (tenencia propia ~62 %, casa ~75 %, sin seguro
+  2023 = 14,3 %).
+
+### Indicadores con diseño muestral
+
+- Nuevos atajos que envuelven el diseño + `srvyr` y devuelven la
+  estimación con intervalo de confianza, con desagregación opcional vía
+  `por =`:
+  [`tasa_pobreza()`](https://lab-tecnosocial.github.io/encuestasbo/reference/tasa_pobreza.md)
+  (EH),
+  [`tasa_desempleo()`](https://lab-tecnosocial.github.io/encuestasbo/reference/tasa_desempleo.md),
+  [`tasa_subocupacion()`](https://lab-tecnosocial.github.io/encuestasbo/reference/tasa_subocupacion.md)
+  y
+  [`empleo_vulnerable()`](https://lab-tecnosocial.github.io/encuestasbo/reference/empleo_vulnerable.md)
+  (ECE). Utilidad
+  [`grupo_edad()`](https://lab-tecnosocial.github.io/encuestasbo/reference/grupo_edad.md)
+  para cohortes etarias.
+- Validados contra estudios de terceros (Fundación ARU) que usan los
+  mismos microdatos del INE: pobreza por área, subocupación por
+  sexo/departamento y empleo vulnerable coinciden con las cifras
+  publicadas.
+
+### Armonización de la ECE
+
+- [`armonizar_ece()`](https://lab-tecnosocial.github.io/encuestasbo/reference/armonizar_ece.md)
+  ahora añade variables canónicas estables entre versiones del
+  cuestionario (cambió en 2019): `sexo`, `categoria_ocupacional`
+  (mapeada desde `s2_20` hasta 2018 y `s2_18` desde 2019, con
+  codificaciones distintas), `ocupado`, `desocupado` y `subocupado`.
+  Esto hace comparables indicadores como el empleo vulnerable a lo largo
+  de toda la serie.
 
 ### Diseño muestral
 

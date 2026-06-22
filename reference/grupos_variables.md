@@ -34,6 +34,12 @@ grupos_variables()
 #> [1] "pobre"                 "pobre_extremo"         "linea_pobreza"        
 #> [4] "linea_pobreza_extrema"
 #> 
+#> $vivienda
+#> [1] "tipo_vivienda"     "tenencia_vivienda"
+#> 
+#> $salud
+#> [1] "tiene_seguro_salud"
+#> 
 grupos_variables()$pobreza
 #> [1] "pobre"                 "pobre_extremo"         "linea_pobreza"        
 #> [4] "linea_pobreza_extrema"

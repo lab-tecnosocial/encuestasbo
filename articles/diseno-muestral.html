@@ -176,10 +176,10 @@ cada uno:</p>
 <strong><code>nest = TRUE</code></strong>: las UPM están anidadas
 dentro de estratos.</li>
 <li>
-<strong><code>survey.lonely.psu = "adjust"</code></strong>:
-<code>diseno_*()</code> lo fija temporalmente (y lo restaura al salir)
-para manejar estratos con una sola UPM sin romper la estimación de
-varianza.</li>
+<strong><code>survey.lonely.psu = "adjust"</code></strong>: el
+paquete lo fija al cargarse (si no lo fijaste tú) para manejar estratos
+con una sola UPM sin romper la estimación de varianza (la opción se lee
+al <em>calcular</em>, no al construir el diseño).</li>
 <li>
 <strong>Desagregaciones</strong>: el INE recomienda evaluar el
 coeficiente de variación (<code>vartype = "cv"</code>); estimaciones de

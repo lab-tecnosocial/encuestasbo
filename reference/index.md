@@ -57,7 +57,7 @@ entre años, apoyadas en las variables derivadas del INE.
 - [`grupos_variables()`](https://lab-tecnosocial.github.io/encuestasbo/reference/grupos_variables.md)
   : Grupos temáticos de variables armonizadas
 - [`armonizar_ece()`](https://lab-tecnosocial.github.io/encuestasbo/reference/armonizar_ece.md)
-  : Armoniza un data frame de la ECE a nombres canónicos
+  : Armoniza un data frame de la ECE a nombres/códigos canónicos
 
 ## Diseño muestral (survey / srvyr)
 
@@ -68,6 +68,23 @@ para estimaciones e intervalos de confianza correctos.
   : Declara el diseño muestral de la Encuesta de Hogares (EH)
 - [`diseno_ece()`](https://lab-tecnosocial.github.io/encuestasbo/reference/diseno_ece.md)
   : Declara el diseño muestral de la Encuesta Continua de Empleo (ECE)
+
+## Indicadores con diseño muestral
+
+Atajos para los indicadores más comunes (pobreza, desempleo,
+subocupación, empleo vulnerable) con desagregación opcional e intervalos
+de confianza.
+
+- [`tasa_pobreza()`](https://lab-tecnosocial.github.io/encuestasbo/reference/tasa_pobreza.md)
+  : Tasa de pobreza (EH)
+- [`tasa_desempleo()`](https://lab-tecnosocial.github.io/encuestasbo/reference/tasa_desempleo.md)
+  : Tasa de desempleo (ECE)
+- [`tasa_subocupacion()`](https://lab-tecnosocial.github.io/encuestasbo/reference/tasa_subocupacion.md)
+  : Tasa de subocupación (ECE)
+- [`empleo_vulnerable()`](https://lab-tecnosocial.github.io/encuestasbo/reference/empleo_vulnerable.md)
+  : Tasa de empleo vulnerable (ECE)
+- [`grupo_edad()`](https://lab-tecnosocial.github.io/encuestasbo/reference/grupo_edad.md)
+  : Agrupa la edad en cohortes
 
 ## Geografía
 

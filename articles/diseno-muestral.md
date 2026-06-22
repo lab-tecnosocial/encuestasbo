@@ -113,9 +113,10 @@ do.call(rbind, lapply(seq_len(nrow(per)), function(i) {
 ## Notas metodológicas
 
 - **`nest = TRUE`**: las UPM están anidadas dentro de estratos.
-- **`survey.lonely.psu = "adjust"`**: `diseno_*()` lo fija temporalmente
-  (y lo restaura al salir) para manejar estratos con una sola UPM sin
-  romper la estimación de varianza.
+- **`survey.lonely.psu = "adjust"`**: el paquete lo fija al cargarse (si
+  no lo fijaste tú) para manejar estratos con una sola UPM sin romper la
+  estimación de varianza (la opción se lee al *calcular*, no al
+  construir el diseño).
 - **Desagregaciones**: el INE recomienda evaluar el coeficiente de
   variación (`vartype = "cv"`); estimaciones de subgrupos pequeños
   pueden no ser significativas.

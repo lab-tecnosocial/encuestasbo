@@ -37,6 +37,20 @@ get_eh(2023, "persona", as = "tibble") |>
   count(sexo)
 ```
 
+Las variables categóricas armonizadas tienen **etiquetas estables entre
+años**;
+[`etiquetar_valores()`](https://lab-tecnosocial.github.io/encuestasbo/reference/etiquetar_valores.md)
+las detecta sin necesidad de indicar el año. Además, los valores que
+cambiaban de código entre años se unifican (p. ej. `nivel_edu`: el
+código de “Otros” era 4 o 5 según el año, ahora siempre 4):
+
+``` r
+
+get_eh_armonizada(variables = c("nivel_edu", "sexo", "pobre")) |>
+  etiquetar_valores() |>
+  count(nivel_edu, pobre)
+```
+
 ## Serie larga entre años
 
 [`get_eh_armonizada()`](https://lab-tecnosocial.github.io/encuestasbo/reference/get_eh_armonizada.md)
