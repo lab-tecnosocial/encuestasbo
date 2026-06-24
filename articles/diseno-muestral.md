@@ -41,7 +41,7 @@ des |>
 ```
 
 La estimación ponderada (~36.5 %) coincide con la cifra oficial del INE;
-la media **sin** ponderar difiere y no permite un intervalo de confianza
+la media sin ponderar difiere y no permite un intervalo de confianza
 válido.
 
 ``` r
@@ -62,7 +62,7 @@ La ECE es trimestral y tiene **dos factores de expansión distintos**:
 trimestral y mensual.
 [`diseno_ece()`](https://lab-tecnosocial.github.io/encuestasbo/reference/diseno_ece.md)
 usa el **trimestral** por defecto (el adecuado para estimaciones del
-trimestre); **no deben mezclarse**.
+trimestre).
 
 ``` r
 
@@ -89,8 +89,8 @@ edad de trabajar), `pea` (activos), `peao` (ocupados), `pead`
 
 ## Series con diseño
 
-Para tendencias, combina varios periodos manteniendo el diseño en cada
-uno:
+Para tendencias, podrías combinar varios periodos manteniendo el diseño
+en cada uno:
 
 ``` r
 

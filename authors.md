@@ -8,17 +8,17 @@
 ## Citation
 
 Source:
-[`DESCRIPTION`](https://github.com/lab-tecnosocial/encuestasbo/blob/main/DESCRIPTION)
+[`inst/CITATION`](https://github.com/lab-tecnosocial/encuestasbo/blob/main/inst/CITATION)
 
-Ojeda Copa A (2026). *encuestasbo: Acceso, armonización y análisis con
-diseño muestral de las encuestas de hogares y empleo del INE de Bolivia
-(2012-2024)*. R package version 0.1.0,
-<https://lab-tecnosocial.github.io/encuestasbo/>.
+Ojeda Copa, A. (2026). encuestasbo: Acceso, armonizacion y analisis con
+diseno muestral de las encuestas del INE de Bolivia. Lab TecnoSocial.
+Paquete de R. https://github.com/lab-tecnosocial/encuestasbo
 
     @Manual{,
-      title = {encuestasbo: Acceso, armonización y análisis con diseño muestral de las encuestas de hogares y empleo del INE de Bolivia (2012-2024)},
+      title = {encuestasbo: Acceso, armonizacion y analisis con diseno muestral de las encuestas del INE de Bolivia},
       author = {Alex {Ojeda Copa}},
+      organization = {Lab TecnoSocial},
       year = {2026},
-      note = {R package version 0.1.0},
-      url = {https://lab-tecnosocial.github.io/encuestasbo/},
+      note = {Paquete de R},
+      url = {https://github.com/lab-tecnosocial/encuestasbo},
     }

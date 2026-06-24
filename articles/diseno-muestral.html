@@ -6,6 +6,11 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>Diseño muestral: estimaciones correctas (EH y ECE) • encuestasbo</title>
+<!-- favicons --><link rel="icon" type="image/png" sizes="96x96" href="../favicon-96x96.png">
+<link rel="icon" type="”image/svg+xml”" href="../favicon.svg">
+<link rel="apple-touch-icon" sizes="180x180" href="../apple-touch-icon.png">
+<link rel="icon" sizes="any" href="../favicon.ico">
+<link rel="manifest" href="../site.webmanifest">
 <script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="../deps/bootstrap-5.3.8/bootstrap.min.css" rel="stylesheet">
 <script src="../deps/bootstrap-5.3.8/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
@@ -42,8 +47,8 @@
     <li><hr class="dropdown-divider"></li>
     <li><h6 class="dropdown-header" data-toc-skip>Por encuesta</h6></li>
     <li><a class="dropdown-item" href="../articles/encuesta-hogares.html">Encuesta de Hogares: pobreza, ingresos y empleo</a></li>
-    <li><a class="dropdown-item" href="../articles/armonizacion.html">Armonización de la EH entre años</a></li>
     <li><a class="dropdown-item" href="../articles/ece-empleo.html">Encuesta Continua de Empleo: empleo trimestral</a></li>
+    <li><a class="dropdown-item" href="../articles/armonizacion.html">Armonización de la EH entre años</a></li>
   </ul>
 </li>
 <li class="nav-item"><a class="nav-link" href="../news/index.html">Noticias</a></li>
@@ -65,8 +70,7 @@
 
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
-
-      <h1>Diseño muestral: estimaciones correctas (EH y ECE)</h1>
+      <img src="../logo.png" class="logo" alt=""><h1>Diseño muestral: estimaciones correctas (EH y ECE)</h1>
             
       
       <small class="dont-index">Source: <a href="https://github.com/lab-tecnosocial/encuestasbo/blob/main/vignettes/diseno-muestral.Rmd" class="external-link"><code>vignettes/diseno-muestral.Rmd</code></a></small>
@@ -108,8 +112,8 @@ de expansión, <code>nest = TRUE</code>), sobre el que se usa
 <span><span class="co">#&gt;     &lt;dbl&gt;       &lt;dbl&gt;       &lt;dbl&gt;</span></span>
 <span><span class="co">#&gt; 1   0.365       0.351       0.379</span></span></code></pre></div>
 <p>La estimación ponderada (~36.5 %) coincide con la cifra oficial del
-INE; la media <strong>sin</strong> ponderar difiere y no permite un
-intervalo de confianza válido.</p>
+INE; la media sin ponderar difiere y no permite un intervalo de
+confianza válido.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Desagregaciones: ingreso del hogar por área; pobreza por departamento</span></span>
 <span><span class="fu"><a href="../reference/diseno_eh.html">diseno_eh</a></span><span class="op">(</span><span class="fl">2023</span><span class="op">)</span> <span class="op">|&gt;</span></span>
@@ -126,7 +130,7 @@ intervalo de confianza válido.</p>
 <p>La ECE es trimestral y tiene <strong>dos factores de expansión
 distintos</strong>: trimestral y mensual. <code><a href="../reference/diseno_ece.html">diseno_ece()</a></code> usa
 el <strong>trimestral</strong> por defecto (el adecuado para
-estimaciones del trimestre); <strong>no deben mezclarse</strong>.</p>
+estimaciones del trimestre).</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Diseño de la ECE 4T-2023 (factor trimestral)</span></span>
 <span><span class="va">dece</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/diseno_ece.html">diseno_ece</a></span><span class="op">(</span><span class="fl">2023</span>, trimestre <span class="op">=</span> <span class="fl">4</span><span class="op">)</span></span>
@@ -150,8 +154,8 @@ estimaciones del trimestre); <strong>no deben mezclarse</strong>.</p>
 <div class="section level2">
 <h2 id="series-con-diseño">Series con diseño<a class="anchor" aria-label="anchor" href="#series-con-dise%C3%B1o"></a>
 </h2>
-<p>Para tendencias, combina varios periodos manteniendo el diseño en
-cada uno:</p>
+<p>Para tendencias, podrías combinar varios periodos manteniendo el
+diseño en cada uno:</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Pobreza ponderada de la EH por año</span></span>
 <span><span class="va">anios</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2019</span>, <span class="fl">2021</span>, <span class="fl">2022</span>, <span class="fl">2023</span>, <span class="fl">2024</span><span class="op">)</span></span>

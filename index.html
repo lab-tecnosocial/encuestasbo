@@ -6,6 +6,11 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>encuestasbo: Encuestas del INE de Bolivia • encuestasbo</title>
+<!-- favicons --><link rel="icon" type="image/png" sizes="96x96" href="favicon-96x96.png">
+<link rel="icon" type="”image/svg+xml”" href="favicon.svg">
+<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+<link rel="icon" sizes="any" href="favicon.ico">
+<link rel="manifest" href="site.webmanifest">
 <script src="deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="deps/bootstrap-5.3.8/bootstrap.min.css" rel="stylesheet">
 <script src="deps/bootstrap-5.3.8/bootstrap.bundle.min.js"></script><link href="deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
@@ -15,6 +20,7 @@
 ">
 <meta property="og:description" content="Acceso, armonización y análisis con diseño muestral de las encuestas del INE de Bolivia: Encuesta de Hogares (2012–2024) y Encuesta Continua de Empleo (4T2015–3T2025). Descarga bajo demanda, caché local, compatible con dplyr, Arrow y DuckDB, e integración con survey/srvyr para estimaciones estadísticamente correctas.
 ">
+<meta property="og:image" content="https://lab-tecnosocial.github.io/encuestasbo/logo.png">
 </head>
 <body>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
@@ -46,8 +52,8 @@
     <li><hr class="dropdown-divider"></li>
     <li><h6 class="dropdown-header" data-toc-skip>Por encuesta</h6></li>
     <li><a class="dropdown-item" href="articles/encuesta-hogares.html">Encuesta de Hogares: pobreza, ingresos y empleo</a></li>
-    <li><a class="dropdown-item" href="articles/armonizacion.html">Armonización de la EH entre años</a></li>
     <li><a class="dropdown-item" href="articles/ece-empleo.html">Encuesta Continua de Empleo: empleo trimestral</a></li>
+    <li><a class="dropdown-item" href="articles/armonizacion.html">Armonización de la EH entre años</a></li>
   </ul>
 </li>
 <li class="nav-item"><a class="nav-link" href="news/index.html">Noticias</a></li>
@@ -65,11 +71,13 @@
 </nav><div class="container template-home">
 <div class="row">
   <main id="main" class="col-md-9"><div class="section level1">
-<div class="page-header"><h1 id="encuestasbo">encuestasbo<a class="anchor" aria-label="anchor" href="#encuestasbo"></a>
-</h1></div>
+<div class="page-header">
+<img src="logo.png" class="logo" alt=""><h1 id="encuestasbo-">encuestasbo <a class="anchor" aria-label="anchor" href="#encuestasbo-"></a>
+</h1>
+</div>
 <!-- badges: start -->
 
-<p>Paquete de R para el acceso, armonización y análisis <strong>estadísticamente riguroso</strong> de las encuestas del Instituto Nacional de Estadística (INE) de Bolivia:</p>
+<p>Paquete de R para el acceso, armonización y análisis de las encuestas del Instituto Nacional de Estadística (INE) de Bolivia:</p>
 <ul>
 <li>
 <strong>Encuesta de Hogares (EH)</strong> — anual, <strong>2012–2024</strong> (13 años).</li>
@@ -145,14 +153,49 @@
 <code class="sourceCode R"><span><span class="fu"><a href="reference/encuestasbo_cache_dir.html">encuestasbo_cache_dir</a></span><span class="op">(</span><span class="op">)</span>; <span class="fu"><a href="reference/encuestasbo_cache_info.html">encuestasbo_cache_info</a></span><span class="op">(</span><span class="op">)</span>; <span class="fu"><a href="reference/encuestasbo_cache_clear.html">encuestasbo_cache_clear</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level2">
-<h2 id="fuente-de-datos">Fuente de datos<a class="anchor" aria-label="anchor" href="#fuente-de-datos"></a>
+<h2 id="fuentes-de-datos">Fuentes de datos<a class="anchor" aria-label="anchor" href="#fuentes-de-datos"></a>
 </h2>
-<p>INE Bolivia, portal ANDA: <a href="https://anda.ine.gob.bo/index.php/catalog/ENCUESTAS" class="external-link uri">https://anda.ine.gob.bo/index.php/catalog/ENCUESTAS</a>. Los microdatos son de uso público; cita la fuente según las condiciones del INE.</p>
+<p>Todos los microdatos provienen del <strong>Instituto Nacional de Estadística (INE) de Bolivia</strong>, de dos repositorios distintos:</p>
+<ul>
+<li>
+<strong>Encuesta de Hogares (EH)</strong> — portal <strong>ANDA</strong> del INE (catálogo ENCUESTAS): <a href="https://anda.ine.gob.bo/index.php/catalog/ENCUESTAS" class="external-link uri">https://anda.ine.gob.bo/index.php/catalog/ENCUESTAS</a>. La descarga de los <code>.sav</code> requiere registro/inicio de sesión y aceptar los términos de uso del INE.</li>
+<li>
+<strong>Encuesta Continua de Empleo (ECE)</strong> — página de <strong>Metadatos y microdatos</strong> del INE (acceso abierto, sin registro): <a href="https://www.ine.gob.bo/index.php/metadatos-y-microdatos/" class="external-link uri">https://www.ine.gob.bo/index.php/metadatos-y-microdatos/</a> (los archivos se alojan en el repositorio Nextcloud del INE, <code>nube.ine.gob.bo</code>).</li>
+</ul>
+<p>Este paquete <strong>no</strong> accede a esos portales en tiempo de ejecución: los microdatos ya están procesados a Parquet y publicados en GitHub Releases, de donde las funciones <code>get_*()</code> los descargan y cachean automáticamente.</p>
 </div>
 <div class="section level2">
-<h2 id="licencia">Licencia<a class="anchor" aria-label="anchor" href="#licencia"></a>
+<h2 id="nota-metodológica">Nota metodológica<a class="anchor" aria-label="anchor" href="#nota-metodol%C3%B3gica"></a>
 </h2>
-<p>MIT © 2026 Alex Ojeda Copa (Lab TecnoSocial)</p>
+<p>Cómo se transformaron los microdatos originales del INE en los datos que entrega este paquete:</p>
+<ol style="list-style-type: decimal">
+<li>
+<strong>Origen.</strong> Se parte de los archivos SPSS (<code>.sav</code>) publicados por el INE: la EH desde ANDA y la ECE desde la página de metadatos y microdatos. No se altera ningún registro original.</li>
+<li>
+<strong>Lectura con etiquetas.</strong> Cada <code>.sav</code> se lee con <a href="https://haven.tidyverse.org/" class="external-link"><code>haven</code></a>, preservando las etiquetas de variable y de valor (<code>label</code> / <code>labels</code>) que define el INE.</li>
+<li>
+<strong>Diccionario.</strong> De esos atributos etiquetados se extrae un <strong>codebook</strong> por encuesta y periodo (variable, etiqueta, tipo, categorías), que se distribuye como dato del paquete (<code>codebook_eh_meta</code>, <code>codebook_ece_meta</code>) y alimenta <code><a href="reference/codebook.html">codebook()</a></code> / <code><a href="reference/etiquetar_valores.html">etiquetar_valores()</a></code>.</li>
+<li>
+<strong>Datos numéricos + Parquet.</strong> Tras extraer el diccionario, los valores se dejan como códigos numéricos (<code><a href="https://haven.tidyverse.org/reference/zap_labels.html" class="external-link">haven::zap_labels()</a></code>) y se escribe <strong>un archivo Parquet por (encuesta, periodo, tabla)</strong> con Apache Arrow. Las etiquetas viven en el codebook, no en los datos, lo que hace los archivos pequeños y rápidos. Se conservan intactas las <strong>variables de diseño muestral</strong> (<code>upm</code>, <code>estrato</code>, factores de expansión) necesarias para estimar con <code>survey</code>/<code>srvyr</code>.</li>
+<li>
+<strong>Armonización entre periodos.</strong> Una capa canónica (<code>variable_canonica_map</code>) unifica los <strong>nombres</strong> de variables que el INE cambió entre años (detectados por su etiqueta cuando el código de variable varía) y <strong>recodifica los valores</strong> cuando el INE alteró las categorías: p. ej. el “Otros” del nivel educativo, la <strong>tenencia de la vivienda</strong> (dos órdenes de códigos: 2012–2015 vs 2016+) o la <strong>categoría ocupacional</strong> de la ECE (cuestionario 2018 vs 2019+). La capa armonizada de la EH se materializa además en un único Parquet precalculado. Las variables de vivienda (nivel hogar) se unen a las de persona por <code>folio</code>.</li>
+<li>
+<strong>Indicadores ya calculados por el INE.</strong> Las <strong>líneas de pobreza</strong>, los <strong>factores de expansión</strong> y las variables derivadas (pobreza, ingresos, condición de actividad, nivel educativo) las calcula el propio INE; el paquete las expone con nombres canónicos y <strong>no recalcula</strong> esos agregados.</li>
+<li>
+<strong>Publicación y verificación.</strong> Los Parquet resultantes se publican en GitHub Releases (las funciones <code>get_*()</code> los descargan y cachean). Los resultados se han contrastado contra las cifras oficiales del INE, con coincidencias dentro del margen muestral.</li>
+</ol>
+<p>Los límites de comparabilidad entre periodos (cambios de cuestionario, de marco muestral o de clasificadores) se documentan en <code><a href="articles/armonizacion.html">vignette("armonizacion")</a></code> y en la ficha técnica de cada estudio (<code><a href="reference/ficha_tecnica.html">ficha_tecnica()</a></code>).</p>
+</div>
+<div class="section level2">
+<h2 id="citación">Citación<a class="anchor" aria-label="anchor" href="#citaci%C3%B3n"></a>
+</h2>
+<p>Si usas <code>encuestasbo</code> en un trabajo, por favor cítalo. En R:</p>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/citation.html" class="external-link">citation</a></span><span class="op">(</span><span class="st">"encuestasbo"</span><span class="op">)</span></span></code></pre></div>
+<blockquote>
+<p>Ojeda Copa, A. (2026). <em>encuestasbo: Acceso, armonización y análisis con diseño muestral de las encuestas del INE de Bolivia</em>. Lab TecnoSocial. Paquete de R. <a href="https://github.com/lab-tecnosocial/encuestasbo" class="external-link uri">https://github.com/lab-tecnosocial/encuestasbo</a></p>
+</blockquote>
+<p>Cita además la <strong>fuente primaria de los microdatos</strong>: Instituto Nacional de Estadística (INE) de Bolivia, Encuesta de Hogares / Encuesta Continua de Empleo, según el periodo utilizado.</p>
 </div>
 </div>
   </main><aside class="col-md-3"><div class="links">
