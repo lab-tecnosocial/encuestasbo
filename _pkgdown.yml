@@ -60,10 +60,10 @@ navbar:
       - text: "Por encuesta"
       - text: "Encuesta de Hogares: pobreza, ingresos y empleo"
         href: articles/encuesta-hogares.html
-      - text: "Armonización de la EH entre años"
-        href: articles/armonizacion.html
       - text: "Encuesta Continua de Empleo: empleo trimestral"
         href: articles/ece-empleo.html
+      - text: "Armonización de la EH entre años"
+        href: articles/armonizacion.html
 
 footer:
   left: "Desarrollado por [Alex Ojeda Copa](https://github.com/alex-roc)."

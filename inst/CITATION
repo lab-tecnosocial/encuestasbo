@@ -1,0 +1,22 @@
+citHeader("Para citar el paquete encuestasbo en publicaciones use:")
+
+bibentry(
+  bibtype  = "Manual",
+  title    = "encuestasbo: Acceso, armonizacion y analisis con diseno muestral de las encuestas del INE de Bolivia",
+  author   = person("Alex", "Ojeda Copa"),
+  organization = "Lab TecnoSocial",
+  year     = "2026",
+  note     = "Paquete de R",
+  url      = "https://github.com/lab-tecnosocial/encuestasbo",
+  textVersion = paste(
+    "Ojeda Copa, A. (2026).",
+    "encuestasbo: Acceso, armonizacion y analisis con diseno muestral de las",
+    "encuestas del INE de Bolivia. Lab TecnoSocial. Paquete de R.",
+    "https://github.com/lab-tecnosocial/encuestasbo"
+  )
+)
+
+citFooter(
+  "Cite ademas la fuente primaria de los microdatos: Instituto Nacional de ",
+  "Estadistica (INE) de Bolivia, Encuesta de Hogares / Encuesta Continua de Empleo."
+)
