@@ -19,9 +19,9 @@
 # --- Encuesta de Hogares (EH) -------------------------------------------------
 # Niveles analíticos principales. El conjunto completo de bases por año
 # (equipamiento, gastos_alimentarios, seguridad_alimentaria, discriminacion)
-# se añade durante la adquisición; aquí se siembran los dos niveles centrales.
-# EH 2012-2024 (13 años). El catálogo 88 (EH 2020) distribuye 4 bases SPSS
-# (Persona, Vivienda, Defunciones, GastosAlimentarios); se usan Persona+Vivienda.
+# se añade durante la adquisición. EH 2012-2024 (13 años). Niveles centrales
+# persona/vivienda + bases temáticas (equipamiento, gastos, seguridad alimentaria,
+# discriminación, turismo, cultura, defunciones) según disponibilidad por año.
 eh_anios   <- 2012:2024
 eh_tablas  <- c("vivienda", "persona")
 
@@ -32,6 +32,13 @@ eh <- expand.grid(
   tabla     = eh_tablas,
   stringsAsFactors = FALSE
 )
+# Bases temáticas adicionales (inventario real generado por add_eh_bases.R).
+if (file.exists("data-raw/eh_bases_extra.rds")) {
+  extra <- readRDS("data-raw/eh_bases_extra.rds")
+  extra$encuesta  <- "eh"
+  extra$trimestre <- NA_integer_
+  eh <- rbind(eh, extra[, c("encuesta", "anio", "trimestre", "tabla")])
+}
 eh$release_tag     <- "data-eh-v1"   # un Release con todos los Parquet de la EH
 eh$archivo_parquet <- sprintf("eh_%d_%s.parquet", eh$anio, eh$tabla)
 eh$factor_var      <- "factor"

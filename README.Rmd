@@ -17,7 +17,10 @@ knitr::opts_chunk$set(collapse = TRUE, comment = "#>", eval = FALSE)
 
 Paquete de R para el acceso, armonización y análisis de las encuestas del Instituto Nacional de Estadística (INE) de Bolivia:
 
-- **Encuesta de Hogares (EH)** — anual, **2012–2024** (13 años).
+- **Encuesta de Hogares (EH)** — anual, **2012–2024** (13 años). Bases:
+  `persona`, `vivienda` y los módulos temáticos (`equipamiento`, `gastos_alimentarios`,
+  `gastos_no_alimentarios`, `seguridad_alimentaria`, `discriminacion`, `turismo`,
+  `cultura`, `defunciones`) según el año.
 - **Encuesta Continua de Empleo (ECE)** — trimestral, **4T-2015 a 3T-2025**
   (40 trimestres). En 2020 (T2–T4) la ECE fue de **cobertura solo urbana** por
   la pandemia; el paquete los marca y avisa al usarlos.

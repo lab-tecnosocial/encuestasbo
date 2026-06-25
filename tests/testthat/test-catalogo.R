@@ -13,6 +13,17 @@ test_that("el catálogo de ECE cubre la serie completa 4T-2015 a 3T-2025", {
   expect_equal(nrow(catalogo_ece(anio = 2022, trimestre = 3, tabla = "persona")), 1)
 })
 
+test_that("la EH incluye las bases temáticas además de persona/vivienda", {
+  eh <- catalogo_eh()
+  tablas <- unique(eh$tabla)
+  expect_true(all(c("persona", "vivienda", "equipamiento", "gastos_alimentarios",
+                    "gastos_no_alimentarios", "seguridad_alimentaria",
+                    "discriminacion") %in% tablas))
+  # persona y vivienda en los 13 años
+  expect_equal(nrow(catalogo_eh(tabla = "persona")), 13)
+  expect_equal(nrow(catalogo_eh(tabla = "vivienda")), 13)
+})
+
 test_that("la ECE 2020 T2-T4 está marcada como cobertura urbana", {
   ece <- catalogo_ece()
   expect_true("cobertura" %in% names(ece))
