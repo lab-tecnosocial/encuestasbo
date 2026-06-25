@@ -75,97 +75,256 @@
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu">catalogo_eh</span><span class="op">(</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    encuesta anio trimestre    tabla release_tag          archivo_parquet</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1        eh 2012        NA  persona  data-eh-v1  eh_2012_persona.parquet</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2        eh 2012        NA vivienda  data-eh-v1 eh_2012_vivienda.parquet</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3        eh 2013        NA  persona  data-eh-v1  eh_2013_persona.parquet</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4        eh 2013        NA vivienda  data-eh-v1 eh_2013_vivienda.parquet</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5        eh 2014        NA  persona  data-eh-v1  eh_2014_persona.parquet</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6        eh 2014        NA vivienda  data-eh-v1 eh_2014_vivienda.parquet</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7        eh 2015        NA  persona  data-eh-v1  eh_2015_persona.parquet</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 8        eh 2015        NA vivienda  data-eh-v1 eh_2015_vivienda.parquet</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 9        eh 2016        NA  persona  data-eh-v1  eh_2016_persona.parquet</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 10       eh 2016        NA vivienda  data-eh-v1 eh_2016_vivienda.parquet</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 11       eh 2017        NA  persona  data-eh-v1  eh_2017_persona.parquet</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 12       eh 2017        NA vivienda  data-eh-v1 eh_2017_vivienda.parquet</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 13       eh 2018        NA  persona  data-eh-v1  eh_2018_persona.parquet</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 14       eh 2018        NA vivienda  data-eh-v1 eh_2018_vivienda.parquet</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 15       eh 2019        NA  persona  data-eh-v1  eh_2019_persona.parquet</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 16       eh 2019        NA vivienda  data-eh-v1 eh_2019_vivienda.parquet</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 17       eh 2020        NA  persona  data-eh-v1  eh_2020_persona.parquet</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 18       eh 2020        NA vivienda  data-eh-v1 eh_2020_vivienda.parquet</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 19       eh 2021        NA  persona  data-eh-v1  eh_2021_persona.parquet</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 20       eh 2021        NA vivienda  data-eh-v1 eh_2021_vivienda.parquet</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 21       eh 2022        NA  persona  data-eh-v1  eh_2022_persona.parquet</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 22       eh 2022        NA vivienda  data-eh-v1 eh_2022_vivienda.parquet</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 23       eh 2023        NA  persona  data-eh-v1  eh_2023_persona.parquet</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 24       eh 2023        NA vivienda  data-eh-v1 eh_2023_vivienda.parquet</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 25       eh 2024        NA  persona  data-eh-v1  eh_2024_persona.parquet</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 26       eh 2024        NA vivienda  data-eh-v1 eh_2024_vivienda.parquet</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    factor_var factor_var_alt upm_var estrato_var cobertura catalog_id</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1      factor           &lt;NA&gt;     upm     estrato  nacional       &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2      factor           &lt;NA&gt;     upm     estrato  nacional       &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3      factor           &lt;NA&gt;     upm     estrato  nacional       &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4      factor           &lt;NA&gt;     upm     estrato  nacional       &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5      factor           &lt;NA&gt;     upm     estrato  nacional       &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6      factor           &lt;NA&gt;     upm     estrato  nacional       &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7      factor           &lt;NA&gt;     upm     estrato  nacional       &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 8      factor           &lt;NA&gt;     upm     estrato  nacional       &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 9      factor           &lt;NA&gt;     upm     estrato  nacional       &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 10     factor           &lt;NA&gt;     upm     estrato  nacional       &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 11     factor           &lt;NA&gt;     upm     estrato  nacional       &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 12     factor           &lt;NA&gt;     upm     estrato  nacional       &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 13     factor           &lt;NA&gt;     upm     estrato  nacional       &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 14     factor           &lt;NA&gt;     upm     estrato  nacional       &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 15     factor           &lt;NA&gt;     upm     estrato  nacional       &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 16     factor           &lt;NA&gt;     upm     estrato  nacional       &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 17     factor           &lt;NA&gt;     upm     estrato  nacional       &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 18     factor           &lt;NA&gt;     upm     estrato  nacional       &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 19     factor           &lt;NA&gt;     upm     estrato  nacional       &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 20     factor           &lt;NA&gt;     upm     estrato  nacional       &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 21     factor           &lt;NA&gt;     upm     estrato  nacional       &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 22     factor           &lt;NA&gt;     upm     estrato  nacional       &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 23     factor           &lt;NA&gt;     upm     estrato  nacional       &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 24     factor           &lt;NA&gt;     upm     estrato  nacional       &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 25     factor           &lt;NA&gt;     upm     estrato  nacional       &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 26     factor           &lt;NA&gt;     upm     estrato  nacional       &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    archivo_sav version_caeb version_cob</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1         &lt;NA&gt;         &lt;NA&gt;        &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2         &lt;NA&gt;         &lt;NA&gt;        &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3         &lt;NA&gt;         &lt;NA&gt;        &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4         &lt;NA&gt;         &lt;NA&gt;        &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5         &lt;NA&gt;         &lt;NA&gt;        &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6         &lt;NA&gt;         &lt;NA&gt;        &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7         &lt;NA&gt;         &lt;NA&gt;        &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 8         &lt;NA&gt;         &lt;NA&gt;        &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 9         &lt;NA&gt;         &lt;NA&gt;        &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 10        &lt;NA&gt;         &lt;NA&gt;        &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 11        &lt;NA&gt;         &lt;NA&gt;        &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 12        &lt;NA&gt;         &lt;NA&gt;        &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 13        &lt;NA&gt;         &lt;NA&gt;        &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 14        &lt;NA&gt;         &lt;NA&gt;        &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 15        &lt;NA&gt;         &lt;NA&gt;        &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 16        &lt;NA&gt;         &lt;NA&gt;        &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 17        &lt;NA&gt;         &lt;NA&gt;        &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 18        &lt;NA&gt;         &lt;NA&gt;        &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 19        &lt;NA&gt;         &lt;NA&gt;        &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 20        &lt;NA&gt;         &lt;NA&gt;        &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 21        &lt;NA&gt;         &lt;NA&gt;        &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 22        &lt;NA&gt;         &lt;NA&gt;        &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 23        &lt;NA&gt;         &lt;NA&gt;        &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 24        &lt;NA&gt;         &lt;NA&gt;        &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 25        &lt;NA&gt;         &lt;NA&gt;        &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 26        &lt;NA&gt;         &lt;NA&gt;        &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    encuesta anio trimestre                  tabla release_tag</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1        eh 2012        NA           equipamiento  data-eh-v1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2        eh 2012        NA    gastos_alimentarios  data-eh-v1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3        eh 2012        NA gastos_no_alimentarios  data-eh-v1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4        eh 2012        NA                persona  data-eh-v1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5        eh 2012        NA               vivienda  data-eh-v1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6        eh 2013        NA           equipamiento  data-eh-v1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7        eh 2013        NA    gastos_alimentarios  data-eh-v1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8        eh 2013        NA gastos_no_alimentarios  data-eh-v1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9        eh 2013        NA                persona  data-eh-v1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10       eh 2013        NA               vivienda  data-eh-v1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11       eh 2014        NA           equipamiento  data-eh-v1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 12       eh 2014        NA    gastos_alimentarios  data-eh-v1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 13       eh 2014        NA gastos_no_alimentarios  data-eh-v1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 14       eh 2014        NA                persona  data-eh-v1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 15       eh 2014        NA               vivienda  data-eh-v1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 16       eh 2015        NA           equipamiento  data-eh-v1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 17       eh 2015        NA    gastos_alimentarios  data-eh-v1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 18       eh 2015        NA gastos_no_alimentarios  data-eh-v1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 19       eh 2015        NA                persona  data-eh-v1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 20       eh 2015        NA               vivienda  data-eh-v1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 21       eh 2016        NA           equipamiento  data-eh-v1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 22       eh 2016        NA                persona  data-eh-v1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 23       eh 2016        NA  seguridad_alimentaria  data-eh-v1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 24       eh 2016        NA                turismo  data-eh-v1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 25       eh 2016        NA               vivienda  data-eh-v1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 26       eh 2017        NA                cultura  data-eh-v1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 27       eh 2017        NA           equipamiento  data-eh-v1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 28       eh 2017        NA    gastos_alimentarios  data-eh-v1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 29       eh 2017        NA gastos_no_alimentarios  data-eh-v1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 30       eh 2017        NA                persona  data-eh-v1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 31       eh 2017        NA  seguridad_alimentaria  data-eh-v1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 32       eh 2017        NA               vivienda  data-eh-v1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 33       eh 2018        NA         discriminacion  data-eh-v1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 34       eh 2018        NA           equipamiento  data-eh-v1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 35       eh 2018        NA    gastos_alimentarios  data-eh-v1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 36       eh 2018        NA gastos_no_alimentarios  data-eh-v1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 37       eh 2018        NA                persona  data-eh-v1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 38       eh 2018        NA  seguridad_alimentaria  data-eh-v1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 39       eh 2018        NA               vivienda  data-eh-v1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 40       eh 2019        NA         discriminacion  data-eh-v1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 41       eh 2019        NA           equipamiento  data-eh-v1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 42       eh 2019        NA    gastos_alimentarios  data-eh-v1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 43       eh 2019        NA gastos_no_alimentarios  data-eh-v1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 44       eh 2019        NA                persona  data-eh-v1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 45       eh 2019        NA  seguridad_alimentaria  data-eh-v1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 46       eh 2019        NA                turismo  data-eh-v1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 47       eh 2019        NA               vivienda  data-eh-v1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 48       eh 2020        NA                persona  data-eh-v1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 49       eh 2020        NA               vivienda  data-eh-v1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 50       eh 2021        NA            defunciones  data-eh-v1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 51       eh 2021        NA         discriminacion  data-eh-v1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 52       eh 2021        NA           equipamiento  data-eh-v1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 53       eh 2021        NA    gastos_alimentarios  data-eh-v1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 54       eh 2021        NA gastos_no_alimentarios  data-eh-v1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 55       eh 2021        NA                persona  data-eh-v1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 56       eh 2021        NA  seguridad_alimentaria  data-eh-v1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 57       eh 2021        NA               vivienda  data-eh-v1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 58       eh 2022        NA         discriminacion  data-eh-v1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 59       eh 2022        NA           equipamiento  data-eh-v1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 60       eh 2022        NA    gastos_alimentarios  data-eh-v1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 61       eh 2022        NA                persona  data-eh-v1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 62       eh 2022        NA  seguridad_alimentaria  data-eh-v1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 63       eh 2022        NA               vivienda  data-eh-v1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 64       eh 2023        NA         discriminacion  data-eh-v1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 65       eh 2023        NA           equipamiento  data-eh-v1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 66       eh 2023        NA    gastos_alimentarios  data-eh-v1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 67       eh 2023        NA                persona  data-eh-v1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 68       eh 2023        NA  seguridad_alimentaria  data-eh-v1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 69       eh 2023        NA               vivienda  data-eh-v1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 70       eh 2024        NA         discriminacion  data-eh-v1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 71       eh 2024        NA           equipamiento  data-eh-v1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 72       eh 2024        NA    gastos_alimentarios  data-eh-v1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 73       eh 2024        NA                persona  data-eh-v1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 74       eh 2024        NA  seguridad_alimentaria  data-eh-v1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 75       eh 2024        NA               vivienda  data-eh-v1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                           archivo_parquet factor_var factor_var_alt upm_var</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1            eh_2012_equipamiento.parquet     factor           &lt;NA&gt;     upm</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2     eh_2012_gastos_alimentarios.parquet     factor           &lt;NA&gt;     upm</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3  eh_2012_gastos_no_alimentarios.parquet     factor           &lt;NA&gt;     upm</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4                 eh_2012_persona.parquet     factor           &lt;NA&gt;     upm</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5                eh_2012_vivienda.parquet     factor           &lt;NA&gt;     upm</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6            eh_2013_equipamiento.parquet     factor           &lt;NA&gt;     upm</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7     eh_2013_gastos_alimentarios.parquet     factor           &lt;NA&gt;     upm</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8  eh_2013_gastos_no_alimentarios.parquet     factor           &lt;NA&gt;     upm</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9                 eh_2013_persona.parquet     factor           &lt;NA&gt;     upm</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10               eh_2013_vivienda.parquet     factor           &lt;NA&gt;     upm</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11           eh_2014_equipamiento.parquet     factor           &lt;NA&gt;     upm</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 12    eh_2014_gastos_alimentarios.parquet     factor           &lt;NA&gt;     upm</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 13 eh_2014_gastos_no_alimentarios.parquet     factor           &lt;NA&gt;     upm</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 14                eh_2014_persona.parquet     factor           &lt;NA&gt;     upm</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 15               eh_2014_vivienda.parquet     factor           &lt;NA&gt;     upm</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 16           eh_2015_equipamiento.parquet     factor           &lt;NA&gt;     upm</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 17    eh_2015_gastos_alimentarios.parquet     factor           &lt;NA&gt;     upm</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 18 eh_2015_gastos_no_alimentarios.parquet     factor           &lt;NA&gt;     upm</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 19                eh_2015_persona.parquet     factor           &lt;NA&gt;     upm</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 20               eh_2015_vivienda.parquet     factor           &lt;NA&gt;     upm</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 21           eh_2016_equipamiento.parquet     factor           &lt;NA&gt;     upm</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 22                eh_2016_persona.parquet     factor           &lt;NA&gt;     upm</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 23  eh_2016_seguridad_alimentaria.parquet     factor           &lt;NA&gt;     upm</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 24                eh_2016_turismo.parquet     factor           &lt;NA&gt;     upm</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 25               eh_2016_vivienda.parquet     factor           &lt;NA&gt;     upm</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 26                eh_2017_cultura.parquet     factor           &lt;NA&gt;     upm</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 27           eh_2017_equipamiento.parquet     factor           &lt;NA&gt;     upm</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 28    eh_2017_gastos_alimentarios.parquet     factor           &lt;NA&gt;     upm</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 29 eh_2017_gastos_no_alimentarios.parquet     factor           &lt;NA&gt;     upm</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 30                eh_2017_persona.parquet     factor           &lt;NA&gt;     upm</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 31  eh_2017_seguridad_alimentaria.parquet     factor           &lt;NA&gt;     upm</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 32               eh_2017_vivienda.parquet     factor           &lt;NA&gt;     upm</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 33         eh_2018_discriminacion.parquet     factor           &lt;NA&gt;     upm</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 34           eh_2018_equipamiento.parquet     factor           &lt;NA&gt;     upm</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 35    eh_2018_gastos_alimentarios.parquet     factor           &lt;NA&gt;     upm</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 36 eh_2018_gastos_no_alimentarios.parquet     factor           &lt;NA&gt;     upm</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 37                eh_2018_persona.parquet     factor           &lt;NA&gt;     upm</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 38  eh_2018_seguridad_alimentaria.parquet     factor           &lt;NA&gt;     upm</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 39               eh_2018_vivienda.parquet     factor           &lt;NA&gt;     upm</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 40         eh_2019_discriminacion.parquet     factor           &lt;NA&gt;     upm</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 41           eh_2019_equipamiento.parquet     factor           &lt;NA&gt;     upm</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 42    eh_2019_gastos_alimentarios.parquet     factor           &lt;NA&gt;     upm</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 43 eh_2019_gastos_no_alimentarios.parquet     factor           &lt;NA&gt;     upm</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 44                eh_2019_persona.parquet     factor           &lt;NA&gt;     upm</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 45  eh_2019_seguridad_alimentaria.parquet     factor           &lt;NA&gt;     upm</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 46                eh_2019_turismo.parquet     factor           &lt;NA&gt;     upm</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 47               eh_2019_vivienda.parquet     factor           &lt;NA&gt;     upm</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 48                eh_2020_persona.parquet     factor           &lt;NA&gt;     upm</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 49               eh_2020_vivienda.parquet     factor           &lt;NA&gt;     upm</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 50            eh_2021_defunciones.parquet     factor           &lt;NA&gt;     upm</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 51         eh_2021_discriminacion.parquet     factor           &lt;NA&gt;     upm</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 52           eh_2021_equipamiento.parquet     factor           &lt;NA&gt;     upm</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 53    eh_2021_gastos_alimentarios.parquet     factor           &lt;NA&gt;     upm</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 54 eh_2021_gastos_no_alimentarios.parquet     factor           &lt;NA&gt;     upm</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 55                eh_2021_persona.parquet     factor           &lt;NA&gt;     upm</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 56  eh_2021_seguridad_alimentaria.parquet     factor           &lt;NA&gt;     upm</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 57               eh_2021_vivienda.parquet     factor           &lt;NA&gt;     upm</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 58         eh_2022_discriminacion.parquet     factor           &lt;NA&gt;     upm</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 59           eh_2022_equipamiento.parquet     factor           &lt;NA&gt;     upm</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 60    eh_2022_gastos_alimentarios.parquet     factor           &lt;NA&gt;     upm</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 61                eh_2022_persona.parquet     factor           &lt;NA&gt;     upm</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 62  eh_2022_seguridad_alimentaria.parquet     factor           &lt;NA&gt;     upm</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 63               eh_2022_vivienda.parquet     factor           &lt;NA&gt;     upm</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 64         eh_2023_discriminacion.parquet     factor           &lt;NA&gt;     upm</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 65           eh_2023_equipamiento.parquet     factor           &lt;NA&gt;     upm</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 66    eh_2023_gastos_alimentarios.parquet     factor           &lt;NA&gt;     upm</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 67                eh_2023_persona.parquet     factor           &lt;NA&gt;     upm</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 68  eh_2023_seguridad_alimentaria.parquet     factor           &lt;NA&gt;     upm</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 69               eh_2023_vivienda.parquet     factor           &lt;NA&gt;     upm</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 70         eh_2024_discriminacion.parquet     factor           &lt;NA&gt;     upm</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 71           eh_2024_equipamiento.parquet     factor           &lt;NA&gt;     upm</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 72    eh_2024_gastos_alimentarios.parquet     factor           &lt;NA&gt;     upm</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 73                eh_2024_persona.parquet     factor           &lt;NA&gt;     upm</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 74  eh_2024_seguridad_alimentaria.parquet     factor           &lt;NA&gt;     upm</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 75               eh_2024_vivienda.parquet     factor           &lt;NA&gt;     upm</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    estrato_var cobertura catalog_id archivo_sav version_caeb version_cob</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1      estrato  nacional       &lt;NA&gt;        &lt;NA&gt;         &lt;NA&gt;        &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2      estrato  nacional       &lt;NA&gt;        &lt;NA&gt;         &lt;NA&gt;        &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3      estrato  nacional       &lt;NA&gt;        &lt;NA&gt;         &lt;NA&gt;        &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4      estrato  nacional       &lt;NA&gt;        &lt;NA&gt;         &lt;NA&gt;        &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5      estrato  nacional       &lt;NA&gt;        &lt;NA&gt;         &lt;NA&gt;        &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6      estrato  nacional       &lt;NA&gt;        &lt;NA&gt;         &lt;NA&gt;        &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7      estrato  nacional       &lt;NA&gt;        &lt;NA&gt;         &lt;NA&gt;        &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8      estrato  nacional       &lt;NA&gt;        &lt;NA&gt;         &lt;NA&gt;        &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9      estrato  nacional       &lt;NA&gt;        &lt;NA&gt;         &lt;NA&gt;        &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10     estrato  nacional       &lt;NA&gt;        &lt;NA&gt;         &lt;NA&gt;        &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11     estrato  nacional       &lt;NA&gt;        &lt;NA&gt;         &lt;NA&gt;        &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 12     estrato  nacional       &lt;NA&gt;        &lt;NA&gt;         &lt;NA&gt;        &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 13     estrato  nacional       &lt;NA&gt;        &lt;NA&gt;         &lt;NA&gt;        &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 14     estrato  nacional       &lt;NA&gt;        &lt;NA&gt;         &lt;NA&gt;        &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 15     estrato  nacional       &lt;NA&gt;        &lt;NA&gt;         &lt;NA&gt;        &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 16     estrato  nacional       &lt;NA&gt;        &lt;NA&gt;         &lt;NA&gt;        &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 17     estrato  nacional       &lt;NA&gt;        &lt;NA&gt;         &lt;NA&gt;        &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 18     estrato  nacional       &lt;NA&gt;        &lt;NA&gt;         &lt;NA&gt;        &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 19     estrato  nacional       &lt;NA&gt;        &lt;NA&gt;         &lt;NA&gt;        &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 20     estrato  nacional       &lt;NA&gt;        &lt;NA&gt;         &lt;NA&gt;        &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 21     estrato  nacional       &lt;NA&gt;        &lt;NA&gt;         &lt;NA&gt;        &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 22     estrato  nacional       &lt;NA&gt;        &lt;NA&gt;         &lt;NA&gt;        &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 23     estrato  nacional       &lt;NA&gt;        &lt;NA&gt;         &lt;NA&gt;        &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 24     estrato  nacional       &lt;NA&gt;        &lt;NA&gt;         &lt;NA&gt;        &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 25     estrato  nacional       &lt;NA&gt;        &lt;NA&gt;         &lt;NA&gt;        &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 26     estrato  nacional       &lt;NA&gt;        &lt;NA&gt;         &lt;NA&gt;        &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 27     estrato  nacional       &lt;NA&gt;        &lt;NA&gt;         &lt;NA&gt;        &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 28     estrato  nacional       &lt;NA&gt;        &lt;NA&gt;         &lt;NA&gt;        &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 29     estrato  nacional       &lt;NA&gt;        &lt;NA&gt;         &lt;NA&gt;        &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 30     estrato  nacional       &lt;NA&gt;        &lt;NA&gt;         &lt;NA&gt;        &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 31     estrato  nacional       &lt;NA&gt;        &lt;NA&gt;         &lt;NA&gt;        &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 32     estrato  nacional       &lt;NA&gt;        &lt;NA&gt;         &lt;NA&gt;        &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 33     estrato  nacional       &lt;NA&gt;        &lt;NA&gt;         &lt;NA&gt;        &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 34     estrato  nacional       &lt;NA&gt;        &lt;NA&gt;         &lt;NA&gt;        &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 35     estrato  nacional       &lt;NA&gt;        &lt;NA&gt;         &lt;NA&gt;        &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 36     estrato  nacional       &lt;NA&gt;        &lt;NA&gt;         &lt;NA&gt;        &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 37     estrato  nacional       &lt;NA&gt;        &lt;NA&gt;         &lt;NA&gt;        &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 38     estrato  nacional       &lt;NA&gt;        &lt;NA&gt;         &lt;NA&gt;        &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 39     estrato  nacional       &lt;NA&gt;        &lt;NA&gt;         &lt;NA&gt;        &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 40     estrato  nacional       &lt;NA&gt;        &lt;NA&gt;         &lt;NA&gt;        &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 41     estrato  nacional       &lt;NA&gt;        &lt;NA&gt;         &lt;NA&gt;        &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 42     estrato  nacional       &lt;NA&gt;        &lt;NA&gt;         &lt;NA&gt;        &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 43     estrato  nacional       &lt;NA&gt;        &lt;NA&gt;         &lt;NA&gt;        &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 44     estrato  nacional       &lt;NA&gt;        &lt;NA&gt;         &lt;NA&gt;        &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 45     estrato  nacional       &lt;NA&gt;        &lt;NA&gt;         &lt;NA&gt;        &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 46     estrato  nacional       &lt;NA&gt;        &lt;NA&gt;         &lt;NA&gt;        &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 47     estrato  nacional       &lt;NA&gt;        &lt;NA&gt;         &lt;NA&gt;        &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 48     estrato  nacional       &lt;NA&gt;        &lt;NA&gt;         &lt;NA&gt;        &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 49     estrato  nacional       &lt;NA&gt;        &lt;NA&gt;         &lt;NA&gt;        &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 50     estrato  nacional       &lt;NA&gt;        &lt;NA&gt;         &lt;NA&gt;        &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 51     estrato  nacional       &lt;NA&gt;        &lt;NA&gt;         &lt;NA&gt;        &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 52     estrato  nacional       &lt;NA&gt;        &lt;NA&gt;         &lt;NA&gt;        &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 53     estrato  nacional       &lt;NA&gt;        &lt;NA&gt;         &lt;NA&gt;        &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 54     estrato  nacional       &lt;NA&gt;        &lt;NA&gt;         &lt;NA&gt;        &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 55     estrato  nacional       &lt;NA&gt;        &lt;NA&gt;         &lt;NA&gt;        &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 56     estrato  nacional       &lt;NA&gt;        &lt;NA&gt;         &lt;NA&gt;        &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 57     estrato  nacional       &lt;NA&gt;        &lt;NA&gt;         &lt;NA&gt;        &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 58     estrato  nacional       &lt;NA&gt;        &lt;NA&gt;         &lt;NA&gt;        &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 59     estrato  nacional       &lt;NA&gt;        &lt;NA&gt;         &lt;NA&gt;        &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 60     estrato  nacional       &lt;NA&gt;        &lt;NA&gt;         &lt;NA&gt;        &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 61     estrato  nacional       &lt;NA&gt;        &lt;NA&gt;         &lt;NA&gt;        &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 62     estrato  nacional       &lt;NA&gt;        &lt;NA&gt;         &lt;NA&gt;        &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 63     estrato  nacional       &lt;NA&gt;        &lt;NA&gt;         &lt;NA&gt;        &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 64     estrato  nacional       &lt;NA&gt;        &lt;NA&gt;         &lt;NA&gt;        &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 65     estrato  nacional       &lt;NA&gt;        &lt;NA&gt;         &lt;NA&gt;        &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 66     estrato  nacional       &lt;NA&gt;        &lt;NA&gt;         &lt;NA&gt;        &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 67     estrato  nacional       &lt;NA&gt;        &lt;NA&gt;         &lt;NA&gt;        &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 68     estrato  nacional       &lt;NA&gt;        &lt;NA&gt;         &lt;NA&gt;        &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 69     estrato  nacional       &lt;NA&gt;        &lt;NA&gt;         &lt;NA&gt;        &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 70     estrato  nacional       &lt;NA&gt;        &lt;NA&gt;         &lt;NA&gt;        &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 71     estrato  nacional       &lt;NA&gt;        &lt;NA&gt;         &lt;NA&gt;        &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 72     estrato  nacional       &lt;NA&gt;        &lt;NA&gt;         &lt;NA&gt;        &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 73     estrato  nacional       &lt;NA&gt;        &lt;NA&gt;         &lt;NA&gt;        &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 74     estrato  nacional       &lt;NA&gt;        &lt;NA&gt;         &lt;NA&gt;        &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 75     estrato  nacional       &lt;NA&gt;        &lt;NA&gt;         &lt;NA&gt;        &lt;NA&gt;</span>
 <span class="r-in"><span><span class="fu">catalogo_eh</span><span class="op">(</span>anio <span class="op">=</span> <span class="fl">2023</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   encuesta anio trimestre    tabla release_tag          archivo_parquet</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1       eh 2023        NA  persona  data-eh-v1  eh_2023_persona.parquet</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2       eh 2023        NA vivienda  data-eh-v1 eh_2023_vivienda.parquet</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   factor_var factor_var_alt upm_var estrato_var cobertura catalog_id</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1     factor           &lt;NA&gt;     upm     estrato  nacional       &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2     factor           &lt;NA&gt;     upm     estrato  nacional       &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   archivo_sav version_caeb version_cob</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1        &lt;NA&gt;         &lt;NA&gt;        &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2        &lt;NA&gt;         &lt;NA&gt;        &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   encuesta anio trimestre                 tabla release_tag</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1       eh 2023        NA        discriminacion  data-eh-v1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2       eh 2023        NA          equipamiento  data-eh-v1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3       eh 2023        NA   gastos_alimentarios  data-eh-v1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4       eh 2023        NA               persona  data-eh-v1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5       eh 2023        NA seguridad_alimentaria  data-eh-v1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6       eh 2023        NA              vivienda  data-eh-v1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                         archivo_parquet factor_var factor_var_alt upm_var</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1        eh_2023_discriminacion.parquet     factor           &lt;NA&gt;     upm</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2          eh_2023_equipamiento.parquet     factor           &lt;NA&gt;     upm</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3   eh_2023_gastos_alimentarios.parquet     factor           &lt;NA&gt;     upm</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4               eh_2023_persona.parquet     factor           &lt;NA&gt;     upm</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5 eh_2023_seguridad_alimentaria.parquet     factor           &lt;NA&gt;     upm</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6              eh_2023_vivienda.parquet     factor           &lt;NA&gt;     upm</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   estrato_var cobertura catalog_id archivo_sav version_caeb version_cob</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1     estrato  nacional       &lt;NA&gt;        &lt;NA&gt;         &lt;NA&gt;        &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2     estrato  nacional       &lt;NA&gt;        &lt;NA&gt;         &lt;NA&gt;        &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3     estrato  nacional       &lt;NA&gt;        &lt;NA&gt;         &lt;NA&gt;        &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4     estrato  nacional       &lt;NA&gt;        &lt;NA&gt;         &lt;NA&gt;        &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5     estrato  nacional       &lt;NA&gt;        &lt;NA&gt;         &lt;NA&gt;        &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6     estrato  nacional       &lt;NA&gt;        &lt;NA&gt;         &lt;NA&gt;        &lt;NA&gt;</span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>

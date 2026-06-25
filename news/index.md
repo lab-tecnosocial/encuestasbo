@@ -7,8 +7,13 @@ funcional de punta a punta.
 
 ### Datos
 
-- **EH 2012–2024** (13 años), niveles `persona` y `vivienda`, procesados
-  a Parquet desde los `.sav` del portal ANDA del INE.
+- **EH 2012–2024** (13 años). Además de `persona` y `vivienda`, ahora se
+  incluyen todas las **bases temáticas** del INE según disponibilidad
+  por año: `equipamiento`, `gastos_alimentarios`,
+  `gastos_no_alimentarios`, `seguridad_alimentaria`, `discriminacion`,
+  `turismo`, `cultura` y `defunciones`. Se acceden con
+  `get_eh(anio, tabla = "...")`; ver las tablas de cada año con
+  [`catalogo_eh()`](https://lab-tecnosocial.github.io/encuestasbo/reference/catalogo_eh.md).
 - **ECE 4T-2015 a 3T-2025** (40 trimestres, serie completa), nivel
   persona, procesados desde el repositorio abierto del INE
   (`nube.ine.gob.bo`). En 2020 (T2–T4) la ECE fue de cobertura **solo

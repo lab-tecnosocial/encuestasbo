@@ -51,7 +51,7 @@
 <div class="section level3">
 <h3 id="datos-0-1-0">Datos<a class="anchor" aria-label="anchor" href="#datos-0-1-0"></a></h3>
 <ul><li>
-<strong>EH 2012–2024</strong> (13 años), niveles <code>persona</code> y <code>vivienda</code>, procesados a Parquet desde los <code>.sav</code> del portal ANDA del INE.</li>
+<strong>EH 2012–2024</strong> (13 años). Además de <code>persona</code> y <code>vivienda</code>, ahora se incluyen todas las <strong>bases temáticas</strong> del INE según disponibilidad por año: <code>equipamiento</code>, <code>gastos_alimentarios</code>, <code>gastos_no_alimentarios</code>, <code>seguridad_alimentaria</code>, <code>discriminacion</code>, <code>turismo</code>, <code>cultura</code> y <code>defunciones</code>. Se acceden con <code>get_eh(anio, tabla = "...")</code>; ver las tablas de cada año con <code><a href="../reference/catalogo_eh.html">catalogo_eh()</a></code>.</li>
 <li>
 <strong>ECE 4T-2015 a 3T-2025</strong> (40 trimestres, serie completa), nivel persona, procesados desde el repositorio abierto del INE (<code>nube.ine.gob.bo</code>). En 2020 (T2–T4) la ECE fue de cobertura <strong>solo urbana</strong> por la pandemia: esos trimestres se marcan con <code>cobertura = "urbana"</code> en <code><a href="../reference/catalogo_ece.html">catalogo_ece()</a></code> y emiten un aviso al usarse.</li>
 <li>
