@@ -7,8 +7,11 @@ punta a punta.
 
 * **EH 2012–2024** (13 años), niveles `persona` y `vivienda`, procesados a
   Parquet desde los `.sav` del portal ANDA del INE.
-* **ECE 4T-2015 a 3T-2025** (33 trimestres; huecos en 2020–2021), nivel persona,
-  procesados desde el repositorio abierto del INE (`nube.ine.gob.bo`).
+* **ECE 4T-2015 a 3T-2025** (40 trimestres, serie completa), nivel persona,
+  procesados desde el repositorio abierto del INE (`nube.ine.gob.bo`). En 2020
+  (T2–T4) la ECE fue de cobertura **solo urbana** por la pandemia: esos
+  trimestres se marcan con `cobertura = "urbana"` en `catalogo_ece()` y emiten un
+  aviso al usarse.
 * `catalogo_encuestas`: inventario maestro de EH y ECE.
 * `codebook_eh_meta` y `codebook_ece_meta`: diccionarios extraídos de las
   etiquetas SPSS.

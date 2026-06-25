@@ -61,12 +61,19 @@ if (nrow(ece) > 0) {
   ece$factor_var_alt  <- "fact_mes_act"    # factor mensual
   ece$upm_var         <- "upm"
   ece$estrato_var     <- "estrato"
+  # Cobertura: la ECE de 2020 T2-T4 fue SOLO URBANA (la pandemia impidió el
+  # levantamiento rural). El resto de trimestres son de cobertura nacional.
+  ece$cobertura       <- ifelse(ece$anio == 2020 & ece$trimestre %in% 2:4,
+                                "urbana", "nacional")
   ece <- ece[, c("encuesta", "anio", "trimestre", "tabla", "release_tag",
                  "archivo_parquet", "factor_var", "factor_var_alt",
-                 "upm_var", "estrato_var")]
+                 "upm_var", "estrato_var", "cobertura")]
 } else {
   ece <- eh[0, ]
 }
+
+# La EH es siempre de cobertura nacional.
+eh$cobertura <- "nacional"
 
 # --- Combinar -----------------------------------------------------------------
 catalogo_encuestas <- rbind(

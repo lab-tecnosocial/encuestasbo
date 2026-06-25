@@ -4,13 +4,23 @@ test_that("el catálogo cubre EH 2012-2024 (13 años)", {
   expect_true(all(c("persona", "vivienda") %in% eh$tabla))
 })
 
-test_that("el catálogo de ECE refleja los periodos reales (con huecos)", {
+test_that("el catálogo de ECE cubre la serie completa 4T-2015 a 3T-2025", {
   ece <- catalogo_ece()
-  expect_gt(nrow(ece), 25)
-  # 1T-2020 existe; 1T/2T-2021 no (pandemia)
+  expect_equal(nrow(ece), 40)
+  # serie completa, sin huecos: 2020-T1 y 2021-T1 existen
   expect_equal(nrow(catalogo_ece(anio = 2020, trimestre = 1, tabla = "persona")), 1)
-  expect_equal(nrow(catalogo_ece(anio = 2021, trimestre = 1, tabla = "persona")), 0)
+  expect_equal(nrow(catalogo_ece(anio = 2021, trimestre = 1, tabla = "persona")), 1)
   expect_equal(nrow(catalogo_ece(anio = 2022, trimestre = 3, tabla = "persona")), 1)
+})
+
+test_that("la ECE 2020 T2-T4 está marcada como cobertura urbana", {
+  ece <- catalogo_ece()
+  expect_true("cobertura" %in% names(ece))
+  urb <- ece$cobertura[ece$anio == 2020 & ece$trimestre %in% 2:4]
+  expect_true(all(urb == "urbana"))
+  # el resto es nacional
+  resto <- ece$cobertura[!(ece$anio == 2020 & ece$trimestre %in% 2:4)]
+  expect_true(all(resto == "nacional"))
 })
 
 test_that("toda fila tiene release_tag y variables de diseño no nulas", {
