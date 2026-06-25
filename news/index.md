@@ -69,6 +69,9 @@ funcional de punta a punta.
   las detecta automáticamente en datos armonizados (sin indicar año).
   Además se unifican valores que cambiaban de código entre años
   (`nivel_edu`: “Otros” era 4/5/9 según el año → ahora siempre 4).
+- [`etiquetar_valores()`](https://lab-tecnosocial.github.io/encuestasbo/reference/etiquetar_valores.md)
+  ahora también etiqueta `depto` con los nombres de los nueve
+  departamentos (1 = Chuquisaca … 9 = Pando) en datos armonizados.
 - Nuevas variables armonizadas de **vivienda** y **salud**:
   `tipo_vivienda`, `tenencia_vivienda` (recodificada a un esquema
   canónico; el INE usó dos órdenes de códigos, 2012-2015 vs 2016+) y

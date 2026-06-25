@@ -83,6 +83,8 @@
 <li>
 <code><a href="../reference/get_eh_armonizada.html">get_eh_armonizada()</a></code> se respalda en un único Parquet armonizado precalculado (~5 MB, 13 años, esquema consistente) y admite <code>as = "tibble"/"arrow"/"duckdb"</code> para consultas cross-año perezosas (DuckDB por debajo). Corrige además el apilado de años con tipos mixtos (p. ej. <code>estrato</code> texto/numérico).</li>
 <li>Las variables categóricas armonizadas tienen <strong>etiquetas estables entre años</strong>; <code><a href="../reference/etiquetar_valores.html">etiquetar_valores()</a></code> las detecta automáticamente en datos armonizados (sin indicar año). Además se unifican valores que cambiaban de código entre años (<code>nivel_edu</code>: “Otros” era 4/5/9 según el año → ahora siempre 4).</li>
+<li>
+<code><a href="../reference/etiquetar_valores.html">etiquetar_valores()</a></code> ahora también etiqueta <code>depto</code> con los nombres de los nueve departamentos (1 = Chuquisaca … 9 = Pando) en datos armonizados.</li>
 <li>Nuevas variables armonizadas de <strong>vivienda</strong> y <strong>salud</strong>: <code>tipo_vivienda</code>, <code>tenencia_vivienda</code> (recodificada a un esquema canónico; el INE usó dos órdenes de códigos, 2012-2015 vs 2016+) y <code>tiene_seguro_salud</code> (afiliación a algún seguro, 0/1). Las de vivienda se unen a la capa persona por <code>folio</code>. Nuevos grupos <code>"vivienda"</code> y <code>"salud"</code> en <code><a href="../reference/grupos_variables.html">grupos_variables()</a></code>. Validadas contra ARU (tenencia propia ~62 %, casa ~75 %, sin seguro 2023 = 14,3 %).</li>
 </ul></div>
 <div class="section level3">
