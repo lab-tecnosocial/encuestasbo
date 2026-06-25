@@ -82,10 +82,10 @@
 <li>
 <strong>Encuesta de Hogares (EH)</strong> — anual, <strong>2012–2024</strong> (13 años). Bases: <code>persona</code>, <code>vivienda</code> y los módulos temáticos (<code>equipamiento</code>, <code>gastos_alimentarios</code>, <code>gastos_no_alimentarios</code>, <code>seguridad_alimentaria</code>, <code>discriminacion</code>, <code>turismo</code>, <code>cultura</code>, <code>defunciones</code>) según el año.</li>
 <li>
-<strong>Encuesta Continua de Empleo (ECE)</strong> — trimestral, <strong>4T-2015 a 3T-2025</strong> (40 trimestres). En 2020 (T2–T4) la ECE fue de <strong>cobertura solo urbana</strong> por la pandemia; el paquete los marca y avisa al usarlos.</li>
+<strong>Encuesta Continua de Empleo (ECE)</strong> — trimestral, <strong>4T-2015 a 3T-2025</strong> (40 trimestres). En 2020 (T2–T4) la ECE fue de cobertura solo urbana por la pandemia; el paquete los marca y avisa al usarlos.</li>
 </ul>
 <p>Es el paquete hermano de <a href="https://github.com/lab-tecnosocial/censosbo" class="external-link"><code>censosbo</code></a> y comparte su arquitectura: Parquet + Apache Arrow (lazy), caché local y flujos estilo <code>dplyr</code> / SQL vía DuckDB. La diferencia esencial: las encuestas son <strong>muestras con diseño complejo</strong> (estratificado, bietápico, con factores de expansión), por lo que el paquete integra <code>survey</code>/<code>srvyr</code> para producir estimaciones e intervalos de confianza correctos.</p>
-<p>Los microdatos están <strong>procesados y publicados</strong>: las funciones descargan los Parquet desde GitHub Releases y los guardan en caché local automáticamente.</p>
+<p>Los microdatos están procesados y publicados: las funciones descargan los Parquet desde GitHub Releases y los guardan en caché local automáticamente.</p>
 <div class="section level2">
 <h2 id="instalación">Instalación<a class="anchor" aria-label="anchor" href="#instalaci%C3%B3n"></a>
 </h2>
@@ -167,24 +167,7 @@
 <div class="section level2">
 <h2 id="nota-metodológica">Nota metodológica<a class="anchor" aria-label="anchor" href="#nota-metodol%C3%B3gica"></a>
 </h2>
-<p>Cómo se transformaron los microdatos originales del INE en los datos que entrega este paquete:</p>
-<ol style="list-style-type: decimal">
-<li>
-<strong>Origen.</strong> Se parte de los archivos SPSS (<code>.sav</code>) publicados por el INE: la EH desde ANDA y la ECE desde la página de metadatos y microdatos. No se altera ningún registro original.</li>
-<li>
-<strong>Lectura con etiquetas.</strong> Cada <code>.sav</code> se lee con <a href="https://haven.tidyverse.org/" class="external-link"><code>haven</code></a>, preservando las etiquetas de variable y de valor (<code>label</code> / <code>labels</code>) que define el INE.</li>
-<li>
-<strong>Diccionario.</strong> De esos atributos etiquetados se extrae un <strong>codebook</strong> por encuesta y periodo (variable, etiqueta, tipo, categorías), que se distribuye como dato del paquete (<code>codebook_eh_meta</code>, <code>codebook_ece_meta</code>) y alimenta <code><a href="reference/codebook.html">codebook()</a></code> / <code><a href="reference/etiquetar_valores.html">etiquetar_valores()</a></code>.</li>
-<li>
-<strong>Datos numéricos + Parquet.</strong> Tras extraer el diccionario, los valores se dejan como códigos numéricos (<code><a href="https://haven.tidyverse.org/reference/zap_labels.html" class="external-link">haven::zap_labels()</a></code>) y se escribe <strong>un archivo Parquet por (encuesta, periodo, tabla)</strong> con Apache Arrow. Las etiquetas viven en el codebook, no en los datos, lo que hace los archivos pequeños y rápidos. Se conservan intactas las <strong>variables de diseño muestral</strong> (<code>upm</code>, <code>estrato</code>, factores de expansión) necesarias para estimar con <code>survey</code>/<code>srvyr</code>.</li>
-<li>
-<strong>Armonización entre periodos.</strong> Una capa canónica (<code>variable_canonica_map</code>) unifica los <strong>nombres</strong> de variables que el INE cambió entre años (detectados por su etiqueta cuando el código de variable varía) y <strong>recodifica los valores</strong> cuando el INE alteró las categorías: p. ej. el “Otros” del nivel educativo, la <strong>tenencia de la vivienda</strong> (dos órdenes de códigos: 2012–2015 vs 2016+) o la <strong>categoría ocupacional</strong> de la ECE (cuestionario 2018 vs 2019+). La capa armonizada de la EH se materializa además en un único Parquet precalculado. Las variables de vivienda (nivel hogar) se unen a las de persona por <code>folio</code>.</li>
-<li>
-<strong>Indicadores ya calculados por el INE.</strong> Las <strong>líneas de pobreza</strong>, los <strong>factores de expansión</strong> y las variables derivadas (pobreza, ingresos, condición de actividad, nivel educativo) las calcula el propio INE; el paquete las expone con nombres canónicos y <strong>no recalcula</strong> esos agregados.</li>
-<li>
-<strong>Publicación y verificación.</strong> Los Parquet resultantes se publican en GitHub Releases (las funciones <code>get_*()</code> los descargan y cachean). Los resultados se han contrastado contra las cifras oficiales del INE, con coincidencias dentro del margen muestral.</li>
-</ol>
-<p>Los límites de comparabilidad entre periodos (cambios de cuestionario, de marco muestral o de clasificadores) se documentan en <code><a href="articles/armonizacion.html">vignette("armonizacion")</a></code> y en la ficha técnica de cada estudio (<code><a href="reference/ficha_tecnica.html">ficha_tecnica()</a></code>).</p>
+<p>Cada <code>.sav</code> del INE se lee con <a href="https://haven.tidyverse.org/" class="external-link"><code>haven</code></a> (preservando sus etiquetas), del que se extrae el <strong>codebook</strong>; los datos se guardan como códigos numéricos en Parquet (uno por encuesta-periodo-tabla), conservando intactas las variables de diseño muestral. La <strong>armonización</strong> entre periodos unifica nombres y recodifica los valores que el INE cambió entre años (p. ej. tenencia de la vivienda o categoría ocupacional de la ECE). Las <strong>líneas de pobreza, los factores de expansión y las variables derivadas</strong> las calcula el INE: el paquete las expone. Los resultados se contrastan con las cifras oficiales del INE. Detalles de comparabilidad en <code><a href="articles/armonizacion.html">vignette("armonizacion")</a></code> y <code><a href="reference/ficha_tecnica.html">ficha_tecnica()</a></code>.</p>
 </div>
 <div class="section level2">
 <h2 id="citación">Citación<a class="anchor" aria-label="anchor" href="#citaci%C3%B3n"></a>

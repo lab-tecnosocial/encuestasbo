@@ -9,9 +9,8 @@ del Instituto Nacional de Estadística (INE) de Bolivia:
   `seguridad_alimentaria`, `discriminacion`, `turismo`, `cultura`,
   `defunciones`) según el año.
 - **Encuesta Continua de Empleo (ECE)** — trimestral, **4T-2015 a
-  3T-2025** (40 trimestres). En 2020 (T2–T4) la ECE fue de **cobertura
-  solo urbana** por la pandemia; el paquete los marca y avisa al
-  usarlos.
+  3T-2025** (40 trimestres). En 2020 (T2–T4) la ECE fue de cobertura
+  solo urbana por la pandemia; el paquete los marca y avisa al usarlos.
 
 Es el paquete hermano de
 [`censosbo`](https://github.com/lab-tecnosocial/censosbo) y comparte su
@@ -21,8 +20,8 @@ arquitectura: Parquet + Apache Arrow (lazy), caché local y flujos estilo
 de expansión), por lo que el paquete integra `survey`/`srvyr` para
 producir estimaciones e intervalos de confianza correctos.
 
-Los microdatos están **procesados y publicados**: las funciones
-descargan los Parquet desde GitHub Releases y los guardan en caché local
+Los microdatos están procesados y publicados: las funciones descargan
+los Parquet desde GitHub Releases y los guardan en caché local
 automáticamente.
 
 ## Instalación
@@ -127,55 +126,19 @@ automáticamente.
 
 ## Nota metodológica
 
-Cómo se transformaron los microdatos originales del INE en los datos que
-entrega este paquete:
-
-1.  **Origen.** Se parte de los archivos SPSS (`.sav`) publicados por el
-    INE: la EH desde ANDA y la ECE desde la página de metadatos y
-    microdatos. No se altera ningún registro original.
-2.  **Lectura con etiquetas.** Cada `.sav` se lee con
-    [`haven`](https://haven.tidyverse.org/), preservando las etiquetas
-    de variable y de valor (`label` / `labels`) que define el INE.
-3.  **Diccionario.** De esos atributos etiquetados se extrae un
-    **codebook** por encuesta y periodo (variable, etiqueta, tipo,
-    categorías), que se distribuye como dato del paquete
-    (`codebook_eh_meta`, `codebook_ece_meta`) y alimenta
-    [`codebook()`](https://lab-tecnosocial.github.io/encuestasbo/reference/codebook.md)
-    /
-    [`etiquetar_valores()`](https://lab-tecnosocial.github.io/encuestasbo/reference/etiquetar_valores.md).
-4.  **Datos numéricos + Parquet.** Tras extraer el diccionario, los
-    valores se dejan como códigos numéricos
-    ([`haven::zap_labels()`](https://haven.tidyverse.org/reference/zap_labels.html))
-    y se escribe **un archivo Parquet por (encuesta, periodo, tabla)**
-    con Apache Arrow. Las etiquetas viven en el codebook, no en los
-    datos, lo que hace los archivos pequeños y rápidos. Se conservan
-    intactas las **variables de diseño muestral** (`upm`, `estrato`,
-    factores de expansión) necesarias para estimar con `survey`/`srvyr`.
-5.  **Armonización entre periodos.** Una capa canónica
-    (`variable_canonica_map`) unifica los **nombres** de variables que
-    el INE cambió entre años (detectados por su etiqueta cuando el
-    código de variable varía) y **recodifica los valores** cuando el INE
-    alteró las categorías: p. ej. el “Otros” del nivel educativo, la
-    **tenencia de la vivienda** (dos órdenes de códigos: 2012–2015 vs
-    2016+) o la **categoría ocupacional** de la ECE (cuestionario 2018
-    vs 2019+). La capa armonizada de la EH se materializa además en un
-    único Parquet precalculado. Las variables de vivienda (nivel hogar)
-    se unen a las de persona por `folio`.
-6.  **Indicadores ya calculados por el INE.** Las **líneas de pobreza**,
-    los **factores de expansión** y las variables derivadas (pobreza,
-    ingresos, condición de actividad, nivel educativo) las calcula el
-    propio INE; el paquete las expone con nombres canónicos y **no
-    recalcula** esos agregados.
-7.  **Publicación y verificación.** Los Parquet resultantes se publican
-    en GitHub Releases (las funciones `get_*()` los descargan y
-    cachean). Los resultados se han contrastado contra las cifras
-    oficiales del INE, con coincidencias dentro del margen muestral.
-
-Los límites de comparabilidad entre periodos (cambios de cuestionario,
-de marco muestral o de clasificadores) se documentan en
+Cada `.sav` del INE se lee con [`haven`](https://haven.tidyverse.org/)
+(preservando sus etiquetas), del que se extrae el **codebook**; los
+datos se guardan como códigos numéricos en Parquet (uno por
+encuesta-periodo-tabla), conservando intactas las variables de diseño
+muestral. La **armonización** entre periodos unifica nombres y
+recodifica los valores que el INE cambió entre años (p. ej. tenencia de
+la vivienda o categoría ocupacional de la ECE). Las **líneas de pobreza,
+los factores de expansión y las variables derivadas** las calcula el
+INE: el paquete las expone. Los resultados se contrastan con las cifras
+oficiales del INE. Detalles de comparabilidad en
 [`vignette("armonizacion")`](https://lab-tecnosocial.github.io/encuestasbo/articles/armonizacion.md)
-y en la ficha técnica de cada estudio
-([`ficha_tecnica()`](https://lab-tecnosocial.github.io/encuestasbo/reference/ficha_tecnica.md)).
+y
+[`ficha_tecnica()`](https://lab-tecnosocial.github.io/encuestasbo/reference/ficha_tecnica.md).
 
 ## Citación
 
