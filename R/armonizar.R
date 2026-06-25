@@ -59,6 +59,11 @@ variables_armonizadas <- function(solo_armonizadas = TRUE) {
 # Etiquetas de valor del esquema armonizado (códigos -> texto), consistentes
 # entre años. Las usa etiquetar_valores() sobre datos armonizados.
 .HARMONIZED_VALUE_LABELS <- list(
+  # Departamentos (debe coincidir con .DEP_CODES de utils.R; se inlinea aquí
+  # porque utils.R se evalúa después de este archivo y no estaría disponible).
+  depto               = c("1" = "Chuquisaca", "2" = "La Paz", "3" = "Cochabamba",
+                          "4" = "Oruro", "5" = "Potosí", "6" = "Tarija",
+                          "7" = "Santa Cruz", "8" = "Beni", "9" = "Pando"),
   sexo                = c("1" = "Hombre", "2" = "Mujer"),
   area                = c("1" = "Urbana", "2" = "Rural"),
   nivel_edu           = c("0" = "Ninguno", "1" = "Primaria", "2" = "Secundaria",
