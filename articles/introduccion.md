@@ -8,8 +8,8 @@ muestral:
   y `vivienda`. Es la principal fuente de pobreza, ingresos, educación y
   empleo.
 - **Encuesta Continua de Empleo (ECE)** — trimestral, **4T-2015 a
-  3T-2025** (con huecos en 2020–2021). Nivel persona; mercado laboral
-  urbano y nacional.
+  3T-2025** (serie completa; en 2020 T2–T4 fue solo urbana por la
+  pandemia). Nivel persona.
 
 La diferencia esencial con un censo: son **muestras con diseño
 complejo** (estratificado, bietápico, con factores de expansión). Por

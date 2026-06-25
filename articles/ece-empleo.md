@@ -1,9 +1,9 @@
 # ECE: empleo trimestral con diseño muestral
 
 La **Encuesta Continua de Empleo (ECE)** del INE es trimestral y mide el
-mercado laboral. `encuestasbo` cubre del 4T-2015 al 3T-2025 (con huecos
-en 2020–2021 por la pandemia). Cada trimestre es un archivo a nivel
-persona.
+mercado laboral. `encuestasbo` cubre del 4T-2015 al 3T-2025 (en 2020
+T2–T4 fue solo urbana por la pandemia). Cada trimestre es un archivo a
+nivel persona.
 
 ``` r
 

@@ -5,7 +5,9 @@ del Instituto Nacional de Estadística (INE) de Bolivia:
 
 - **Encuesta de Hogares (EH)** — anual, **2012–2024** (13 años).
 - **Encuesta Continua de Empleo (ECE)** — trimestral, **4T-2015 a
-  3T-2025** (33 trimestres; con huecos en 2020–2021 por la pandemia).
+  3T-2025** (40 trimestres). En 2020 (T2–T4) la ECE fue de **cobertura
+  solo urbana** por la pandemia; el paquete los marca y avisa al
+  usarlos.
 
 Es el paquete hermano de
 [`censosbo`](https://github.com/lab-tecnosocial/censosbo) y comparte su

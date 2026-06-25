@@ -1,9 +1,12 @@
 # Accede a los microdatos de la Encuesta Continua de Empleo (ECE) del INE
 
 Descarga y/o carga desde caché los microdatos trimestrales de la
-Encuesta Continua de Empleo de Bolivia (4T-2015 en adelante, con huecos
-en 2020-2021 por la pandemia), con filtros opcionales por departamento y
-área. Cada trimestre es un archivo único a nivel persona.
+Encuesta Continua de Empleo de Bolivia (4T-2015 a 3T-2025, serie
+completa). En \*\*2020-T2/T3/T4\*\* la ECE fue de cobertura \*\*solo
+urbana\*\* (la pandemia impidió el levantamiento rural); esos trimestres
+emiten un aviso y se marcan como \`cobertura = "urbana"\` en
+\[catalogo_ece()\]. Con filtros opcionales por departamento y área. Cada
+trimestre es un archivo único a nivel persona.
 
 ## Usage
 

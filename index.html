@@ -82,7 +82,7 @@
 <li>
 <strong>Encuesta de Hogares (EH)</strong> — anual, <strong>2012–2024</strong> (13 años).</li>
 <li>
-<strong>Encuesta Continua de Empleo (ECE)</strong> — trimestral, <strong>4T-2015 a 3T-2025</strong> (33 trimestres; con huecos en 2020–2021 por la pandemia).</li>
+<strong>Encuesta Continua de Empleo (ECE)</strong> — trimestral, <strong>4T-2015 a 3T-2025</strong> (40 trimestres). En 2020 (T2–T4) la ECE fue de <strong>cobertura solo urbana</strong> por la pandemia; el paquete los marca y avisa al usarlos.</li>
 </ul>
 <p>Es el paquete hermano de <a href="https://github.com/lab-tecnosocial/censosbo" class="external-link"><code>censosbo</code></a> y comparte su arquitectura: Parquet + Apache Arrow (lazy), caché local y flujos estilo <code>dplyr</code> / SQL vía DuckDB. La diferencia esencial: las encuestas son <strong>muestras con diseño complejo</strong> (estratificado, bietápico, con factores de expansión), por lo que el paquete integra <code>survey</code>/<code>srvyr</code> para producir estimaciones e intervalos de confianza correctos.</p>
 <p>Los microdatos están <strong>procesados y publicados</strong>: las funciones descargan los Parquet desde GitHub Releases y los guardan en caché local automáticamente.</p>
