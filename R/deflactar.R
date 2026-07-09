@@ -71,8 +71,8 @@ deflactar <- function(valor, anio, base = 2024, indice = NULL) {
     cli::cli_abort("El {.arg indice} debe ser un data.frame (anio/ipc) o un vector numérico con nombres de año.")
   }
 
-  base_val <- lookup[[as.character(base)]]
-  if (is.null(base_val) || is.na(base_val)) {
+  base_val <- unname(lookup[as.character(base)])
+  if (length(base_val) == 0 || is.na(base_val)) {
     cli::cli_abort(c(
       "No hay IPC para el año base {.val {base}} en el índice.",
       "i" = "Años disponibles: {.val {names(lookup)}}."
