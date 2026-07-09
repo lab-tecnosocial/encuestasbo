@@ -74,3 +74,36 @@ local_fixture_ece <- function(anio = 2023, trimestre = 4, env = parent.frame()) 
   arrow::write_parquet(df, file.path(dest_dir, fila$archivo_parquet))
   df
 }
+
+# Escribe dos trimestres ECE en el mismo caché: uno con el cuestionario <= 2018
+# (variable de categoría ocupacional `s2_20`) y otro >= 2019 (`s2_18`, con
+# `psubocup`). Sirve para probar get_ece_armonizada() apilando versiones distintas.
+local_fixture_ece_serie <- function(env = parent.frame()) {
+  cache_dir <- withr::local_tempdir(.local_envir = env)
+  withr::local_options(list(encuestasbo.cache_dir = cache_dir), .local_envir = env)
+  dest_dir <- file.path(cache_dir, "ece")
+  dir.create(dest_dir, recursive = TRUE, showWarnings = FALSE)
+
+  mk <- function(n, version) {
+    set.seed(if (version == "s2_20") 18L else 19L)
+    d <- data.frame(
+      depto = rep(1:9, length.out = n), area = rep(1:2, length.out = n),
+      upm = rep(1:40, length.out = n), estrato = rep(1:8, length.out = n),
+      fact_trim_act = runif(n, 50, 500), fact_mes_act = runif(n, 50, 500),
+      s1_02 = rep(1:2, length.out = n),
+      pea = rbinom(n, 1, 0.6), pet = rbinom(n, 1, 0.9),
+      peao = rbinom(n, 1, 0.55), pead = rbinom(n, 1, 0.05),
+      ylab = round(rlnorm(n, log(2500), 0.5))
+    )
+    if (version == "s2_20") d$s2_20 <- sample(1:8, n, replace = TRUE)
+    else { d$s2_18 <- sample(1:7, n, replace = TRUE); d$psubocup <- rbinom(n, 1, 0.1) }
+    d
+  }
+  # 2018 T4 -> s2_20 (<=2018);  2023 T4 -> s2_18 (>=2019)
+  fila1 <- encuestasbo::catalogo_ece(anio = 2018, trimestre = 4, tabla = "persona")
+  fila2 <- encuestasbo::catalogo_ece(anio = 2023, trimestre = 4, tabla = "persona")
+  stopifnot(nrow(fila1) == 1, nrow(fila2) == 1)
+  arrow::write_parquet(mk(150L, "s2_20"), file.path(dest_dir, fila1$archivo_parquet))
+  arrow::write_parquet(mk(150L, "s2_18"), file.path(dest_dir, fila2$archivo_parquet))
+  invisible(cache_dir)
+}

@@ -77,6 +77,14 @@ variables_armonizadas <- function(solo_armonizadas = TRUE) {
   pet                 = c("0" = "No", "1" = "Sí"),
   ocupado             = c("0" = "No", "1" = "Sí"),
   desocupado          = c("0" = "No", "1" = "Sí"),
+  subocupado          = c("0" = "No", "1" = "Sí"),
+  # Categoría ocupacional de la ECE (situación en el empleo), esquema canónico
+  # estable entre versiones del cuestionario. Debe coincidir con
+  # .ECE_CATEGORIA_LABELS de armonizar_ece.R (se inlinea porque ese archivo se
+  # evalúa después de este y no estaría disponible al construir esta lista).
+  categoria_ocupacional = c("1" = "Obrero/Empleado", "2" = "Cuenta propia",
+                          "3" = "Empleador o socio", "4" = "Cooperativista de producción",
+                          "5" = "Familiar/aprendiz no remunerado", "6" = "Empleada/o del hogar"),
   tipo_vivienda       = c("1" = "Casa", "2" = "Choza/Pahuichi", "3" = "Departamento",
                           "4" = "Cuarto(s) suelto(s)", "5" = "Vivienda improvisada",
                           "6" = "Local no destinado a habitación"),
@@ -112,7 +120,8 @@ variables_armonizadas <- function(solo_armonizadas = TRUE) {
 # presencia indica que el data frame ya está armonizado.
 .HARMONIZED_MARKERS <- c("sexo", "edad", "nivel_edu", "condicion_actividad",
                          "ingreso_hogar", "pobre",
-                         "tipo_vivienda", "tenencia_vivienda", "tiene_seguro_salud")
+                         "tipo_vivienda", "tenencia_vivienda", "tiene_seguro_salud",
+                         "categoria_ocupacional")  # ECE armonizada (get_ece_armonizada)
 
 # Armoniza VALORES que cambian de código entre años a un esquema canónico.
 #  - nivel_edu: "Otros" es 4/5/9 según el año -> se colapsa a 4. Códigos 0-3 estables.
@@ -269,6 +278,7 @@ get_eh_armonizada <- function(anios = NULL, variables = NULL, grupo = NULL,
                               as = c("tibble", "arrow", "duckdb"),
                               overwrite = FALSE, verbose = TRUE) {
   as <- match.arg(as)
+  user_variables <- variables   # solo se avisa de las pedidas explícitamente
   variables <- .resolve_armon_vars(variables, grupo)
 
   path <- .download_armonizada_eh(overwrite = overwrite, verbose = verbose)
@@ -290,6 +300,15 @@ get_eh_armonizada <- function(anios = NULL, variables = NULL, grupo = NULL,
   }
 
   if (!is.null(variables)) {
+    if (!is.null(user_variables)) {
+      faltan <- setdiff(user_variables, names(ds))
+      if (length(faltan) > 0) {
+        cli::cli_warn(c(
+          "Variables armonizadas no encontradas: {.val {faltan}}",
+          "i" = "Usa {.code variables_armonizadas()} para ver las disponibles."
+        ))
+      }
+    }
     cols <- intersect(unique(c(.CANON_SIEMPRE, "anio", variables)), names(ds))
     ds <- dplyr::select(ds, dplyr::all_of(cols))
   }

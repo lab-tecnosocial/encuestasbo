@@ -14,12 +14,20 @@
 }
 
 # Selecciona variables preservando siempre las columnas de identificación,
-# geografía y diseño muestral cuando existen.
-.apply_variable_selection <- function(ds, variables) {
+# geografía y diseño muestral cuando existen. Los nombres de las columnas de
+# diseño (factor de expansión, UPM, estrato) difieren entre encuestas (p. ej.
+# la EH usa `factor` y la ECE `fact_trim_act`/`fact_mes_act`), así que se
+# derivan del catálogo (`fila`) en lugar de codificarlos aquí.
+.apply_variable_selection <- function(ds, variables, fila = NULL) {
   if (is.null(variables)) return(ds)
-  siempre <- c("folio", "nro_hogar", "nro_persona", "depto", "area",
-               "factor", "factor_trimestral", "factor_mensual", "upm", "estrato")
-  cols <- unique(c(siempre, variables))
+  id_geo <- c("folio", "nro_hogar", "nro_persona", "depto", "area")
+  if (is.null(fila)) {
+    diseno <- c("factor", "upm", "estrato")
+  } else {
+    diseno <- c(fila$factor_var, fila$factor_var_alt, fila$upm_var, fila$estrato_var)
+    diseno <- diseno[!is.na(diseno)]
+  }
+  cols <- unique(c(id_geo, diseno, variables))
   available <- names(ds)
   missing_user <- setdiff(variables, available)
   if (length(missing_user) > 0) {

@@ -37,7 +37,7 @@ get_viviendas_eh <- function(anio, departamento = NULL, area = NULL,
 
 #' Atajos de acceso a la Encuesta Continua de Empleo por nivel
 #'
-#' Wrappers de [get_ece()] para los niveles de análisis más comunes.
+#' Wrapper de [get_ece()]. La ECE se distribuye únicamente a nivel `persona`.
 #'
 #' @inheritParams get_ece
 #' @return Lo mismo que [get_ece()] según `as`.
@@ -54,16 +54,6 @@ get_personas_ece <- function(anio, trimestre, departamento = NULL, area = NULL,
                              variables = NULL, as = c("arrow", "tibble", "duckdb"),
                              overwrite = FALSE, verbose = TRUE) {
   get_ece(anio, trimestre, "persona", departamento = departamento, area = area,
-          variables = variables, as = match.arg(as), overwrite = overwrite,
-          verbose = verbose)
-}
-
-#' @rdname atajos_ece
-#' @export
-get_viviendas_ece <- function(anio, trimestre, departamento = NULL, area = NULL,
-                              variables = NULL, as = c("arrow", "tibble", "duckdb"),
-                              overwrite = FALSE, verbose = TRUE) {
-  get_ece(anio, trimestre, "vivienda", departamento = departamento, area = area,
           variables = variables, as = match.arg(as), overwrite = overwrite,
           verbose = verbose)
 }

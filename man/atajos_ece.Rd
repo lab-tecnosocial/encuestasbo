@@ -3,21 +3,9 @@
 \name{atajos_ece}
 \alias{atajos_ece}
 \alias{get_personas_ece}
-\alias{get_viviendas_ece}
 \title{Atajos de acceso a la Encuesta Continua de Empleo por nivel}
 \usage{
 get_personas_ece(
-  anio,
-  trimestre,
-  departamento = NULL,
-  area = NULL,
-  variables = NULL,
-  as = c("arrow", "tibble", "duckdb"),
-  overwrite = FALSE,
-  verbose = TRUE
-)
-
-get_viviendas_ece(
   anio,
   trimestre,
   departamento = NULL,
@@ -50,7 +38,7 @@ todas. Las columnas de diseño muestral siempre se incluyen.}
 Lo mismo que [get_ece()] según `as`.
 }
 \description{
-Wrappers de [get_ece()] para los niveles de análisis más comunes.
+Wrapper de [get_ece()]. La ECE se distribuye únicamente a nivel `persona`.
 }
 \examples{
 \dontrun{

@@ -10,7 +10,5 @@ NULL
 # Silenciar notas de R CMD check sobre datos del paquete accedidos por nombre
 utils::globalVariables(c(
   "catalogo_encuestas", "codebook_eh_meta", "codebook_ece_meta",
-  "variable_canonica_map", "metadata_encuestas"
+  "variable_canonica_map", "metadata_encuestas", "ipc_bolivia"
 ))
-
-`%||%` <- function(x, y) if (is.null(x)) y else x

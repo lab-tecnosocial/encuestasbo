@@ -17,7 +17,8 @@ grupo_edad(
 \item{cortes}{Vector de cortes (límites inferiores). Por defecto
 `c(0, 18, 25, 65)`.}
 
-\item{etiquetas}{Etiquetas de cada grupo (una más que… no: una por intervalo).}
+\item{etiquetas}{Vector de etiquetas, una por intervalo (mismo largo que el
+número de intervalos definidos por `cortes`).}
 }
 \value{
 Un factor con la cohorte de cada edad.

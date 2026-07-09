@@ -59,6 +59,6 @@ get_ece <- function(
   local_path <- .download_encuesta(fila, overwrite = overwrite, verbose = verbose)
   ds <- arrow::open_dataset(local_path, format = "parquet")
   ds <- .apply_filtros(ds, departamento, area)
-  ds <- .apply_variable_selection(ds, variables)
+  ds <- .apply_variable_selection(ds, variables, fila = fila)
   .return_as(ds, as, table_name = tabla, verbose = verbose)
 }

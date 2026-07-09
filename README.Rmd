@@ -65,6 +65,9 @@ get_eh(2023, "persona", as = "tibble") |> etiquetar_valores(anio = 2023)
 # Respaldada por un único Parquet armonizado (~5 MB); modos tibble/arrow/duckdb
 get_eh_armonizada(grupo = "pobreza")
 get_eh_armonizada(as = "duckdb")   # consulta SQL cross-año sobre "eh_armonizada"
+
+# ECE armonizada entre trimestres (apila versiones del cuestionario, con `anio`/`trimestre`)
+get_ece_armonizada(anios = 2022:2023)
 ```
 
 ## Análisis con diseño muestral
@@ -100,6 +103,18 @@ empleo (`condicion_actividad`, `pea`, `ocupado`), demografía (`sexo`, `edad`).
 ```{r}
 variables_armonizadas()
 grupos_variables()
+```
+
+## Ingresos reales (deflactor)
+
+Para comparar ingresos entre años sin el sesgo de la inflación, `deflactar()`
+lleva valores nominales a precios constantes de un año base con el IPC de
+Bolivia (media anual; dataset `ipc_bolivia`).
+
+```{r}
+library(dplyr)
+get_eh_armonizada(grupo = "ingresos") |>
+  mutate(ingreso_hogar_real = deflactar(ingreso_hogar, anio, base = 2024))
 ```
 
 ## Gestión del caché

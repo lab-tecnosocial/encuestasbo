@@ -1,4 +1,40 @@
-# encuestasbo 0.1.0 (en desarrollo)
+# encuestasbo 0.2.0
+
+## Nuevas funcionalidades
+
+* `get_ece_armonizada()` + `variables_armonizadas_ece()`: serie de la ECE
+  armonizada apilada entre trimestres (formato largo con `anio`/`trimestre`),
+  equivalente para la ECE de `get_eh_armonizada()`. Aplica `armonizar_ece()` a
+  cada trimestre (compatibilizando las versiones del cuestionario, `s2_20`
+  hasta 2018 y `s2_18` desde 2019) y homogeneiza tipos; admite filtros por
+  año/trimestre, departamento y área y modos `"tibble"/"arrow"/"duckdb"`. No
+  requiere un Parquet consolidado: reutiliza los trimestres ya publicados.
+* `deflactar()` + dataset `ipc_bolivia`: lleva ingresos nominales a precios
+  constantes de un año base con el IPC de Bolivia (media anual; fuente Banco
+  Mundial / INE), para comparar ingresos entre años sin el sesgo de la
+  inflación. Acepta un índice propio (p. ej. IPC por ciudad) vía `indice`.
+* `etiquetar_valores()` ahora reconoce también la serie ECE armonizada
+  (incluida la etiqueta de `categoria_ocupacional`).
+
+## Correcciones
+
+* `get_ece(..., variables = ...)` ya conserva los factores de expansión de la
+  ECE (`fact_trim_act`/`fact_mes_act`). Antes se descartaban silenciosamente
+  porque la lista de columnas de diseño estaba fijada con los nombres de la EH;
+  ahora se derivan del catálogo (correcto para cada encuesta).
+* `get_eh_armonizada()` avisa cuando una variable pedida en `variables=` no
+  existe (no así las expandidas desde `grupo=`, cuya ausencia parcial es normal).
+* Se retira `get_viviendas_ece()`: la ECE se distribuye únicamente a nivel
+  `persona`, por lo que ese atajo nunca podía devolver datos.
+
+## Interno
+
+* `stats` añadido a `Imports` (uso de `stats::setNames`).
+* Documentación de datos y dev-docs actualizadas; nuevos tests para la serie
+  ECE armonizada, el deflactor y la selección de variables de la ECE.
+
+
+# encuestasbo 0.1.0
 
 Primera versión. Encuesta de Hogares (EH) 2012–2024 procesada y funcional de
 punta a punta.
@@ -96,6 +132,4 @@ punta a punta.
 
 ## Pendiente
 
-* Armonización canónica de la ECE entre trimestres (hoy se accede con sus
-  nombres nativos; el diseño muestral ya funciona).
 * Armonización de clasificadores ocupacionales/actividad (COB/CAEB) entre versiones.

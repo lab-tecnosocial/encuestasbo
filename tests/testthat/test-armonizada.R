@@ -33,3 +33,14 @@ test_that("get_eh_armonizada(as = 'duckdb') registra la tabla eh_armonizada", {
 test_that("get_eh_armonizada() aborta con grupo desconocido", {
   expect_error(get_eh_armonizada(grupo = "inexistente", verbose = FALSE), "desconocido")
 })
+
+test_that("get_eh_armonizada() avisa de variables= inexistentes pero no de grupo=", {
+  local_fixture_armonizada()
+  # variables explícitas ausentes -> aviso
+  expect_warning(
+    get_eh_armonizada(variables = c("pobre", "no_existe"), verbose = FALSE),
+    "no encontradas"
+  )
+  # grupo con miembros ausentes en el Parquet -> SIN aviso (ausencia parcial normal)
+  expect_no_warning(get_eh_armonizada(grupo = "pobreza", verbose = FALSE))
+})

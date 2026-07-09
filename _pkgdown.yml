@@ -80,7 +80,6 @@ reference:
       - get_personas_eh
       - get_viviendas_eh
       - get_personas_ece
-      - get_viviendas_ece
 
   - title: "Catálogo y ficha técnica"
     desc: >
@@ -101,16 +100,19 @@ reference:
       - etiquetar_valores
       - etiquetar_variables
 
-  - title: "Armonización entre años (Encuesta de Hogares)"
+  - title: "Armonización entre periodos"
     desc: >
       Renombrado a un esquema canónico estable y series largas comparables
-      entre años, apoyadas en las variables derivadas del INE.
+      entre años (EH) y trimestres (ECE), apoyadas en las variables derivadas
+      del INE.
     contents:
       - armonizar_eh
       - get_eh_armonizada
       - variables_armonizadas
       - grupos_variables
       - armonizar_ece
+      - get_ece_armonizada
+      - variables_armonizadas_ece
 
   - title: "Diseño muestral (survey / srvyr)"
     desc: >
@@ -130,6 +132,14 @@ reference:
       - tasa_subocupacion
       - empleo_vulnerable
       - grupo_edad
+
+  - title: "Ingresos reales (deflactor)"
+    desc: >
+      Deflacta ingresos nominales a precios constantes con el IPC de Bolivia
+      para comparar entre años.
+    contents:
+      - deflactar
+      - ipc_bolivia
 
   - title: "Geografía"
     contents:

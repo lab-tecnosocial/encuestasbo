@@ -17,6 +17,8 @@ Un data.frame con una fila por base, con columnas:
   \item{factor_var_alt}{Factor alternativo (ECE: factor mensual); `NA` para EH}
   \item{upm_var}{Nombre canónico de la unidad primaria de muestreo}
   \item{estrato_var}{Nombre canónico del estrato}
+  \item{cobertura}{`"nacional"` o `"urbana"` (ECE 2020 T2-T4, por la pandemia).
+    [get_ece()] avisa al usar los periodos de cobertura urbana}
   \item{catalog_id}{Identificador del estudio en el portal ANDA (procedencia)}
   \item{archivo_sav}{Nombre original del archivo SPSS en ANDA (procedencia)}
   \item{version_caeb}{Versión del clasificador de actividad económica}

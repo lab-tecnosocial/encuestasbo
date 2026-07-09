@@ -142,7 +142,8 @@ empleo_vulnerable <- function(anio, trimestre, por = NULL,
 #' @param edad Vector numérico de edades.
 #' @param cortes Vector de cortes (límites inferiores). Por defecto
 #'   `c(0, 18, 25, 65)`.
-#' @param etiquetas Etiquetas de cada grupo (una más que… no: una por intervalo).
+#' @param etiquetas Vector de etiquetas, una por intervalo (mismo largo que el
+#'   número de intervalos definidos por `cortes`).
 #' @return Un factor con la cohorte de cada edad.
 #' @export
 #' @examples
