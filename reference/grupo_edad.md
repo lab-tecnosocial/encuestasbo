@@ -28,7 +28,8 @@ grupo_edad(
 
 - etiquetas:
 
-  Etiquetas de cada grupo (una más que… no: una por intervalo).
+  Vector de etiquetas, una por intervalo (mismo largo que el número de
+  intervalos definidos por \`cortes\`).
 
 ## Value
 

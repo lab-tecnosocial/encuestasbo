@@ -23,6 +23,7 @@
 <url><loc>https://lab-tecnosocial.github.io/encuestasbo/reference/codebook_ece_meta.html</loc></url>
 <url><loc>https://lab-tecnosocial.github.io/encuestasbo/reference/codebook_eh_meta.html</loc></url>
 <url><loc>https://lab-tecnosocial.github.io/encuestasbo/reference/codebook_valores.html</loc></url>
+<url><loc>https://lab-tecnosocial.github.io/encuestasbo/reference/deflactar.html</loc></url>
 <url><loc>https://lab-tecnosocial.github.io/encuestasbo/reference/departamentos.html</loc></url>
 <url><loc>https://lab-tecnosocial.github.io/encuestasbo/reference/diseno_ece.html</loc></url>
 <url><loc>https://lab-tecnosocial.github.io/encuestasbo/reference/diseno_eh.html</loc></url>
@@ -36,11 +37,13 @@
 <url><loc>https://lab-tecnosocial.github.io/encuestasbo/reference/etiquetar_variables.html</loc></url>
 <url><loc>https://lab-tecnosocial.github.io/encuestasbo/reference/ficha_tecnica.html</loc></url>
 <url><loc>https://lab-tecnosocial.github.io/encuestasbo/reference/get_ece.html</loc></url>
+<url><loc>https://lab-tecnosocial.github.io/encuestasbo/reference/get_ece_armonizada.html</loc></url>
 <url><loc>https://lab-tecnosocial.github.io/encuestasbo/reference/get_eh.html</loc></url>
 <url><loc>https://lab-tecnosocial.github.io/encuestasbo/reference/get_eh_armonizada.html</loc></url>
 <url><loc>https://lab-tecnosocial.github.io/encuestasbo/reference/grupo_edad.html</loc></url>
 <url><loc>https://lab-tecnosocial.github.io/encuestasbo/reference/grupos_variables.html</loc></url>
 <url><loc>https://lab-tecnosocial.github.io/encuestasbo/reference/index.html</loc></url>
+<url><loc>https://lab-tecnosocial.github.io/encuestasbo/reference/ipc_bolivia.html</loc></url>
 <url><loc>https://lab-tecnosocial.github.io/encuestasbo/reference/metadata_encuestas.html</loc></url>
 <url><loc>https://lab-tecnosocial.github.io/encuestasbo/reference/tasa_desempleo.html</loc></url>
 <url><loc>https://lab-tecnosocial.github.io/encuestasbo/reference/tasa_pobreza.html</loc></url>
@@ -48,5 +51,6 @@
 <url><loc>https://lab-tecnosocial.github.io/encuestasbo/reference/update_encuestasbo.html</loc></url>
 <url><loc>https://lab-tecnosocial.github.io/encuestasbo/reference/variable_canonica_map.html</loc></url>
 <url><loc>https://lab-tecnosocial.github.io/encuestasbo/reference/variables_armonizadas.html</loc></url>
+<url><loc>https://lab-tecnosocial.github.io/encuestasbo/reference/variables_armonizadas_ece.html</loc></url>
 </urlset>
 

@@ -55,6 +55,11 @@ Un data.frame con una fila por base, con columnas:
 
   Nombre canónico del estrato
 
+- cobertura:
+
+  \`"nacional"\` o \`"urbana"\` (ECE 2020 T2-T4, por la pandemia).
+  \[get_ece()\] avisa al usar los periodos de cobertura urbana
+
 - catalog_id:
 
   Identificador del estudio en el portal ANDA (procedencia)

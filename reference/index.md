@@ -14,7 +14,6 @@ Descarga y consulta de los microdatos. Todas devuelven un Arrow Dataset
   [`get_viviendas_eh()`](https://lab-tecnosocial.github.io/encuestasbo/reference/atajos_eh.md)
   : Atajos de acceso a la Encuesta de Hogares por nivel
 - [`get_personas_ece()`](https://lab-tecnosocial.github.io/encuestasbo/reference/atajos_ece.md)
-  [`get_viviendas_ece()`](https://lab-tecnosocial.github.io/encuestasbo/reference/atajos_ece.md)
   : Atajos de acceso a la Encuesta Continua de Empleo por nivel
 
 ## Catálogo y ficha técnica
@@ -43,10 +42,11 @@ códigos numéricos a texto legible.
 - [`etiquetar_variables()`](https://lab-tecnosocial.github.io/encuestasbo/reference/etiquetar_variables.md)
   : Etiqueta los nombres de las variables (columnas)
 
-## Armonización entre años (Encuesta de Hogares)
+## Armonización entre periodos
 
 Renombrado a un esquema canónico estable y series largas comparables
-entre años, apoyadas en las variables derivadas del INE.
+entre años (EH) y trimestres (ECE), apoyadas en las variables derivadas
+del INE.
 
 - [`armonizar_eh()`](https://lab-tecnosocial.github.io/encuestasbo/reference/armonizar_eh.md)
   : Armoniza un data frame de la Encuesta de Hogares a nombres canónicos
@@ -58,6 +58,10 @@ entre años, apoyadas en las variables derivadas del INE.
   : Grupos temáticos de variables armonizadas
 - [`armonizar_ece()`](https://lab-tecnosocial.github.io/encuestasbo/reference/armonizar_ece.md)
   : Armoniza un data frame de la ECE a nombres/códigos canónicos
+- [`get_ece_armonizada()`](https://lab-tecnosocial.github.io/encuestasbo/reference/get_ece_armonizada.md)
+  : Serie armonizada de la Encuesta Continua de Empleo entre trimestres
+- [`variables_armonizadas_ece()`](https://lab-tecnosocial.github.io/encuestasbo/reference/variables_armonizadas_ece.md)
+  : Lista las columnas canónicas de la serie ECE armonizada
 
 ## Diseño muestral (survey / srvyr)
 
@@ -85,6 +89,16 @@ de confianza.
   : Tasa de empleo vulnerable (ECE)
 - [`grupo_edad()`](https://lab-tecnosocial.github.io/encuestasbo/reference/grupo_edad.md)
   : Agrupa la edad en cohortes
+
+## Ingresos reales (deflactor)
+
+Deflacta ingresos nominales a precios constantes con el IPC de Bolivia
+para comparar entre años.
+
+- [`deflactar()`](https://lab-tecnosocial.github.io/encuestasbo/reference/deflactar.md)
+  : Deflacta valores monetarios a precios constantes de un año base
+- [`ipc_bolivia`](https://lab-tecnosocial.github.io/encuestasbo/reference/ipc_bolivia.md)
+  : Índice de Precios al Consumidor (IPC) de Bolivia, promedio anual
 
 ## Geografía
 

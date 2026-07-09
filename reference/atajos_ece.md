@@ -1,22 +1,12 @@
 # Atajos de acceso a la Encuesta Continua de Empleo por nivel
 
-Wrappers de \[get_ece()\] para los niveles de análisis más comunes.
+Wrapper de \[get_ece()\]. La ECE se distribuye únicamente a nivel
+\`persona\`.
 
 ## Usage
 
 ``` r
 get_personas_ece(
-  anio,
-  trimestre,
-  departamento = NULL,
-  area = NULL,
-  variables = NULL,
-  as = c("arrow", "tibble", "duckdb"),
-  overwrite = FALSE,
-  verbose = TRUE
-)
-
-get_viviendas_ece(
   anio,
   trimestre,
   departamento = NULL,

@@ -30,7 +30,7 @@
 
     <a class="navbar-brand me-2" href="index.html">encuestasbo</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -116,7 +116,10 @@
 <span><span class="co"># Armonización entre años (formato largo con columna `anio`)</span></span>
 <span><span class="co"># Respaldada por un único Parquet armonizado (~5 MB); modos tibble/arrow/duckdb</span></span>
 <span><span class="fu"><a href="reference/get_eh_armonizada.html">get_eh_armonizada</a></span><span class="op">(</span>grupo <span class="op">=</span> <span class="st">"pobreza"</span><span class="op">)</span></span>
-<span><span class="fu"><a href="reference/get_eh_armonizada.html">get_eh_armonizada</a></span><span class="op">(</span>as <span class="op">=</span> <span class="st">"duckdb"</span><span class="op">)</span>   <span class="co"># consulta SQL cross-año sobre "eh_armonizada"</span></span></code></pre></div>
+<span><span class="fu"><a href="reference/get_eh_armonizada.html">get_eh_armonizada</a></span><span class="op">(</span>as <span class="op">=</span> <span class="st">"duckdb"</span><span class="op">)</span>   <span class="co"># consulta SQL cross-año sobre "eh_armonizada"</span></span>
+<span></span>
+<span><span class="co"># ECE armonizada entre trimestres (apila versiones del cuestionario, con `anio`/`trimestre`)</span></span>
+<span><span class="fu"><a href="reference/get_ece_armonizada.html">get_ece_armonizada</a></span><span class="op">(</span>anios <span class="op">=</span> <span class="fl">2022</span><span class="op">:</span><span class="fl">2023</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="análisis-con-diseño-muestral">Análisis con diseño muestral<a class="anchor" aria-label="anchor" href="#an%C3%A1lisis-con-dise%C3%B1o-muestral"></a>
@@ -147,9 +150,18 @@
 <span><span class="fu"><a href="reference/grupos_variables.html">grupos_variables</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level2">
+<h2 id="ingresos-reales-deflactor">Ingresos reales (deflactor)<a class="anchor" aria-label="anchor" href="#ingresos-reales-deflactor"></a>
+</h2>
+<p>Para comparar ingresos entre años sin el sesgo de la inflación, <code><a href="reference/deflactar.html">deflactar()</a></code> lleva valores nominales a precios constantes de un año base con el IPC de Bolivia (media anual; dataset <code>ipc_bolivia</code>).</p>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span><span class="op">)</span></span>
+<span><span class="fu"><a href="reference/get_eh_armonizada.html">get_eh_armonizada</a></span><span class="op">(</span>grupo <span class="op">=</span> <span class="st">"ingresos"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>ingreso_hogar_real <span class="op">=</span> <span class="fu"><a href="reference/deflactar.html">deflactar</a></span><span class="op">(</span><span class="va">ingreso_hogar</span>, <span class="va">anio</span>, base <span class="op">=</span> <span class="fl">2024</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+</div>
+<div class="section level2">
 <h2 id="gestión-del-caché">Gestión del caché<a class="anchor" aria-label="anchor" href="#gesti%C3%B3n-del-cach%C3%A9"></a>
 </h2>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="reference/encuestasbo_cache_dir.html">encuestasbo_cache_dir</a></span><span class="op">(</span><span class="op">)</span>; <span class="fu"><a href="reference/encuestasbo_cache_info.html">encuestasbo_cache_info</a></span><span class="op">(</span><span class="op">)</span>; <span class="fu"><a href="reference/encuestasbo_cache_clear.html">encuestasbo_cache_clear</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level2">
@@ -173,7 +185,7 @@
 <h2 id="citación">Citación<a class="anchor" aria-label="anchor" href="#citaci%C3%B3n"></a>
 </h2>
 <p>Si usas <code>encuestasbo</code> en un trabajo, por favor cítalo. En R:</p>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/citation.html" class="external-link">citation</a></span><span class="op">(</span><span class="st">"encuestasbo"</span><span class="op">)</span></span></code></pre></div>
 <blockquote>
 <p>Ojeda Copa, A. (2026). <em>encuestasbo: Acceso, armonización y análisis con diseño muestral de las encuestas del INE de Bolivia</em>. Lab TecnoSocial. Paquete de R. <a href="https://github.com/lab-tecnosocial/encuestasbo" class="external-link uri">https://github.com/lab-tecnosocial/encuestasbo</a></p>
@@ -231,7 +243,7 @@
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.1.</p>
 </div>
 
     </footer>

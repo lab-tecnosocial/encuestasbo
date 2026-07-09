@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">encuestasbo</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -46,7 +46,33 @@
     </div>
 
     <div class="section level2">
-<h2 class="pkg-version" data-toc-text="0.1.0" id="encuestasbo-010-en-desarrollo">encuestasbo 0.1.0 (en desarrollo)<a class="anchor" aria-label="anchor" href="#encuestasbo-010-en-desarrollo"></a></h2>
+<h2 class="pkg-version" data-toc-text="0.2.0" id="encuestasbo-020">encuestasbo 0.2.0<a class="anchor" aria-label="anchor" href="#encuestasbo-020"></a></h2>
+<div class="section level3">
+<h3 id="nuevas-funcionalidades-0-2-0">Nuevas funcionalidades<a class="anchor" aria-label="anchor" href="#nuevas-funcionalidades-0-2-0"></a></h3>
+<ul><li>
+<code><a href="../reference/get_ece_armonizada.html">get_ece_armonizada()</a></code> + <code><a href="../reference/variables_armonizadas_ece.html">variables_armonizadas_ece()</a></code>: serie de la ECE armonizada apilada entre trimestres (formato largo con <code>anio</code>/<code>trimestre</code>), equivalente para la ECE de <code><a href="../reference/get_eh_armonizada.html">get_eh_armonizada()</a></code>. Aplica <code><a href="../reference/armonizar_ece.html">armonizar_ece()</a></code> a cada trimestre (compatibilizando las versiones del cuestionario, <code>s2_20</code> hasta 2018 y <code>s2_18</code> desde 2019) y homogeneiza tipos; admite filtros por año/trimestre, departamento y área y modos <code>"tibble"/"arrow"/"duckdb"</code>. No requiere un Parquet consolidado: reutiliza los trimestres ya publicados.</li>
+<li>
+<code><a href="../reference/deflactar.html">deflactar()</a></code> + dataset <code>ipc_bolivia</code>: lleva ingresos nominales a precios constantes de un año base con el IPC de Bolivia (media anual; fuente Banco Mundial / INE), para comparar ingresos entre años sin el sesgo de la inflación. Acepta un índice propio (p. ej. IPC por ciudad) vía <code>indice</code>.</li>
+<li>
+<code><a href="../reference/etiquetar_valores.html">etiquetar_valores()</a></code> ahora reconoce también la serie ECE armonizada (incluida la etiqueta de <code>categoria_ocupacional</code>).</li>
+</ul></div>
+<div class="section level3">
+<h3 id="correcciones-0-2-0">Correcciones<a class="anchor" aria-label="anchor" href="#correcciones-0-2-0"></a></h3>
+<ul><li>
+<code>get_ece(..., variables = ...)</code> ya conserva los factores de expansión de la ECE (<code>fact_trim_act</code>/<code>fact_mes_act</code>). Antes se descartaban silenciosamente porque la lista de columnas de diseño estaba fijada con los nombres de la EH; ahora se derivan del catálogo (correcto para cada encuesta).</li>
+<li>
+<code><a href="../reference/get_eh_armonizada.html">get_eh_armonizada()</a></code> avisa cuando una variable pedida en <code>variables=</code> no existe (no así las expandidas desde <code>grupo=</code>, cuya ausencia parcial es normal).</li>
+<li>Se retira <code>get_viviendas_ece()</code>: la ECE se distribuye únicamente a nivel <code>persona</code>, por lo que ese atajo nunca podía devolver datos.</li>
+</ul></div>
+<div class="section level3">
+<h3 id="interno-0-2-0">Interno<a class="anchor" aria-label="anchor" href="#interno-0-2-0"></a></h3>
+<ul><li>
+<code>stats</code> añadido a <code>Imports</code> (uso de <code><a href="https://rdrr.io/r/stats/setNames.html" class="external-link">stats::setNames</a></code>).</li>
+<li>Documentación de datos y dev-docs actualizadas; nuevos tests para la serie ECE armonizada, el deflactor y la selección de variables de la ECE.</li>
+</ul></div>
+</div>
+    <div class="section level2">
+<h2 class="pkg-version" data-toc-text="0.1.0" id="encuestasbo-010">encuestasbo 0.1.0<a class="anchor" aria-label="anchor" href="#encuestasbo-010"></a></h2>
 <p>Primera versión. Encuesta de Hogares (EH) 2012–2024 procesada y funcional de punta a punta.</p>
 <div class="section level3">
 <h3 id="datos-0-1-0">Datos<a class="anchor" aria-label="anchor" href="#datos-0-1-0"></a></h3>
@@ -66,7 +92,7 @@
 <div class="section level3">
 <h3 id="acceso-0-1-0">Acceso<a class="anchor" aria-label="anchor" href="#acceso-0-1-0"></a></h3>
 <ul><li>
-<code><a href="../reference/get_eh.html">get_eh()</a></code> / <code><a href="../reference/get_ece.html">get_ece()</a></code> y atajos (<code><a href="../reference/atajos_eh.html">get_personas_eh()</a></code>, <code><a href="../reference/atajos_eh.html">get_viviendas_eh()</a></code>, <code><a href="../reference/atajos_ece.html">get_personas_ece()</a></code>, <code><a href="../reference/atajos_ece.html">get_viviendas_ece()</a></code>), con filtros por departamento y área y modos <code>"arrow"</code> / <code>"tibble"</code> / <code>"duckdb"</code>.</li>
+<code><a href="../reference/get_eh.html">get_eh()</a></code> / <code><a href="../reference/get_ece.html">get_ece()</a></code> y atajos (<code><a href="../reference/atajos_eh.html">get_personas_eh()</a></code>, <code><a href="../reference/atajos_eh.html">get_viviendas_eh()</a></code>, <code><a href="../reference/atajos_ece.html">get_personas_ece()</a></code>, <code>get_viviendas_ece()</code>), con filtros por departamento y área y modos <code>"arrow"</code> / <code>"tibble"</code> / <code>"duckdb"</code>.</li>
 <li>
 <code><a href="../reference/catalogo_eh.html">catalogo_eh()</a></code> / <code><a href="../reference/catalogo_ece.html">catalogo_ece()</a></code>.</li>
 <li>Caché: <code><a href="../reference/encuestasbo_cache_dir.html">encuestasbo_cache_dir()</a></code>, <code>_info()</code>, <code>_clear()</code>, <code><a href="../reference/update_encuestasbo.html">update_encuestasbo()</a></code>.</li>
@@ -112,8 +138,7 @@
 </ul></div>
 <div class="section level3">
 <h3 id="pendiente-0-1-0">Pendiente<a class="anchor" aria-label="anchor" href="#pendiente-0-1-0"></a></h3>
-<ul><li>Armonización canónica de la ECE entre trimestres (hoy se accede con sus nombres nativos; el diseño muestral ya funciona).</li>
-<li>Armonización de clasificadores ocupacionales/actividad (COB/CAEB) entre versiones.</li>
+<ul><li>Armonización de clasificadores ocupacionales/actividad (COB/CAEB) entre versiones.</li>
 </ul></div>
 </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
@@ -125,7 +150,7 @@
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.1.</p>
 </div>
 
     </footer></div>
