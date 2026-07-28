@@ -9,7 +9,7 @@ las etiquetas de los archivos SPSS del INE."><meta property="og:image" content="
 
     <a class="navbar-brand me-2" href="../index.html">encuestasbo</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.1</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -60,15 +60,16 @@ las etiquetas de los archivos SPSS del INE.</p>
 
     <div class="section level2">
     <h2 id="format">Format<a class="anchor" aria-label="anchor" href="#format"></a></h2>
-    <p>Una lista con elementos `"2012"`, ..., `"2024"` (sin 2020), cada uno
-  un data.frame con columnas:</p><dl><dt>variable</dt>
+    <p>Una lista con un elemento por año, `"2012"` … `"2024"`, cada uno un
+  data.frame con columnas:</p><dl><dt>variable</dt>
 <dd><p>Nombre de la variable (minúsculas, igual que en los datos)</p></dd>
 
   <dt>etiqueta</dt>
 <dd><p>Descripción de la variable</p></dd>
 
   <dt>tabla</dt>
-<dd><p>`"persona"` o `"vivienda"`</p></dd>
+<dd><p>Tabla de origen: `"persona"`, `"vivienda"` o una base temática
+    del año (`"equipamiento"`, `"gastos_alimentarios"`, …)</p></dd>
 
   <dt>tipo</dt>
 <dd><p>`"categorica"`, `"numerica"` o `"texto"`</p></dd>

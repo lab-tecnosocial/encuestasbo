@@ -1,8 +1,9 @@
 # Tasa de subocupación (ECE)
 
 Población subocupada (por insuficiencia de horas) sobre la PEA. Solo se
-mide \*\*desde 2019\*\*; para periodos anteriores devuelve \`NA\` con
-una advertencia.
+mide \*\*desde 2019\*\*; para periodos anteriores devuelve \`NaN\` con
+una advertencia (la ECE no trae \`psubocup\`, así que no hay nada que
+estimar).
 
 ## Usage
 

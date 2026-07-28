@@ -36,8 +36,8 @@ get_ece(
 
 - tabla:
 
-  Caracteres. Nivel de análisis: \`"persona"\` (defecto) o
-  \`"vivienda"\`. Usa \[catalogo_ece()\] para ver lo disponible.
+  Caracteres. La ECE se distribuye únicamente a nivel \`"persona"\`
+  (defecto). Usa \[catalogo_ece()\] para ver lo disponible.
 
 - departamento:
 

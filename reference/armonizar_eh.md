@@ -32,6 +32,23 @@ armonizar_eh(df, anio, solo_canonicas = FALSE)
 
 El data.frame con las columnas renombradas a nombres canónicos.
 
+## Details
+
+Además de renombrar, armoniza los \*\*valores\*\* que el INE codificó
+distinto entre años:
+
+\- \`nivel_edu\`: el código de "Otros" era 4, 5 o 9 según el año; se
+colapsa a 4. - \`tenencia_vivienda\`: dos regímenes de códigos
+(2012-2015 y 2016-2024) a un esquema canónico 1-7. -
+\`tiene_seguro_salud\`: el código de la respuesta se binariza a 0/1 (0 =
+ninguno), usando el código de "Ninguno" de ese año. - \`ocupado\` y
+\`desocupado\`: se \*\*derivan\*\* de \`condicion_actividad\`
+(\`condact\`, la única variable de empleo estable en los 13 años). El
+INE las publicó de forma inconsistente —\`NA\` para los inactivos en
+2012-2014, y no las publica desde 2022—, así que derivarlas da una
+definición única y comparable. La derivación coincide exactamente con
+las variables del INE en 2015-2021.
+
 ## See also
 
 \[get_eh_armonizada()\] para apilar varios años; \[diseno_eh()\].

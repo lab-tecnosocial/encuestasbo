@@ -23,30 +23,30 @@ Un data.frame con las columnas del \[variable_canonica_map\].
 
 ``` r
 variables_armonizadas()
-#>                 variable                                  etiqueta    tabla
-#> 1                  depto                        Departamento (1-9)  persona
-#> 2                   area                  Área (1=Urbana, 2=Rural)  persona
-#> 3                 factor                       Factor de expansión  persona
-#> 4                   sexo                  Sexo (1=Hombre, 2=Mujer)  persona
-#> 5                   edad                    Edad en años cumplidos  persona
-#> 6              nivel_edu                 Nivel educativo (general)  persona
-#> 7          anios_estudio                           Años de estudio  persona
-#> 8                    pea           Población económicamente activa  persona
-#> 9                    pet             Población en edad de trabajar  persona
-#> 10               ocupado                         Población ocupada  persona
-#> 11            desocupado                      Población desocupada  persona
-#> 12   condicion_actividad                    Condición de actividad  persona
-#> 13       ingreso_laboral                  Ingreso laboral (Bs/Mes)  persona
-#> 14    ingreso_no_laboral               Ingreso no laboral (Bs/Mes)  persona
-#> 15      ingreso_personal                 Ingreso personal (Bs/Mes)  persona
-#> 16         ingreso_hogar                Ingreso del hogar (Bs/Mes)  persona
-#> 17         linea_pobreza         Línea de pobreza (Bs/persona/mes)  persona
-#> 18 linea_pobreza_extrema Línea de pobreza extrema (Bs/persona/mes)  persona
-#> 19                 pobre                   Pobre por ingreso (0/1)  persona
-#> 20         pobre_extremo           Pobre extremo por ingreso (0/1)  persona
-#> 21         tipo_vivienda        Tipo de vivienda (1=Casa..6=Local) vivienda
-#> 22     tenencia_vivienda    Tenencia de la vivienda (recodificada) vivienda
-#> 23    tiene_seguro_salud    Afiliado a algún seguro de salud (0/1)  persona
+#>                 variable                                   etiqueta    tabla
+#> 1                  depto                         Departamento (1-9)  persona
+#> 2                   area                   Área (1=Urbana, 2=Rural)  persona
+#> 3                 factor                        Factor de expansión  persona
+#> 4                   sexo                   Sexo (1=Hombre, 2=Mujer)  persona
+#> 5                   edad                     Edad en años cumplidos  persona
+#> 6              nivel_edu                  Nivel educativo (general)  persona
+#> 7          anios_estudio                            Años de estudio  persona
+#> 8                    pea            Población económicamente activa  persona
+#> 9                    pet              Población en edad de trabajar  persona
+#> 10               ocupado    Población ocupada (derivada de condact)  persona
+#> 11            desocupado Población desocupada (derivada de condact)  persona
+#> 12   condicion_actividad                     Condición de actividad  persona
+#> 13       ingreso_laboral                   Ingreso laboral (Bs/Mes)  persona
+#> 14    ingreso_no_laboral                Ingreso no laboral (Bs/Mes)  persona
+#> 15      ingreso_personal                  Ingreso personal (Bs/Mes)  persona
+#> 16         ingreso_hogar                 Ingreso del hogar (Bs/Mes)  persona
+#> 17         linea_pobreza          Línea de pobreza (Bs/persona/mes)  persona
+#> 18 linea_pobreza_extrema  Línea de pobreza extrema (Bs/persona/mes)  persona
+#> 19                 pobre                    Pobre por ingreso (0/1)  persona
+#> 20         pobre_extremo            Pobre extremo por ingreso (0/1)  persona
+#> 21         tipo_vivienda         Tipo de vivienda (1=Casa..6=Local) vivienda
+#> 22     tenencia_vivienda     Tenencia de la vivienda (recodificada) vivienda
+#> 23    tiene_seguro_salud     Afiliado a algún seguro de salud (0/1)  persona
 #>    armonizada       v2012       v2013       v2014      v2015      v2016
 #> 1        TRUE       depto       depto       depto      depto      depto
 #> 2        TRUE        area        area        area       area       area
@@ -70,7 +70,7 @@ variables_armonizadas()
 #> 20       TRUE       pext0       pext0       pext0      pext0      pext0
 #> 21       TRUE      s8a_01      s1a_01      s1a_01     s1a_01    s01a_01
 #> 22       TRUE      s8a_02      s1a_02      s1a_02     s1a_02    s01a_02
-#> 23       TRUE      s3_24a     s4d_21a        <NA>     s4a_4a   s04a_04a
+#> 23       TRUE      s3_24a     s4d_21a     s4a_04a     s4a_4a   s04a_04a
 #>         v2017      v2018      v2019      v2020      v2021    v2022    v2023
 #> 1       depto      depto      depto      depto      depto    depto    depto
 #> 2        area       area       area       area       area     area     area

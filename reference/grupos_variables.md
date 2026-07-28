@@ -24,7 +24,7 @@ grupos_variables()
 #> 
 #> $empleo
 #> [1] "condicion_actividad" "pea"                 "pet"                
-#> [4] "ocupado"             "grupo_ocupacion"    
+#> [4] "ocupado"             "desocupado"          "grupo_ocupacion"    
 #> 
 #> $ingresos
 #> [1] "ingreso_laboral"    "ingreso_personal"   "ingreso_hogar"     

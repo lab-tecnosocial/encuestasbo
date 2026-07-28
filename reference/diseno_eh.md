@@ -23,7 +23,7 @@ diseno_eh(
 
 - anio:
 
-  Entero. Año de la EH (\`2012\`-\`2019\`, \`2021\`-\`2024\`).
+  Entero. Año de la EH (\`2012\`-\`2024\`).
 
 - tabla:
 

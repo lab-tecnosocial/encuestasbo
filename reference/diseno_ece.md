@@ -31,7 +31,8 @@ diseno_ece(
 
 - tabla:
 
-  Caracteres. \`"persona"\` (defecto) o \`"vivienda"\`.
+  Caracteres. La ECE se distribuye solo a nivel \`"persona"\` (defecto);
+  se expone el argumento por simetría con \[diseno_eh()\].
 
 - factor:
 

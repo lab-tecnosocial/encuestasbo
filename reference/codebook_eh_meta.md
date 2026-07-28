@@ -11,8 +11,8 @@ codebook_eh_meta
 
 ## Format
 
-Una lista con elementos \`"2012"\`, ..., \`"2024"\` (sin 2020), cada uno
-un data.frame con columnas:
+Una lista con un elemento por año, \`"2012"\` … \`"2024"\`, cada uno un
+data.frame con columnas:
 
 - variable:
 
@@ -24,7 +24,8 @@ un data.frame con columnas:
 
 - tabla:
 
-  \`"persona"\` o \`"vivienda"\`
+  Tabla de origen: \`"persona"\`, \`"vivienda"\` o una base temática del
+  año (\`"equipamiento"\`, \`"gastos_alimentarios"\`, …)
 
 - tipo:
 

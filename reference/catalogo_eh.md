@@ -178,82 +178,82 @@ catalogo_eh()
 #> 73                eh_2024_persona.parquet     factor           <NA>     upm
 #> 74  eh_2024_seguridad_alimentaria.parquet     factor           <NA>     upm
 #> 75               eh_2024_vivienda.parquet     factor           <NA>     upm
-#>    estrato_var cobertura catalog_id archivo_sav version_caeb version_cob
-#> 1      estrato  nacional       <NA>        <NA>         <NA>        <NA>
-#> 2      estrato  nacional       <NA>        <NA>         <NA>        <NA>
-#> 3      estrato  nacional       <NA>        <NA>         <NA>        <NA>
-#> 4      estrato  nacional       <NA>        <NA>         <NA>        <NA>
-#> 5      estrato  nacional       <NA>        <NA>         <NA>        <NA>
-#> 6      estrato  nacional       <NA>        <NA>         <NA>        <NA>
-#> 7      estrato  nacional       <NA>        <NA>         <NA>        <NA>
-#> 8      estrato  nacional       <NA>        <NA>         <NA>        <NA>
-#> 9      estrato  nacional       <NA>        <NA>         <NA>        <NA>
-#> 10     estrato  nacional       <NA>        <NA>         <NA>        <NA>
-#> 11     estrato  nacional       <NA>        <NA>         <NA>        <NA>
-#> 12     estrato  nacional       <NA>        <NA>         <NA>        <NA>
-#> 13     estrato  nacional       <NA>        <NA>         <NA>        <NA>
-#> 14     estrato  nacional       <NA>        <NA>         <NA>        <NA>
-#> 15     estrato  nacional       <NA>        <NA>         <NA>        <NA>
-#> 16     estrato  nacional       <NA>        <NA>         <NA>        <NA>
-#> 17     estrato  nacional       <NA>        <NA>         <NA>        <NA>
-#> 18     estrato  nacional       <NA>        <NA>         <NA>        <NA>
-#> 19     estrato  nacional       <NA>        <NA>         <NA>        <NA>
-#> 20     estrato  nacional       <NA>        <NA>         <NA>        <NA>
-#> 21     estrato  nacional       <NA>        <NA>         <NA>        <NA>
-#> 22     estrato  nacional       <NA>        <NA>         <NA>        <NA>
-#> 23     estrato  nacional       <NA>        <NA>         <NA>        <NA>
-#> 24     estrato  nacional       <NA>        <NA>         <NA>        <NA>
-#> 25     estrato  nacional       <NA>        <NA>         <NA>        <NA>
-#> 26     estrato  nacional       <NA>        <NA>         <NA>        <NA>
-#> 27     estrato  nacional       <NA>        <NA>         <NA>        <NA>
-#> 28     estrato  nacional       <NA>        <NA>         <NA>        <NA>
-#> 29     estrato  nacional       <NA>        <NA>         <NA>        <NA>
-#> 30     estrato  nacional       <NA>        <NA>         <NA>        <NA>
-#> 31     estrato  nacional       <NA>        <NA>         <NA>        <NA>
-#> 32     estrato  nacional       <NA>        <NA>         <NA>        <NA>
-#> 33     estrato  nacional       <NA>        <NA>         <NA>        <NA>
-#> 34     estrato  nacional       <NA>        <NA>         <NA>        <NA>
-#> 35     estrato  nacional       <NA>        <NA>         <NA>        <NA>
-#> 36     estrato  nacional       <NA>        <NA>         <NA>        <NA>
-#> 37     estrato  nacional       <NA>        <NA>         <NA>        <NA>
-#> 38     estrato  nacional       <NA>        <NA>         <NA>        <NA>
-#> 39     estrato  nacional       <NA>        <NA>         <NA>        <NA>
-#> 40     estrato  nacional       <NA>        <NA>         <NA>        <NA>
-#> 41     estrato  nacional       <NA>        <NA>         <NA>        <NA>
-#> 42     estrato  nacional       <NA>        <NA>         <NA>        <NA>
-#> 43     estrato  nacional       <NA>        <NA>         <NA>        <NA>
-#> 44     estrato  nacional       <NA>        <NA>         <NA>        <NA>
-#> 45     estrato  nacional       <NA>        <NA>         <NA>        <NA>
-#> 46     estrato  nacional       <NA>        <NA>         <NA>        <NA>
-#> 47     estrato  nacional       <NA>        <NA>         <NA>        <NA>
-#> 48     estrato  nacional       <NA>        <NA>         <NA>        <NA>
-#> 49     estrato  nacional       <NA>        <NA>         <NA>        <NA>
-#> 50     estrato  nacional       <NA>        <NA>         <NA>        <NA>
-#> 51     estrato  nacional       <NA>        <NA>         <NA>        <NA>
-#> 52     estrato  nacional       <NA>        <NA>         <NA>        <NA>
-#> 53     estrato  nacional       <NA>        <NA>         <NA>        <NA>
-#> 54     estrato  nacional       <NA>        <NA>         <NA>        <NA>
-#> 55     estrato  nacional       <NA>        <NA>         <NA>        <NA>
-#> 56     estrato  nacional       <NA>        <NA>         <NA>        <NA>
-#> 57     estrato  nacional       <NA>        <NA>         <NA>        <NA>
-#> 58     estrato  nacional       <NA>        <NA>         <NA>        <NA>
-#> 59     estrato  nacional       <NA>        <NA>         <NA>        <NA>
-#> 60     estrato  nacional       <NA>        <NA>         <NA>        <NA>
-#> 61     estrato  nacional       <NA>        <NA>         <NA>        <NA>
-#> 62     estrato  nacional       <NA>        <NA>         <NA>        <NA>
-#> 63     estrato  nacional       <NA>        <NA>         <NA>        <NA>
-#> 64     estrato  nacional       <NA>        <NA>         <NA>        <NA>
-#> 65     estrato  nacional       <NA>        <NA>         <NA>        <NA>
-#> 66     estrato  nacional       <NA>        <NA>         <NA>        <NA>
-#> 67     estrato  nacional       <NA>        <NA>         <NA>        <NA>
-#> 68     estrato  nacional       <NA>        <NA>         <NA>        <NA>
-#> 69     estrato  nacional       <NA>        <NA>         <NA>        <NA>
-#> 70     estrato  nacional       <NA>        <NA>         <NA>        <NA>
-#> 71     estrato  nacional       <NA>        <NA>         <NA>        <NA>
-#> 72     estrato  nacional       <NA>        <NA>         <NA>        <NA>
-#> 73     estrato  nacional       <NA>        <NA>         <NA>        <NA>
-#> 74     estrato  nacional       <NA>        <NA>         <NA>        <NA>
-#> 75     estrato  nacional       <NA>        <NA>         <NA>        <NA>
+#>    estrato_var cobertura catalog_id
+#> 1      estrato  nacional         51
+#> 2      estrato  nacional         51
+#> 3      estrato  nacional         51
+#> 4      estrato  nacional         51
+#> 5      estrato  nacional         51
+#> 6      estrato  nacional         39
+#> 7      estrato  nacional         39
+#> 8      estrato  nacional         39
+#> 9      estrato  nacional         39
+#> 10     estrato  nacional         39
+#> 11     estrato  nacional         38
+#> 12     estrato  nacional         38
+#> 13     estrato  nacional         38
+#> 14     estrato  nacional         38
+#> 15     estrato  nacional         38
+#> 16     estrato  nacional         53
+#> 17     estrato  nacional         53
+#> 18     estrato  nacional         53
+#> 19     estrato  nacional         53
+#> 20     estrato  nacional         53
+#> 21     estrato  nacional         54
+#> 22     estrato  nacional         54
+#> 23     estrato  nacional         54
+#> 24     estrato  nacional         54
+#> 25     estrato  nacional         54
+#> 26     estrato  nacional         55
+#> 27     estrato  nacional         55
+#> 28     estrato  nacional         55
+#> 29     estrato  nacional         55
+#> 30     estrato  nacional         55
+#> 31     estrato  nacional         55
+#> 32     estrato  nacional         55
+#> 33     estrato  nacional         78
+#> 34     estrato  nacional         78
+#> 35     estrato  nacional         78
+#> 36     estrato  nacional         78
+#> 37     estrato  nacional         78
+#> 38     estrato  nacional         78
+#> 39     estrato  nacional         78
+#> 40     estrato  nacional         84
+#> 41     estrato  nacional         84
+#> 42     estrato  nacional         84
+#> 43     estrato  nacional         84
+#> 44     estrato  nacional         84
+#> 45     estrato  nacional         84
+#> 46     estrato  nacional         84
+#> 47     estrato  nacional         84
+#> 48     estrato  nacional         88
+#> 49     estrato  nacional         88
+#> 50     estrato  nacional         93
+#> 51     estrato  nacional         93
+#> 52     estrato  nacional         93
+#> 53     estrato  nacional         93
+#> 54     estrato  nacional         93
+#> 55     estrato  nacional         93
+#> 56     estrato  nacional         93
+#> 57     estrato  nacional         93
+#> 58     estrato  nacional        106
+#> 59     estrato  nacional        106
+#> 60     estrato  nacional        106
+#> 61     estrato  nacional        106
+#> 62     estrato  nacional        106
+#> 63     estrato  nacional        106
+#> 64     estrato  nacional        108
+#> 65     estrato  nacional        108
+#> 66     estrato  nacional        108
+#> 67     estrato  nacional        108
+#> 68     estrato  nacional        108
+#> 69     estrato  nacional        108
+#> 70     estrato  nacional        163
+#> 71     estrato  nacional        163
+#> 72     estrato  nacional        163
+#> 73     estrato  nacional        163
+#> 74     estrato  nacional        163
+#> 75     estrato  nacional        163
 catalogo_eh(anio = 2023)
 #>   encuesta anio trimestre                 tabla release_tag
 #> 1       eh 2023        NA        discriminacion  data-eh-v1
@@ -269,11 +269,11 @@ catalogo_eh(anio = 2023)
 #> 4               eh_2023_persona.parquet     factor           <NA>     upm
 #> 5 eh_2023_seguridad_alimentaria.parquet     factor           <NA>     upm
 #> 6              eh_2023_vivienda.parquet     factor           <NA>     upm
-#>   estrato_var cobertura catalog_id archivo_sav version_caeb version_cob
-#> 1     estrato  nacional       <NA>        <NA>         <NA>        <NA>
-#> 2     estrato  nacional       <NA>        <NA>         <NA>        <NA>
-#> 3     estrato  nacional       <NA>        <NA>         <NA>        <NA>
-#> 4     estrato  nacional       <NA>        <NA>         <NA>        <NA>
-#> 5     estrato  nacional       <NA>        <NA>         <NA>        <NA>
-#> 6     estrato  nacional       <NA>        <NA>         <NA>        <NA>
+#>   estrato_var cobertura catalog_id
+#> 1     estrato  nacional        108
+#> 2     estrato  nacional        108
+#> 3     estrato  nacional        108
+#> 4     estrato  nacional        108
+#> 5     estrato  nacional        108
+#> 6     estrato  nacional        108
 ```

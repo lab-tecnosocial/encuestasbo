@@ -9,7 +9,7 @@ Lo usa [armonizar_eh()] y [get_eh_armonizada()]."><meta property="og:image" cont
 
     <a class="navbar-brand me-2" href="../index.html">encuestasbo</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.1</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -88,6 +88,10 @@ Lo usa [armonizar_eh()] y [get_eh_armonizada()].</p>
 educación `niv_ed_g`, empleo `pea`/`condact`) tienen el mismo nombre todos los
 años; otras del cuestionario (sexo, edad, parentesco) cambian de nombre y se
 mapean por su etiqueta.</p>
+<p>Las columnas `vAAAA` describen el **origen** en los microdatos de ese año. Que
+estén `NA` no implica que la columna canónica falte: `ocupado` y `desocupado`
+se **derivan** de `condicion_actividad` en todos los años (ver [armonizar_eh()]),
+así que existen también en 2022-2024, años en que el INE dejó de publicarlas.</p>
     </div>
 
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>

@@ -21,11 +21,43 @@ La armonización se apoya en dos hechos:
     el factor en 2012–2014, que se resuelve automáticamente).
 2.  El INE publica **variables derivadas** con nombres estables:
     ingresos (`yhog`, `yper`), pobreza (`p0`, `pext0`, `z`, `zext`),
-    educación (`niv_ed_g`, `aestudio`) y empleo (`pea`, `ocupado`,
+    educación (`niv_ed_g`, `aestudio`) y empleo (`pea`, `pet`,
     `condact`). El paquete las expone con nombres canónicos
     (`ingreso_hogar`, `pobre`, `nivel_edu`, …).
 
 Solo `sexo`, `edad` y `parentesco` se mapean por su etiqueta.
+
+## Qué se recodifica (no solo nombres)
+
+Cuando el INE cambió la **codificación** de una variable entre años, la
+capa canónica la unifica:
+
+| Canónica | Qué cambia entre años | Armonización |
+|----|----|----|
+| `nivel_edu` | “Otros” es 4, 5 o 9 según el año | se colapsa a 4 |
+| `tenencia_vivienda` | dos órdenes de códigos (2012–2015 y 2016+) | esquema canónico 1–7 |
+| `tiene_seguro_salud` | el código de “Ninguno” es 7, 6 o 5 según el año | binario 0/1 |
+| `ocupado`, `desocupado` | `NA` para inactivos en 2012–2014; **sin publicar desde 2022** | se derivan de `condicion_actividad` |
+
+La derivación del empleo merece una nota: `condicion_actividad`
+(`condact`) es la única variable de empleo estable en los 13 años (0 en
+edad de no trabajar, 1 ocupado, 2 cesante, 3 aspirante, 4–5 inactivo).
+`ocupado` es `condact == 1` y `desocupado` es `condact %in% 2:3`; esto
+coincide fila a fila con las variables del propio INE en 2015–2021 y da
+una serie comparable donde el INE fue inconsistente o dejó de
+publicarlas.
+
+``` r
+
+# Serie de ocupación y desempleo comparable en los 13 años
+library(dplyr)
+get_eh_armonizada(grupo = "empleo") |>
+  group_by(anio) |>
+  summarise(
+    ocupacion = sum(ocupado * factor,    na.rm = TRUE) / sum(pet * factor, na.rm = TRUE),
+    desempleo = sum(desocupado * factor, na.rm = TRUE) / sum(pea * factor, na.rm = TRUE)
+  )
+```
 
 ## Armonizar un año
 
@@ -40,9 +72,7 @@ get_eh(2023, "persona", as = "tibble") |>
 Las variables categóricas armonizadas tienen **etiquetas estables entre
 años**;
 [`etiquetar_valores()`](https://lab-tecnosocial.github.io/encuestasbo/reference/etiquetar_valores.md)
-las detecta sin necesidad de indicar el año. Además, los valores que
-cambiaban de código entre años se unifican (p. ej. `nivel_edu`: el
-código de “Otros” era 4 o 5 según el año, ahora siempre 4):
+las detecta sin necesidad de indicar el año:
 
 ``` r
 

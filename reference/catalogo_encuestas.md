@@ -62,19 +62,10 @@ Un data.frame con una fila por base, con columnas:
 
 - catalog_id:
 
-  Identificador del estudio en el portal ANDA (procedencia)
-
-- archivo_sav:
-
-  Nombre original del archivo SPSS en ANDA (procedencia)
-
-- version_caeb:
-
-  Versión del clasificador de actividad económica
-
-- version_cob:
-
-  Versión del clasificador de ocupación
+  Identificador del estudio en el portal ANDA (procedencia). Los
+  trimestres 4T2015-2T2019 de la ECE comparten el id del estudio
+  consolidado. Es \`NA\` en 3T2019-1T2021, que no tienen estudio en
+  ANDA: provienen del repositorio abierto del INE (\`nube.ine.gob.bo\`)
 
 ## Source
 

@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">encuestasbo</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.1</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -45,6 +45,44 @@
       <small>Source: <a href="https://github.com/lab-tecnosocial/encuestasbo/blob/main/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
     </div>
 
+    <div class="section level2">
+<h2 class="pkg-version" data-toc-text="0.2.1" id="encuestasbo-021">encuestasbo 0.2.1<a class="anchor" aria-label="anchor" href="#encuestasbo-021"></a></h2>
+<p>Correcciones de datos y documentación surgidas de una revisión integral del paquete (validación de las 13 series de la EH y los 40 trimestres de la ECE contra las cifras oficiales del INE, y ejecución de todos los ejemplos de la documentación).</p>
+<div class="section level3">
+<h3 id="correcciones-de-datos-0-2-1">Correcciones de datos<a class="anchor" aria-label="anchor" href="#correcciones-de-datos-0-2-1"></a></h3>
+<ul><li>
+<strong><code>ocupado</code> y <code>desocupado</code> ahora existen en los 13 años</strong> de la EH y con una definición única: se derivan de <code>condicion_actividad</code> (<code>condact</code>), la única variable de empleo estable en toda la serie. Antes reproducían las inconsistencias del INE: estaban <code>NA</code> para los inactivos en 2012–2014 y <strong>el INE dejó de publicarlas en 2022</strong>, así que <code><a href="../reference/get_eh_armonizada.html">get_eh_armonizada()</a></code> las devolvía 100 % <code>NA</code> en 2022–2024. La derivación coincide <strong>exactamente</strong> (fila a fila) con las variables del INE en 2015–2021, donde sí las publica de forma homogénea, y no altera las tasas ya publicadas.</li>
+<li>
+<strong><code>tiene_seguro_salud</code> ya cubre 2014.</strong> El patrón que localiza la pregunta en el diccionario no toleraba un errata del INE en 2014 (“los siguiente seguros”), así que ese año quedaba 100 % <code>NA</code> pese a existir la variable (<code>s4a_04a</code>, con “Ninguno” = 6). La serie de cobertura de salud es ahora completa 2012–2024.</li>
+<li>
+<code>catalogo_encuestas$catalog_id</code> <strong>se rellena</strong> con el id real del estudio en ANDA (antes estaba <code>NA</code> en todas las filas). Los trimestres 4T2015–2T2019 de la ECE comparten el id del estudio consolidado; los de 3T2019–1T2021 quedan <code>NA</code> porque provienen del repositorio abierto del INE, no de ANDA.</li>
+<li>Se retiran del catálogo las columnas <code>archivo_sav</code>, <code>version_caeb</code> y <code>version_cob</code>: estaban vacías en todas las filas y no tenían fuente.</li>
+<li>Etiqueta canónica de <code>condicion_actividad</code>: el código 0 pasa de “Menor de 10 años” a “En edad de no trabajar”. El umbral de edad de la PET cambió en la serie (el INE documenta 14+ desde 2021), así que la etiqueta no lo fija.</li>
+<li>
+<code>grupos_variables()$empleo</code> incluye <code>desocupado</code>, que faltaba pese a ser una variable canónica armonizada.</li>
+</ul><blockquote>
+<p>El Parquet <code>eh_armonizada.parquet</code> del Release <code>data-eh-v1</code> se regeneró con estas correcciones. Si tienes datos en caché, ejecuta <code><a href="../reference/encuestasbo_cache_clear.html">encuestasbo_cache_clear()</a></code> para descargar la versión corregida.</p>
+</blockquote>
+</div>
+<div class="section level3">
+<h3 id="correcciones-de-código-0-2-1">Correcciones de código<a class="anchor" aria-label="anchor" href="#correcciones-de-c%C3%B3digo-0-2-1"></a></h3>
+<ul><li>Un fallo de descarga (sin conexión, release o archivo inexistente) mostraba <code>Invalid cli literal</code> en lugar del diagnóstico: el mensaje de error tenía una interpolación anidada inválida para <code>cli</code>. Ahora muestra el archivo, la causa y la URL de los releases.</li>
+</ul></div>
+<div class="section level3">
+<h3 id="documentación-0-2-1">Documentación<a class="anchor" aria-label="anchor" href="#documentaci%C3%B3n-0-2-1"></a></h3>
+<ul><li>
+<code>codebook_eh_meta</code> decía que la lista no incluye 2020; sí lo incluye (la EH 2020 existe, con catálogo ANDA 88 y bases persona/vivienda).</li>
+<li>
+<code><a href="../reference/diseno_eh.html">diseno_eh()</a></code> documentaba los años como “2012-2019, 2021-2024”; son 2012-2024.</li>
+<li>
+<code><a href="../reference/get_ece.html">get_ece()</a></code> y <code><a href="../reference/diseno_ece.html">diseno_ece()</a></code> ofrecían <code>tabla = "vivienda"</code>, inexistente en la ECE (que solo se distribuye a nivel persona).</li>
+<li>
+<code><a href="../reference/armonizar_eh.html">armonizar_eh()</a></code> documenta ahora la armonización de <strong>valores</strong> (nivel educativo, tenencia de la vivienda, seguro de salud y la derivación del empleo), y <code>variable_canonica_map</code> aclara que las columnas <code>vAAAA</code> describen el origen y no la disponibilidad de la columna canónica.</li>
+<li>
+<code><a href="../reference/tasa_subocupacion.html">tasa_subocupacion()</a></code> devuelve <code>NaN</code> (no <code>NA</code>) antes de 2019; documentado.</li>
+<li>Título y descripción del paquete reflejan el alcance real (ECE hasta 3T-2025).</li>
+</ul></div>
+</div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.2.0" id="encuestasbo-020">encuestasbo 0.2.0<a class="anchor" aria-label="anchor" href="#encuestasbo-020"></a></h2>
 <div class="section level3">

@@ -72,21 +72,21 @@ catalogo_ece()
 #> 39      ece 2025         2 persona data-ece-v1 ece_2025t2_persona.parquet
 #> 40      ece 2025         3 persona data-ece-v1 ece_2025t3_persona.parquet
 #>       factor_var factor_var_alt upm_var estrato_var cobertura catalog_id
-#> 1  fact_trim_act   fact_mes_act     upm     estrato  nacional       <NA>
-#> 2  fact_trim_act   fact_mes_act     upm     estrato  nacional       <NA>
-#> 3  fact_trim_act   fact_mes_act     upm     estrato  nacional       <NA>
-#> 4  fact_trim_act   fact_mes_act     upm     estrato  nacional       <NA>
-#> 5  fact_trim_act   fact_mes_act     upm     estrato  nacional       <NA>
-#> 6  fact_trim_act   fact_mes_act     upm     estrato  nacional       <NA>
-#> 7  fact_trim_act   fact_mes_act     upm     estrato  nacional       <NA>
-#> 8  fact_trim_act   fact_mes_act     upm     estrato  nacional       <NA>
-#> 9  fact_trim_act   fact_mes_act     upm     estrato  nacional       <NA>
-#> 10 fact_trim_act   fact_mes_act     upm     estrato  nacional       <NA>
-#> 11 fact_trim_act   fact_mes_act     upm     estrato  nacional       <NA>
-#> 12 fact_trim_act   fact_mes_act     upm     estrato  nacional       <NA>
-#> 13 fact_trim_act   fact_mes_act     upm     estrato  nacional       <NA>
-#> 14 fact_trim_act   fact_mes_act     upm     estrato  nacional       <NA>
-#> 15 fact_trim_act   fact_mes_act     upm     estrato  nacional       <NA>
+#> 1  fact_trim_act   fact_mes_act     upm     estrato  nacional         82
+#> 2  fact_trim_act   fact_mes_act     upm     estrato  nacional         82
+#> 3  fact_trim_act   fact_mes_act     upm     estrato  nacional         82
+#> 4  fact_trim_act   fact_mes_act     upm     estrato  nacional         82
+#> 5  fact_trim_act   fact_mes_act     upm     estrato  nacional         82
+#> 6  fact_trim_act   fact_mes_act     upm     estrato  nacional         82
+#> 7  fact_trim_act   fact_mes_act     upm     estrato  nacional         82
+#> 8  fact_trim_act   fact_mes_act     upm     estrato  nacional         82
+#> 9  fact_trim_act   fact_mes_act     upm     estrato  nacional         82
+#> 10 fact_trim_act   fact_mes_act     upm     estrato  nacional         82
+#> 11 fact_trim_act   fact_mes_act     upm     estrato  nacional         82
+#> 12 fact_trim_act   fact_mes_act     upm     estrato  nacional         82
+#> 13 fact_trim_act   fact_mes_act     upm     estrato  nacional         82
+#> 14 fact_trim_act   fact_mes_act     upm     estrato  nacional         82
+#> 15 fact_trim_act   fact_mes_act     upm     estrato  nacional         82
 #> 16 fact_trim_act   fact_mes_act     upm     estrato  nacional       <NA>
 #> 17 fact_trim_act   fact_mes_act     upm     estrato  nacional       <NA>
 #> 18 fact_trim_act   fact_mes_act     upm     estrato  nacional       <NA>
@@ -94,70 +94,27 @@ catalogo_ece()
 #> 20 fact_trim_act   fact_mes_act     upm     estrato    urbana       <NA>
 #> 21 fact_trim_act   fact_mes_act     upm     estrato    urbana       <NA>
 #> 22 fact_trim_act   fact_mes_act     upm     estrato  nacional       <NA>
-#> 23 fact_trim_act   fact_mes_act     upm     estrato  nacional       <NA>
-#> 24 fact_trim_act   fact_mes_act     upm     estrato  nacional       <NA>
-#> 25 fact_trim_act   fact_mes_act     upm     estrato  nacional       <NA>
-#> 26 fact_trim_act   fact_mes_act     upm     estrato  nacional       <NA>
-#> 27 fact_trim_act   fact_mes_act     upm     estrato  nacional       <NA>
-#> 28 fact_trim_act   fact_mes_act     upm     estrato  nacional       <NA>
-#> 29 fact_trim_act   fact_mes_act     upm     estrato  nacional       <NA>
-#> 30 fact_trim_act   fact_mes_act     upm     estrato  nacional       <NA>
-#> 31 fact_trim_act   fact_mes_act     upm     estrato  nacional       <NA>
-#> 32 fact_trim_act   fact_mes_act     upm     estrato  nacional       <NA>
-#> 33 fact_trim_act   fact_mes_act     upm     estrato  nacional       <NA>
-#> 34 fact_trim_act   fact_mes_act     upm     estrato  nacional       <NA>
-#> 35 fact_trim_act   fact_mes_act     upm     estrato  nacional       <NA>
-#> 36 fact_trim_act   fact_mes_act     upm     estrato  nacional       <NA>
-#> 37 fact_trim_act   fact_mes_act     upm     estrato  nacional       <NA>
-#> 38 fact_trim_act   fact_mes_act     upm     estrato  nacional       <NA>
-#> 39 fact_trim_act   fact_mes_act     upm     estrato  nacional       <NA>
-#> 40 fact_trim_act   fact_mes_act     upm     estrato  nacional       <NA>
-#>    archivo_sav version_caeb version_cob
-#> 1         <NA>         <NA>        <NA>
-#> 2         <NA>         <NA>        <NA>
-#> 3         <NA>         <NA>        <NA>
-#> 4         <NA>         <NA>        <NA>
-#> 5         <NA>         <NA>        <NA>
-#> 6         <NA>         <NA>        <NA>
-#> 7         <NA>         <NA>        <NA>
-#> 8         <NA>         <NA>        <NA>
-#> 9         <NA>         <NA>        <NA>
-#> 10        <NA>         <NA>        <NA>
-#> 11        <NA>         <NA>        <NA>
-#> 12        <NA>         <NA>        <NA>
-#> 13        <NA>         <NA>        <NA>
-#> 14        <NA>         <NA>        <NA>
-#> 15        <NA>         <NA>        <NA>
-#> 16        <NA>         <NA>        <NA>
-#> 17        <NA>         <NA>        <NA>
-#> 18        <NA>         <NA>        <NA>
-#> 19        <NA>         <NA>        <NA>
-#> 20        <NA>         <NA>        <NA>
-#> 21        <NA>         <NA>        <NA>
-#> 22        <NA>         <NA>        <NA>
-#> 23        <NA>         <NA>        <NA>
-#> 24        <NA>         <NA>        <NA>
-#> 25        <NA>         <NA>        <NA>
-#> 26        <NA>         <NA>        <NA>
-#> 27        <NA>         <NA>        <NA>
-#> 28        <NA>         <NA>        <NA>
-#> 29        <NA>         <NA>        <NA>
-#> 30        <NA>         <NA>        <NA>
-#> 31        <NA>         <NA>        <NA>
-#> 32        <NA>         <NA>        <NA>
-#> 33        <NA>         <NA>        <NA>
-#> 34        <NA>         <NA>        <NA>
-#> 35        <NA>         <NA>        <NA>
-#> 36        <NA>         <NA>        <NA>
-#> 37        <NA>         <NA>        <NA>
-#> 38        <NA>         <NA>        <NA>
-#> 39        <NA>         <NA>        <NA>
-#> 40        <NA>         <NA>        <NA>
+#> 23 fact_trim_act   fact_mes_act     upm     estrato  nacional         91
+#> 24 fact_trim_act   fact_mes_act     upm     estrato  nacional         94
+#> 25 fact_trim_act   fact_mes_act     upm     estrato  nacional         95
+#> 26 fact_trim_act   fact_mes_act     upm     estrato  nacional         96
+#> 27 fact_trim_act   fact_mes_act     upm     estrato  nacional         97
+#> 28 fact_trim_act   fact_mes_act     upm     estrato  nacional        100
+#> 29 fact_trim_act   fact_mes_act     upm     estrato  nacional        101
+#> 30 fact_trim_act   fact_mes_act     upm     estrato  nacional        103
+#> 31 fact_trim_act   fact_mes_act     upm     estrato  nacional        104
+#> 32 fact_trim_act   fact_mes_act     upm     estrato  nacional        105
+#> 33 fact_trim_act   fact_mes_act     upm     estrato  nacional        107
+#> 34 fact_trim_act   fact_mes_act     upm     estrato  nacional        109
+#> 35 fact_trim_act   fact_mes_act     upm     estrato  nacional        110
+#> 36 fact_trim_act   fact_mes_act     upm     estrato  nacional        231
+#> 37 fact_trim_act   fact_mes_act     upm     estrato  nacional        232
+#> 38 fact_trim_act   fact_mes_act     upm     estrato  nacional        131
+#> 39 fact_trim_act   fact_mes_act     upm     estrato  nacional        170
+#> 40 fact_trim_act   fact_mes_act     upm     estrato  nacional        254
 catalogo_ece(anio = 2022, trimestre = 3)
 #>   encuesta anio trimestre   tabla release_tag            archivo_parquet
 #> 1      ece 2022         3 persona data-ece-v1 ece_2022t3_persona.parquet
 #>      factor_var factor_var_alt upm_var estrato_var cobertura catalog_id
-#> 1 fact_trim_act   fact_mes_act     upm     estrato  nacional       <NA>
-#>   archivo_sav version_caeb version_cob
-#> 1        <NA>         <NA>        <NA>
+#> 1 fact_trim_act   fact_mes_act     upm     estrato  nacional        100
 ```

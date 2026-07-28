@@ -11,7 +11,7 @@ los nombres canónicos de sus variables de diseño muestral."><meta property="og
 
     <a class="navbar-brand me-2" href="../index.html">encuestasbo</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.1</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -98,16 +98,10 @@ los nombres canónicos de sus variables de diseño muestral.</p>
     [get_ece()] avisa al usar los periodos de cobertura urbana</p></dd>
 
   <dt>catalog_id</dt>
-<dd><p>Identificador del estudio en el portal ANDA (procedencia)</p></dd>
-
-  <dt>archivo_sav</dt>
-<dd><p>Nombre original del archivo SPSS en ANDA (procedencia)</p></dd>
-
-  <dt>version_caeb</dt>
-<dd><p>Versión del clasificador de actividad económica</p></dd>
-
-  <dt>version_cob</dt>
-<dd><p>Versión del clasificador de ocupación</p></dd>
+<dd><p>Identificador del estudio en el portal ANDA (procedencia).
+    Los trimestres 4T2015-2T2019 de la ECE comparten el id del estudio
+    consolidado. Es `NA` en 3T2019-1T2021, que no tienen estudio en ANDA:
+    provienen del repositorio abierto del INE (`nube.ine.gob.bo`)</p></dd>
 
 
 </dl></div>

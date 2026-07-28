@@ -44,3 +44,10 @@ Muchas variables derivadas del INE (ingresos \`yhog\`/\`yper\`, pobreza
 \`p0\`/\`pext0\`, educación \`niv_ed_g\`, empleo \`pea\`/\`condact\`)
 tienen el mismo nombre todos los años; otras del cuestionario (sexo,
 edad, parentesco) cambian de nombre y se mapean por su etiqueta.
+
+Las columnas \`vAAAA\` describen el \*\*origen\*\* en los microdatos de
+ese año. Que estén \`NA\` no implica que la columna canónica falte:
+\`ocupado\` y \`desocupado\` se \*\*derivan\*\* de
+\`condicion_actividad\` en todos los años (ver \[armonizar_eh()\]), así
+que existen también en 2022-2024, años en que el INE dejó de
+publicarlas.
