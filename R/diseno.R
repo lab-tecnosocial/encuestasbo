@@ -34,7 +34,7 @@
 #' bietápico de la EH ya declarado (`ids = upm`, `strata = estrato`,
 #' `weights = factor`, `nest = TRUE`).
 #'
-#' @param anio Entero. Año de la EH (`2012`-`2019`, `2021`-`2024`).
+#' @param anio Entero. Año de la EH (`2012`-`2024`).
 #' @param tabla Caracteres. `"persona"` (defecto) o `"vivienda"`.
 #' @param armonizar Lógico. Si `TRUE` (defecto), armoniza los nombres de
 #'   variables a canónicos antes de declarar el diseño (recomendado: hace que la
@@ -81,7 +81,8 @@ diseno_eh <- function(anio, tabla = "persona", armonizar = TRUE,
 #'
 #' @param anio Entero. Año.
 #' @param trimestre Entero (1-4).
-#' @param tabla Caracteres. `"persona"` (defecto) o `"vivienda"`.
+#' @param tabla Caracteres. La ECE se distribuye solo a nivel `"persona"`
+#'   (defecto); se expone el argumento por simetría con [diseno_eh()].
 #' @param factor Cuál factor de expansión usar: `"trimestral"` (defecto) o
 #'   `"mensual"`.
 #' @param armonizar Lógico. Armonizar nombres antes de declarar el diseño.

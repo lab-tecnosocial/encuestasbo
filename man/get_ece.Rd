@@ -21,8 +21,8 @@ get_ece(
 
 \item{trimestre}{Entero (1-4). Trimestre de referencia.}
 
-\item{tabla}{Caracteres. Nivel de análisis: `"persona"` (defecto) o
-`"vivienda"`. Usa [catalogo_ece()] para ver lo disponible.}
+\item{tabla}{Caracteres. La ECE se distribuye únicamente a nivel `"persona"`
+(defecto). Usa [catalogo_ece()] para ver lo disponible.}
 
 \item{departamento}{Vector. Código(s) `1`-`9` o nombre(s). Si `NULL`, todos.}
 

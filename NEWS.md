@@ -1,3 +1,62 @@
+# encuestasbo 0.2.1
+
+Correcciones de datos y documentación surgidas de una revisión integral del
+paquete (validación de las 13 series de la EH y los 40 trimestres de la ECE
+contra las cifras oficiales del INE, y ejecución de todos los ejemplos de la
+documentación).
+
+## Correcciones de datos
+
+* **`ocupado` y `desocupado` ahora existen en los 13 años** de la EH y con una
+  definición única: se derivan de `condicion_actividad` (`condact`), la única
+  variable de empleo estable en toda la serie. Antes reproducían las
+  inconsistencias del INE: estaban `NA` para los inactivos en 2012–2014 y **el
+  INE dejó de publicarlas en 2022**, así que `get_eh_armonizada()` las devolvía
+  100 % `NA` en 2022–2024. La derivación coincide **exactamente** (fila a fila)
+  con las variables del INE en 2015–2021, donde sí las publica de forma
+  homogénea, y no altera las tasas ya publicadas.
+* **`tiene_seguro_salud` ya cubre 2014.** El patrón que localiza la pregunta en
+  el diccionario no toleraba un errata del INE en 2014 ("los siguiente seguros"),
+  así que ese año quedaba 100 % `NA` pese a existir la variable (`s4a_04a`, con
+  "Ninguno" = 6). La serie de cobertura de salud es ahora completa 2012–2024.
+* `catalogo_encuestas$catalog_id` **se rellena** con el id real del estudio en
+  ANDA (antes estaba `NA` en todas las filas). Los trimestres 4T2015–2T2019 de la
+  ECE comparten el id del estudio consolidado; los de 3T2019–1T2021 quedan `NA`
+  porque provienen del repositorio abierto del INE, no de ANDA.
+* Se retiran del catálogo las columnas `archivo_sav`, `version_caeb` y
+  `version_cob`: estaban vacías en todas las filas y no tenían fuente.
+* Etiqueta canónica de `condicion_actividad`: el código 0 pasa de "Menor de 10
+  años" a "En edad de no trabajar". El umbral de edad de la PET cambió en la
+  serie (el INE documenta 14+ desde 2021), así que la etiqueta no lo fija.
+* `grupos_variables()$empleo` incluye `desocupado`, que faltaba pese a ser una
+  variable canónica armonizada.
+
+> El Parquet `eh_armonizada.parquet` del Release `data-eh-v1` se regeneró con
+> estas correcciones. Si tienes datos en caché, ejecuta
+> `encuestasbo_cache_clear()` para descargar la versión corregida.
+
+## Correcciones de código
+
+* Un fallo de descarga (sin conexión, release o archivo inexistente) mostraba
+  `Invalid cli literal` en lugar del diagnóstico: el mensaje de error tenía una
+  interpolación anidada inválida para `cli`. Ahora muestra el archivo, la causa y
+  la URL de los releases.
+
+## Documentación
+
+* `codebook_eh_meta` decía que la lista no incluye 2020; sí lo incluye (la EH
+  2020 existe, con catálogo ANDA 88 y bases persona/vivienda).
+* `diseno_eh()` documentaba los años como "2012-2019, 2021-2024"; son 2012-2024.
+* `get_ece()` y `diseno_ece()` ofrecían `tabla = "vivienda"`, inexistente en la
+  ECE (que solo se distribuye a nivel persona).
+* `armonizar_eh()` documenta ahora la armonización de **valores** (nivel
+  educativo, tenencia de la vivienda, seguro de salud y la derivación del empleo),
+  y `variable_canonica_map` aclara que las columnas `vAAAA` describen el origen y
+  no la disponibilidad de la columna canónica.
+* `tasa_subocupacion()` devuelve `NaN` (no `NA`) antes de 2019; documentado.
+* Título y descripción del paquete reflejan el alcance real (ECE hasta 3T-2025).
+
+
 # encuestasbo 0.2.0
 
 ## Nuevas funcionalidades

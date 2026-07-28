@@ -9,8 +9,8 @@
 #'
 #' @param anio Entero. Año de la encuesta.
 #' @param trimestre Entero (1-4). Trimestre de referencia.
-#' @param tabla Caracteres. Nivel de análisis: `"persona"` (defecto) o
-#'   `"vivienda"`. Usa [catalogo_ece()] para ver lo disponible.
+#' @param tabla Caracteres. La ECE se distribuye únicamente a nivel `"persona"`
+#'   (defecto). Usa [catalogo_ece()] para ver lo disponible.
 #' @param departamento Vector. Código(s) `1`-`9` o nombre(s). Si `NULL`, todos.
 #' @param area Vector. `1`/`"Urbana"` o `2`/`"Rural"`. Si `NULL`, ambas.
 #' @param variables Vector de caracteres. Columnas a seleccionar. Si `NULL`,

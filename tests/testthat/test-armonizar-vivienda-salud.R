@@ -30,9 +30,24 @@ test_that("tiene_seguro_salud usa el código correcto en años con otra escala",
                c(1L, 0L))
 })
 
-test_that("seguro queda NA en años sin la pregunta (2014)", {
-  out <- encuestasbo:::.armonizar_valores(data.frame(tiene_seguro_salud = c(1, 2)), 2014)
-  expect_true(all(is.na(out$tiene_seguro_salud)))
+test_that("el seguro de 2014 se detecta pese al errata de etiqueta del INE", {
+  # La etiqueta de 2014 dice "los siguiente seguros" (sic). El patrón debe
+  # tolerarlo: si no, ese año queda 100% NA. Ninguno = 6 en 2014.
+  expect_equal(encuestasbo:::.ninguno_seguro_code(2014), 6L)
+  out <- encuestasbo:::.armonizar_valores(data.frame(tiene_seguro_salud = c(1, 5, 6)), 2014)
+  expect_equal(out$tiene_seguro_salud, c(1L, 1L, 0L))
+})
+
+test_that("el patrón del seguro cubre los 13 años de la EH", {
+  anios <- as.integer(names(codebook_eh_meta))
+  codigos <- vapply(anios, encuestasbo:::.ninguno_seguro_code, integer(1))
+  expect_false(any(is.na(codigos)))
+  # El código de "Ninguno" cambió a lo largo de la serie
+  expect_equal(codigos[anios == 2012], 7L)
+  expect_equal(codigos[anios == 2024], 5L)
+  # El mapa canónico también debe cubrir los 13 años
+  fila <- variable_canonica_map[variable_canonica_map$variable == "tiene_seguro_salud", ]
+  expect_false(any(is.na(fila[paste0("v", anios)])))
 })
 
 test_that("tipo_vivienda NO se recodifica (códigos estables 1-6)", {

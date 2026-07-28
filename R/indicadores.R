@@ -77,7 +77,8 @@ tasa_desempleo <- function(anio, trimestre, por = NULL,
 #' Tasa de subocupación (ECE)
 #'
 #' Población subocupada (por insuficiencia de horas) sobre la PEA. Solo se mide
-#' **desde 2019**; para periodos anteriores devuelve `NA` con una advertencia.
+#' **desde 2019**; para periodos anteriores devuelve `NaN` con una advertencia
+#' (la ECE no trae `psubocup`, así que no hay nada que estimar).
 #'
 #' @inheritParams tasa_desempleo
 #' @return Un tibble con `tasa` y su varianza.

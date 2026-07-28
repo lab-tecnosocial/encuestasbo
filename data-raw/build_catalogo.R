@@ -88,11 +88,32 @@ catalogo_encuestas <- rbind(
   ece
 )
 
-# Columnas de procedencia y armonización (se rellenan en la adquisición).
-catalogo_encuestas$catalog_id   <- NA_character_   # id del estudio en ANDA
-catalogo_encuestas$archivo_sav  <- NA_character_   # nombre original del .sav
-catalogo_encuestas$version_caeb <- NA_character_   # versión del clasificador de actividad
-catalogo_encuestas$version_cob  <- NA_character_   # versión del clasificador de ocupación
+# --- Procedencia: id del estudio en ANDA --------------------------------------
+# Se toma de `metadata_encuestas` (extraída del DDI de ANDA), única fuente real
+# del dato. Para la ECE:
+#   - trimestres con estudio propio -> su id;
+#   - trimestres del periodo 4T2015-2T2019 -> el id del estudio consolidado
+#     (ANDA los publica como un solo estudio);
+#   - 3T2019-1T2021 -> NA: se obtuvieron del repositorio abierto del INE
+#     (nube.ine.gob.bo), no de ANDA, y no tienen estudio en el catálogo.
+load("data/metadata_encuestas.rda")
+md <- metadata_encuestas
+bundle_id <- md$catalog_id[md$encuesta == "ece" & is.na(md$anio)][1]
+
+catalogo_encuestas$catalog_id <- vapply(seq_len(nrow(catalogo_encuestas)), function(i) {
+  r <- catalogo_encuestas[i, ]
+  if (r$encuesta == "eh") {
+    id <- md$catalog_id[md$encuesta == "eh" & !is.na(md$anio) & md$anio == r$anio]
+  } else {
+    id <- md$catalog_id[md$encuesta == "ece" & !is.na(md$anio) & md$anio == r$anio &
+                          !is.na(md$trimestre) & md$trimestre == r$trimestre]
+    # Periodo cubierto por el estudio consolidado 4T2015-2T2019.
+    en_bundle <- (r$anio == 2015 & r$trimestre == 4) ||
+      (r$anio %in% 2016:2018) || (r$anio == 2019 & r$trimestre %in% 1:2)
+    if (length(id) == 0 && en_bundle) id <- bundle_id
+  }
+  if (length(id) == 0) NA_character_ else as.character(id[1])
+}, character(1))
 
 # Orden estable
 ord <- with(catalogo_encuestas, order(encuesta, anio, trimestre, tabla))

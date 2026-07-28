@@ -5,12 +5,13 @@
 \alias{codebook_eh_meta}
 \title{Diccionarios de variables de la Encuesta de Hogares}
 \format{
-Una lista con elementos `"2012"`, ..., `"2024"` (sin 2020), cada uno
-  un data.frame con columnas:
+Una lista con un elemento por año, `"2012"` … `"2024"`, cada uno un
+  data.frame con columnas:
 \describe{
   \item{variable}{Nombre de la variable (minúsculas, igual que en los datos)}
   \item{etiqueta}{Descripción de la variable}
-  \item{tabla}{`"persona"` o `"vivienda"`}
+  \item{tabla}{Tabla de origen: `"persona"`, `"vivienda"` o una base temática
+    del año (`"equipamiento"`, `"gastos_alimentarios"`, …)}
   \item{tipo}{`"categorica"`, `"numerica"` o `"texto"`}
   \item{valores_codigos}{Lista de data.frames `codigo`/`etiqueta` para
     variables categóricas; `NULL` en otras}

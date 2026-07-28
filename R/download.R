@@ -21,10 +21,11 @@
     curl::curl_download(url, as.character(dest), quiet = TRUE),
     error = function(e) {
       if (fs::file_exists(dest)) fs::file_delete(dest)
+      releases_url <- paste0("https://github.com/", .ENCUESTASBO_REPO, "/releases")
       cli::cli_abort(c(
         "Error al descargar {.file {filename}}.",
         "x" = conditionMessage(e),
-        "i" = "Verifica tu conexión o que el release {.val {release_tag}} exista en {.url https://github.com/{.ENCUESTASBO_REPO}/releases}."
+        "i" = "Verifica tu conexión o que el release {.val {release_tag}} exista en {.url {releases_url}}."
       ))
     }
   )

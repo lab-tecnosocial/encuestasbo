@@ -18,10 +18,10 @@
 #'   \item{estrato_var}{Nombre canónico del estrato}
 #'   \item{cobertura}{`"nacional"` o `"urbana"` (ECE 2020 T2-T4, por la pandemia).
 #'     [get_ece()] avisa al usar los periodos de cobertura urbana}
-#'   \item{catalog_id}{Identificador del estudio en el portal ANDA (procedencia)}
-#'   \item{archivo_sav}{Nombre original del archivo SPSS en ANDA (procedencia)}
-#'   \item{version_caeb}{Versión del clasificador de actividad económica}
-#'   \item{version_cob}{Versión del clasificador de ocupación}
+#'   \item{catalog_id}{Identificador del estudio en el portal ANDA (procedencia).
+#'     Los trimestres 4T2015-2T2019 de la ECE comparten el id del estudio
+#'     consolidado. Es `NA` en 3T2019-1T2021, que no tienen estudio en ANDA:
+#'     provienen del repositorio abierto del INE (`nube.ine.gob.bo`)}
 #' }
 #' @source INE Bolivia, portal ANDA: \url{https://anda.ine.gob.bo/index.php/catalog/ENCUESTAS}
 "catalogo_encuestas"

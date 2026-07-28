@@ -20,7 +20,8 @@ diseno_ece(
 
 \item{trimestre}{Entero (1-4).}
 
-\item{tabla}{Caracteres. `"persona"` (defecto) o `"vivienda"`.}
+\item{tabla}{Caracteres. La ECE se distribuye solo a nivel `"persona"`
+(defecto); se expone el argumento por simetría con [diseno_eh()].}
 
 \item{factor}{Cuál factor de expansión usar: `"trimestral"` (defecto) o
 `"mensual"`.}

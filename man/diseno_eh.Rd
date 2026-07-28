@@ -14,7 +14,7 @@ diseno_eh(
 )
 }
 \arguments{
-\item{anio}{Entero. Año de la EH (`2012`-`2019`, `2021`-`2024`).}
+\item{anio}{Entero. Año de la EH (`2012`-`2024`).}
 
 \item{tabla}{Caracteres. `"persona"` (defecto) o `"vivienda"`.}
 

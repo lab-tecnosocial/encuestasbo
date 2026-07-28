@@ -54,3 +54,27 @@ test_that(".resolve_catalogo() exige trimestre para la ECE", {
 test_that(".resolve_catalogo() aborta con periodo inexistente", {
   expect_error(.resolve_catalogo("eh", 1999, "persona"), "No hay datos")
 })
+
+test_that("catalog_id enlaza cada base con su estudio en ANDA", {
+  ce <- catalogo_encuestas
+  # EH: todos los años tienen id, y coincide con metadata_encuestas
+  eh <- ce[ce$encuesta == "eh", ]
+  expect_false(any(is.na(eh$catalog_id)))
+  md <- metadata_encuestas
+  esperado <- md$catalog_id[match(eh$anio, ifelse(md$encuesta == "eh", md$anio, NA))]
+  expect_equal(eh$catalog_id, as.character(esperado))
+  # ECE: los trimestres del consolidado comparten su id
+  bundle <- as.character(md$catalog_id[md$encuesta == "ece" & is.na(md$anio)][1])
+  expect_equal(ce$catalog_id[ce$encuesta == "ece" & ce$anio == 2016 & ce$trimestre == 1],
+               bundle)
+  # 3T2019-1T2021 no vienen de ANDA -> NA (y son los únicos NA)
+  sin_id <- ce[is.na(ce$catalog_id), c("anio", "trimestre")]
+  expect_true(all(sin_id$anio %in% 2019:2021))
+  expect_equal(nrow(sin_id), 7L)
+})
+
+test_that("el catálogo no arrastra columnas vacías", {
+  vacias <- names(catalogo_encuestas)[vapply(catalogo_encuestas,
+                                             function(x) all(is.na(x)), logical(1))]
+  expect_equal(vacias, character(0))
+})

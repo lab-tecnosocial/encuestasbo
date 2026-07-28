@@ -43,11 +43,13 @@ detect_by_value <- function(y, pat, tabla = "vivienda") {
 }
 
 # Detecta el nombre de la variable de seguro de salud (persona). Su nombre cambia
-# mucho entre años (s3_24a, s4d_21a, s4a_4a, s04a_04a, s02a_01a) pero su etiqueta
-# es estable. (2014 no trae esta pregunta -> NA.)
+# mucho entre años (s3_24a, s4d_21a, s4a_04a, s4a_4a, s04a_04a, s02a_01a) pero su
+# etiqueta es estable salvo por el errata de 2014 ("los siguiente seguros"), de
+# ahí el `siguientes?` del patrón. Cubre los 13 años.
+# El patrón vive en R/armonizar.R (.SEGURO_LABEL_PAT); mantener ambos iguales.
 detect_seguro <- function(y) {
   cb <- codebook_eh_meta[[as.character(y)]]
-  i <- which(grepl("afiliad.* a alguno de los siguientes seguros de salud",
+  i <- which(grepl("afiliad.* a alguno de los siguientes? seguros de salud",
                    cb$etiqueta, ignore.case = TRUE, perl = TRUE) & cb$tabla == "persona")
   if (length(i) == 0) return(NA_character_)
   cb$variable[i][1]
@@ -100,8 +102,12 @@ R <- add(R, "anios_estudio",    "Años de estudio",                  "persona", 
 # --- Empleo (derivadas INE) ---
 R <- add(R, "pea",                "Población económicamente activa","persona", TRUE,  function(y) present(y,"pea"))
 R <- add(R, "pet",                "Población en edad de trabajar",  "persona", TRUE,  function(y) present(y,"pet"))
-R <- add(R, "ocupado",            "Población ocupada",              "persona", TRUE,  function(y) present(y,"ocupado"))
-R <- add(R, "desocupado",         "Población desocupada",           "persona", TRUE,  function(y) present(y,"desocupado"))
+# ocupado/desocupado: el INE los publica de forma inconsistente (NA para
+# inactivos en 2012-2014; sin publicar desde 2022), así que .armonizar_valores()
+# los DERIVA de condact en los 13 años. Las columnas vAAAA solo registran dónde
+# existe la variable de origen; la etiqueta lo aclara.
+R <- add(R, "ocupado",            "Población ocupada (derivada de condact)",    "persona", TRUE,  function(y) present(y,"ocupado"))
+R <- add(R, "desocupado",         "Población desocupada (derivada de condact)", "persona", TRUE,  function(y) present(y,"desocupado"))
 R <- add(R, "condicion_actividad","Condición de actividad",         "persona", TRUE,  function(y) present(y,"condact"))
 R <- add(R, "grupo_ocupacion",    "Grupo ocupacional (COB)",        "persona", FALSE, function(y) present(y,"cob_op"))
 # --- Ingresos (Bs/Mes, derivadas INE) ---

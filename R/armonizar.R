@@ -17,6 +17,11 @@
 #' educación `niv_ed_g`, empleo `pea`/`condact`) tienen el mismo nombre todos los
 #' años; otras del cuestionario (sexo, edad, parentesco) cambian de nombre y se
 #' mapean por su etiqueta.
+#'
+#' Las columnas `vAAAA` describen el **origen** en los microdatos de ese año. Que
+#' estén `NA` no implica que la columna canónica falte: `ocupado` y `desocupado`
+#' se **derivan** de `condicion_actividad` en todos los años (ver [armonizar_eh()]),
+#' así que existen también en 2022-2024, años en que el INE dejó de publicarlas.
 #' @source INE Bolivia, Encuesta de Hogares 2012-2024.
 "variable_canonica_map"
 
@@ -31,7 +36,8 @@ grupos_variables <- function() {
   list(
     demografico = c("sexo", "edad", "parentesco"),
     educacion   = c("nivel_edu", "anios_estudio"),
-    empleo      = c("condicion_actividad", "pea", "pet", "ocupado", "grupo_ocupacion"),
+    empleo      = c("condicion_actividad", "pea", "pet", "ocupado", "desocupado",
+                    "grupo_ocupacion"),
     ingresos    = c("ingreso_laboral", "ingreso_personal", "ingreso_hogar", "ingreso_no_laboral"),
     pobreza     = c("pobre", "pobre_extremo", "linea_pobreza", "linea_pobreza_extrema"),
     vivienda    = c("tipo_vivienda", "tenencia_vivienda"),
@@ -68,9 +74,12 @@ variables_armonizadas <- function(solo_armonizadas = TRUE) {
   area                = c("1" = "Urbana", "2" = "Rural"),
   nivel_edu           = c("0" = "Ninguno", "1" = "Primaria", "2" = "Secundaria",
                           "3" = "Superior", "4" = "Otros"),
-  condicion_actividad = c("0" = "Menor de 10 años", "1" = "Ocupado", "2" = "Cesante",
-                          "3" = "Aspirante", "4" = "Inactivo temporal",
-                          "5" = "Inactivo permanente"),
+  # condact: 0 = "pent" (población en edad de no trabajar). El umbral de edad de
+  # la PET cambió a lo largo de la serie (el INE lo documenta como 14+ desde
+  # 2021), así que la etiqueta canónica no lo fija.
+  condicion_actividad = c("0" = "En edad de no trabajar", "1" = "Ocupado",
+                          "2" = "Cesante", "3" = "Aspirante",
+                          "4" = "Inactivo temporal", "5" = "Inactivo permanente"),
   pobre               = c("0" = "No pobre", "1" = "Pobre"),
   pobre_extremo       = c("0" = "No", "1" = "Sí"),
   pea                 = c("0" = "No", "1" = "Sí"),
@@ -102,12 +111,17 @@ variables_armonizadas <- function(solo_armonizadas = TRUE) {
 .TENENCIA_RECODE_A <- c("1" = 3, "2" = 1, "3" = 2, "4" = 5, "5" = 6, "6" = 4, "7" = 7)
 .TENENCIA_RECODE_B <- c("1" = 1, "2" = 2, "3" = 3, "4" = 4, "5" = 4, "6" = 5, "7" = 6, "8" = 7)
 
+# Etiqueta (regex) de la pregunta de afiliación a un seguro de salud en el
+# codebook del INE. `siguientes?` tolera el errata de 2014 ("los siguiente
+# seguros"), que de otro modo dejaba ese año sin la variable.
+.SEGURO_LABEL_PAT <- "afiliad.* a alguno de los siguientes? seguros de salud"
+
 # Código de "Ninguno" (sin seguro) de la variable de seguro de salud, por año
-# (cambia: 7 en 2012-2013, 6 en 2015-2023, 5 en 2024). Se obtiene del codebook.
+# (cambia: 7 en 2012-2013, 6 en 2014-2023, 5 en 2024). Se obtiene del codebook.
 .ninguno_seguro_code <- function(anio) {
   cb <- codebook_eh_meta[[as.character(anio)]]
   if (is.null(cb)) return(NA_integer_)
-  i <- which(grepl("afiliad.* a alguno de los siguientes seguros de salud",
+  i <- which(grepl(.SEGURO_LABEL_PAT,
                    cb$etiqueta, ignore.case = TRUE, perl = TRUE) & cb$tabla == "persona")
   if (length(i) == 0) return(NA_integer_)
   vc <- cb$valores_codigos[[i[1]]]
@@ -123,11 +137,34 @@ variables_armonizadas <- function(solo_armonizadas = TRUE) {
                          "tipo_vivienda", "tenencia_vivienda", "tiene_seguro_salud",
                          "categoria_ocupacional")  # ECE armonizada (get_ece_armonizada)
 
+# Deriva `ocupado`/`desocupado` de `condicion_actividad` (condact), que es la
+# única variable de empleo estable en toda la serie (0 pent, 1 ocupado,
+# 2 cesante, 3 aspirante, 4 inactivo temporal, 5 inactivo permanente).
+#
+# Por qué derivar en vez de exponer las variables del INE tal cual: el INE
+# publica `ocupado`/`desocupado` de forma inconsistente a lo largo de la serie.
+#   - 2012-2014: NA para los inactivos (condact 4-5), no 0.
+#   - 2015-2021: 0/1 sobre toda la PET (idéntico a esta derivación, bit a bit).
+#   - 2022-2024: dejó de publicarlas.
+# Derivar da una única definición explícita y comparable en los 13 años. Los NA
+# se preservan: quien no tiene condicion_actividad tampoco tiene condición de
+# ocupación.
+.derivar_empleo <- function(df) {
+  if (!"condicion_actividad" %in% names(df)) return(df)
+  ca <- suppressWarnings(as.integer(as.character(df[["condicion_actividad"]])))
+  df[["ocupado"]]    <- as.integer(ca == 1L)
+  df[["desocupado"]] <- as.integer(ca %in% c(2L, 3L))
+  df[["desocupado"]][is.na(ca)] <- NA_integer_
+  df
+}
+
 # Armoniza VALORES que cambian de código entre años a un esquema canónico.
 #  - nivel_edu: "Otros" es 4/5/9 según el año -> se colapsa a 4. Códigos 0-3 estables.
+#  - ocupado/desocupado: se derivan de condicion_actividad (ver .derivar_empleo).
 #  - tenencia_vivienda: dos regímenes de códigos (2012-2015 vs 2016+) -> canónico.
 #  - tiene_seguro_salud: código de seguro -> binario (0 = ninguno, 1 = afiliado).
 .armonizar_valores <- function(df, anio = NULL) {
+  df <- .derivar_empleo(df)
   if ("nivel_edu" %in% names(df)) {
     v <- suppressWarnings(as.integer(as.character(df[["nivel_edu"]])))
     v[v %in% c(5L, 9L)] <- 4L
@@ -183,6 +220,22 @@ variables_armonizadas <- function(solo_armonizadas = TRUE) {
 #'   las mapeadas.
 #'
 #' @return El data.frame con las columnas renombradas a nombres canónicos.
+#'
+#' @details
+#' Además de renombrar, armoniza los **valores** que el INE codificó distinto
+#' entre años:
+#'
+#' - `nivel_edu`: el código de "Otros" era 4, 5 o 9 según el año; se colapsa a 4.
+#' - `tenencia_vivienda`: dos regímenes de códigos (2012-2015 y 2016-2024) a un
+#'   esquema canónico 1-7.
+#' - `tiene_seguro_salud`: el código de la respuesta se binariza a 0/1 (0 =
+#'   ninguno), usando el código de "Ninguno" de ese año.
+#' - `ocupado` y `desocupado`: se **derivan** de `condicion_actividad` (`condact`,
+#'   la única variable de empleo estable en los 13 años). El INE las publicó de
+#'   forma inconsistente —`NA` para los inactivos en 2012-2014, y no las publica
+#'   desde 2022—, así que derivarlas da una definición única y comparable. La
+#'   derivación coincide exactamente con las variables del INE en 2015-2021.
+#'
 #' @seealso [get_eh_armonizada()] para apilar varios años; [diseno_eh()].
 #' @export
 #' @examples

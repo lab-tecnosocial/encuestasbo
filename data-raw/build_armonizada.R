@@ -6,10 +6,13 @@
 #
 #   data-raw/parquet/eh/eh_armonizada.parquet
 #
-# Se sube a un Release propio (data-eh-armonizada-v1) y lo consume
-# get_eh_armonizada(). Reconstruir tras regenerar los Parquet por año.
+# Se sube al Release `data-eh-v1` (junto a los Parquet por año) y lo consume
+# get_eh_armonizada(). Reconstruir tras regenerar los Parquet por año o tras
+# cambiar el esquema canónico / .armonizar_valores().
 #
 # Uso:  Rscript data-raw/build_armonizada.R
+#       gh release upload data-eh-v1 data-raw/parquet/eh/eh_armonizada.parquet \
+#         --clobber --repo lab-tecnosocial/encuestasbo
 # -----------------------------------------------------------------------------
 suppressMessages({library(arrow); library(dplyr)})
 devtools::load_all(".", quiet = TRUE)

@@ -13,3 +13,4 @@ docs
 inst/doc
 
 dev-docs/
+.DS_Store

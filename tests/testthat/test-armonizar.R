@@ -71,3 +71,91 @@ test_that("grupos_variables() devuelve grupos temáticos válidos", {
   expect_true(all(c("demografico", "empleo", "pobreza", "ingresos") %in% names(g)))
   expect_true(all(g$pobreza %in% variable_canonica_map$variable))
 })
+
+test_that("ocupado/desocupado se derivan de condicion_actividad", {
+  # condact: 0 pent, 1 ocupado, 2 cesante, 3 aspirante, 4-5 inactivo
+  df <- data.frame(condicion_actividad = c(0, 1, 2, 3, 4, 5, NA))
+  out <- .armonizar_valores(df)
+  expect_equal(out$ocupado,    c(0L, 1L, 0L, 0L, 0L, 0L, NA))
+  expect_equal(out$desocupado, c(0L, 0L, 1L, 1L, 0L, 0L, NA))
+})
+
+test_that("la derivación sobrescribe las variables inconsistentes del INE", {
+  # 2012-2014 el INE dejaba ocupado = NA para los inactivos (condact 4-5);
+  # tras armonizar deben ser 0 en todos los años.
+  df <- data.frame(condicion_actividad = c(1, 4, 5),
+                   ocupado = c(1L, NA, NA), desocupado = c(0L, NA, NA))
+  out <- .armonizar_valores(df)
+  expect_equal(out$ocupado,    c(1L, 0L, 0L))
+  expect_equal(out$desocupado, c(0L, 0L, 0L))
+})
+
+test_that("sin condicion_actividad no se inventan ocupado/desocupado", {
+  df <- data.frame(pobre = c(0L, 1L))
+  out <- .armonizar_valores(df)
+  expect_false("ocupado" %in% names(out))
+  expect_false("desocupado" %in% names(out))
+})
+
+test_that("armonizar_eh deriva el empleo también en años sin ocupado (2023+)", {
+  # En 2023 el INE ya no publica `ocupado`/`desocupado`; sí publica `condact`.
+  m <- variable_canonica_map
+  expect_true(is.na(m$v2023[m$variable == "ocupado"]))
+  df <- data.frame(folio = "F1", nro = 1L, depto = 7L, area = 1L, upm = 3L,
+                   estrato = 2L, factor = 120, condact = 1L)
+  res <- armonizar_eh(df, 2023)
+  expect_equal(res$ocupado, 1L)
+  expect_equal(res$desocupado, 0L)
+})
+
+test_that("cada variable canónica armonizada pertenece a un grupo temático", {
+  arm <- variable_canonica_map$variable[variable_canonica_map$armonizada]
+  # Las de identificación/geografía/diseño no forman grupo temático
+  arm <- setdiff(arm, c("depto", "area", "factor"))
+  expect_setequal(setdiff(arm, unlist(grupos_variables(), use.names = FALSE)),
+                  character(0))
+})
+
+test_that("las etiquetas canónicas cubren los códigos reales de condact", {
+  labs <- encuestasbo:::.HARMONIZED_VALUE_LABELS$condicion_actividad
+  expect_setequal(names(labs), as.character(0:5))
+  expect_equal(unname(labs["1"]), "Ocupado")
+  # 0 = "pent": el umbral de edad cambió en la serie, la etiqueta no lo fija
+  expect_false(grepl("[0-9]", labs[["0"]]))
+})
+
+test_that("cada origen del mapa canónico existe en el codebook de su año", {
+  m <- variable_canonica_map
+  vcols <- grep("^v[0-9]+$", names(m), value = TRUE)
+  faltantes <- character(0)
+  for (vc in vcols) {
+    anio <- sub("^v", "", vc)
+    cb <- codebook_eh_meta[[anio]]
+    for (i in seq_len(nrow(m))) {
+      origen <- m[[vc]][i]
+      if (is.na(origen)) next
+      pool <- cb$variable[cb$tabla == m$tabla[i]]
+      if (!origen %in% pool) {
+        faltantes <- c(faltantes, sprintf("%s: %s (%s) no está en %s",
+                                          anio, origen, m$variable[i], m$tabla[i]))
+      }
+    }
+  }
+  expect_equal(faltantes, character(0))
+})
+
+test_that("las variables canónicas categóricas tienen etiquetas de valor", {
+  labs <- names(encuestasbo:::.HARMONIZED_VALUE_LABELS)
+  categoricas <- c("depto", "area", "sexo", "nivel_edu", "condicion_actividad",
+                   "pobre", "pobre_extremo", "pea", "pet", "ocupado",
+                   "desocupado", "tipo_vivienda", "tenencia_vivienda",
+                   "tiene_seguro_salud")
+  expect_true(all(categoricas %in% labs))
+  # depto debe coincidir con departamentos() (se inlinea en armonizar.R)
+  dep <- encuestasbo:::.HARMONIZED_VALUE_LABELS$depto
+  expect_equal(unname(dep[as.character(departamentos()$depto)]),
+               departamentos()$nombre_dep)
+  # y categoria_ocupacional con el esquema canónico de la ECE
+  expect_equal(encuestasbo:::.HARMONIZED_VALUE_LABELS$categoria_ocupacional,
+               encuestasbo:::.ECE_CATEGORIA_LABELS)
+})
